@@ -4,12 +4,15 @@ Static site: plain HTML/CSS/vanilla JS, no build step.
 ## Structure
 ```
 mia-site/
-  index.html   # all sections
-  style.css    # pastel pink theme, responsive
-  app.js       # petals, mobile menu, lightbox, canvas meme maker
-  img/         # mia-hoodie, mia-bed, mia-pajama-crop (+ face-*.png sticker crops)
+  index.html   # single page, sticky nav + anchors
+  style.css    # pastel pink/rose/deep-red/cream theme, Fredoka+Nunito, reveal anims, reduced-motion
+  app.js       # nav, reveal, hearts/petals, lightbox, GIF Factory (WebM/PNG), try-on, meme maker,
+               # laser toy, catch-the-hearts game, countdown, localStorage fan wall
+  img/         # mia-hoodie, mia-bed, mia-pajama-crop, face-hoodie, face-bed, face-pajama (only allowed images)
 ```
-Sections: nav · hero · Her story · Fan corner (wallpapers, stickers, meme maker) · Cozy shop (mock) · Gallery · Find her on X · footer.
+Sections: Home hero · Story · Comic (4 panels) · Fan Tools (stickers, GIF Factory, Try-on, Meme Maker, laser toy) · Games (Catch the Hearts) · Events (Cozy Night countdown + mock calendar) · Shop (mock, no checkout) · Gallery (lightbox) · Community (X/Discord placeholders, fan wall) · Footer.
+
+Notes: GIF Factory exports WebM via MediaRecorder (PNG frame fallback) — no true GIF encoder. No user image uploads. Fan wall and game best score live in localStorage only.
 
 ## Run locally
 `python3 -m http.server 8000` → http://localhost:8000
