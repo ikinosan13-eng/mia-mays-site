@@ -3,6 +3,8 @@
 const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
+const lite = reduce || matchMedia('(max-width:700px)').matches || !!(navigator.connection && navigator.connection.saveData) || (navigator.deviceMemory && navigator.deviceMemory <= 4);
+if (lite) document.documentElement.classList.add('lite');
 const store = { get: k => { try { return localStorage.getItem(k); } catch { return null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch {} } };
 const sess = { get: k => { try { return sessionStorage.getItem(k); } catch { return null; } }, set: (k, v) => { try { sessionStorage.setItem(k, v); } catch {} } };
 const load = src => new Promise(res => { const i = new Image(); i.onload = () => res(i); i.onerror = () => res(null); i.src = src; });
@@ -65,7 +67,7 @@ setTimeout(() => $$('.reveal:not(.in)').forEach(el => { const r = el.getBounding
 setTimeout(() => document.documentElement.classList.add('reveal-done'), 8000);
 // мягкий параллакс фона
 const drift = $('.drift');
-if (drift && !reduce) { const ls = $$('i', drift); let ticking = false;
+if (drift && !reduce && !lite) { const ls = $$('i', drift); let ticking = false;
   addEventListener('scroll', () => { if (ticking) return; ticking = true; requestAnimationFrame(() => { const y = scrollY; ls.forEach((l, i) => l.style.transform = `translate3d(0,${-y * (.04 + i * .05)}px,0)`); ticking = false; }); }, { passive: true }); }
 // переходы между страницами
 document.addEventListener('click', e => { const a = e.target.closest('a[href]'); if (!a || e.defaultPrevented || reduce) return;
@@ -93,7 +95,7 @@ if (paw && fine && !reduce) { document.body.classList.add('paw'); paw.style.opac
   addEventListener('pointermove', e => { if (e.pointerType !== 'mouse') return; if (paw.style.opacity === '0') { paw.style.opacity = 1; cx = e.clientX; cy = e.clientY; } x = e.clientX; y = e.clientY; if (!raf) raf = requestAnimationFrame(step); }, { passive: true });
   addEventListener('pointerdown', () => paw.classList.add('down')); addEventListener('pointerup', () => paw.classList.remove('down'));
   document.addEventListener('mouseleave', () => { paw.style.opacity = 0; }); document.addEventListener('mouseenter', () => { paw.style.opacity = 1; });
-  function step() { raf = 0; cx += (x - cx) * .35; cy += (y - cy) * .35; paw.style.transform = `translate3d(${cx - 15}px,${cy - 15}px,0) rotate(${(x - cx) * .5}deg)`; if (Math.abs(x - cx) + Math.abs(y - cy) > .5) raf = requestAnimationFrame(step); } }
+  function step() { raf = 0; if (document.hidden) return; cx += (x - cx) * .35; cy += (y - cy) * .35; paw.style.transform = `translate3d(${cx - 15}px,${cy - 15}px,0) rotate(${(x - cx) * .5}deg)`; if (Math.abs(x - cx) + Math.abs(y - cy) > .5) raf = requestAnimationFrame(step); } }
 
 // сердечки-взрыв (физика)
 const fx = []; let fxRaf = 0, fxLast = 0;
@@ -107,7 +109,7 @@ function fxStep(t) { const dt = Math.min(.05, (t - fxLast) / 1000); fxLast = t;
 
 // фоновые сердечки
 const petals = $('.petals');
-if (petals && !reduce) { const ps = []; let lastT = performance.now(), acc = 0;
+if (petals && !reduce && !lite) { const ps = []; let lastT = performance.now(), acc = 0;
   const spawn = () => { const el = document.createElement('span'); el.className = 'petal'; el.textContent = Math.random() < .5 ? '♡' : '❀'; el.style.fontSize = 12 + Math.random() * 14 + 'px'; petals.append(el);
     ps.push({ el, x: Math.random() * innerWidth, y: -30, vy: 10 + Math.random() * 20, ph: Math.random() * 6.28, sw: 15 + Math.random() * 25, rot: 0, vr: (Math.random() - .5) * 90 }); };
   (function step(t) { const dt = Math.min(.05, (t - lastT) / 1000); lastT = t;
@@ -180,8 +182,8 @@ if (speechText) {
 }
 
 // ===== главная: сцена-порог =====
-const stars = $('.stars'); if (stars) for (let i = 0; i < 40; i++) { const s = document.createElement('i'); s.style.cssText = `left:${Math.random() * 100}%;top:${Math.random() * 100}%;--tw:${2 + Math.random() * 3}s;--dl:${-Math.random() * 3}s`; stars.append(s); }
-const bulbs = $('.bulbs'); if (bulbs) for (let i = 0; i < 14; i++) { const b = document.createElement('i'), x = i / 13; b.style.cssText = `left:${x * 100}%;top:${20 + Math.sin(x * Math.PI * 1.6) * 40 + 20}%;--dl:${-i * .3}s`; bulbs.append(b); }
+const stars = $('.stars'); if (stars) for (let i = 0; i < (lite ? 8 : 18); i++) { const s = document.createElement('i'); s.style.cssText = `left:${Math.random() * 100}%;top:${Math.random() * 100}%;--tw:${2 + Math.random() * 3}s;--dl:${-Math.random() * 3}s`; stars.append(s); }
+const bulbs = $('.bulbs'); if (bulbs) for (let i = 0; i < (lite ? 6 : 10); i++) { const b = document.createElement('i'), x = i / 13; b.style.cssText = `left:${x * 100}%;top:${20 + Math.sin(x * Math.PI * 1.6) * 40 + 20}%;--dl:${-i * .3}s`; bulbs.append(b); }
 const th = $('#threshold'), scene = $('#scene'), card = $('#doorCard');
 if (th && scene) { const layers = $$('.layer', scene); let mx = 0, my = 0, cx = 0, cy = 0, visible = true, raf = 0;
   const setPtr = (x, y) => { const r = th.getBoundingClientRect(); mx = (x - r.left) / r.width - .5; my = (y - r.top) / r.height - .5; kick(); };
@@ -265,7 +267,12 @@ if (gc) { const gx = gc.getContext('2d'); let gImg, t0 = performance.now(); cons
     const s = $('#gifStk').value; if (s) { gx.font = '48px serif'; gx.textAlign = 'start'; gx.fillText(s, 250, 70 + Math.sin(k * 4) * 6); }
     gx.font = 'bold 32px Fredoka, Nunito, sans-serif'; gx.textAlign = 'center'; gx.lineWidth = 6; gx.strokeStyle = '#fff'; gx.fillStyle = '#e0607e';
     const txt = $('#gifText').value; gx.strokeText(txt, 160, 305, 300); gx.fillText(txt, 160, 305, 300); }
-  (function loop(t) { if (!gc.closest('[hidden]')) gDraw(reduce ? t0 : t); requestAnimationFrame(loop); })(t0);
+  let gifOn = false;
+  const gifPanel = gc.closest('.panel,.tab-panel,section') || gc.parentElement;
+  const ioG = 'IntersectionObserver' in window ? new IntersectionObserver(([e]) => { gifOn = e.isIntersecting && !document.hidden; }, { threshold: .05 }) : null;
+  if (ioG) ioG.observe(gifPanel); else gifOn = true;
+  addEventListener('visibilitychange', () => {});
+  (function loop(t) { if (gifOn && !document.hidden && !gc.closest('[hidden]')) gDraw(reduce || lite ? t0 : t); requestAnimationFrame(loop); })(t0);
   $('#gifPng').addEventListener('click', () => { dl(gc.toDataURL('image/png'), 'mia-kadr.png'); toast('Кадр сохранён'); });
   $('#gifRec').addEventListener('click', () => { const st = $('#gifStatus');
     if (!window.MediaRecorder || !gc.captureStream) { st.textContent = 'Запись не поддерживается — сохранила кадр.'; return dl(gc.toDataURL(), 'mia-kadr.png'); }
@@ -306,7 +313,12 @@ if (yc) { const yx = yc.getContext('2d'), W = 480, H = 320, cols = ['#F5B8D4', '
   yc.addEventListener('pointermove', e => { if (!grab) return; const p = pos(e); grab.vx = (p.x - grab.x) * 30; grab.vy = (p.y - grab.y) * 30; grab.x = p.x; grab.y = p.y; });
   const rel = () => { grab = null; yc.style.cursor = ''; }; yc.addEventListener('pointerup', rel); yc.addEventListener('pointercancel', rel);
   $('#yarnAdd').addEventListener('click', add); $('#yarnShake').addEventListener('click', () => balls.forEach(b => { b.vy -= 300 + Math.random() * 300; b.vx += (Math.random() - .5) * 400; }));
-  function step(t) { const dt = Math.min(.033, (t - last) / 1000); last = t;
+  let yarnOn = false, yarnRaf = 0;
+  const yarnKick = () => { if (!yarnRaf && yarnOn && !document.hidden) yarnRaf = requestAnimationFrame(step); };
+  const ioY = 'IntersectionObserver' in window ? new IntersectionObserver(([e]) => { yarnOn = e.isIntersecting; if (yarnOn) yarnKick(); }, { threshold: .05 }) : null;
+  if (ioY) ioY.observe(yc); else { yarnOn = true; yarnKick(); }
+  addEventListener('visibilitychange', () => { if (!document.hidden) yarnKick(); });
+  function step(t) { yarnRaf = 0; if (!yarnOn || document.hidden) return; const dt = Math.min(.033, (t - last) / 1000); last = t;
     if (!yc.closest('[hidden]')) { for (let it = 0; it < 2; it++) { const h = dt / 2;
         balls.forEach(b => { if (b === grab) return; b.vy += 900 * h; b.x += b.vx * h; b.y += b.vy * h; b.a += b.vx * h / b.r;
           if (b.y > H - b.r) { b.y = H - b.r; b.vy *= -.45; b.vx *= .96; } if (b.x < b.r) { b.x = b.r; b.vx *= -.6; } if (b.x > W - b.r) { b.x = W - b.r; b.vx *= -.6; } });
@@ -315,8 +327,8 @@ if (yc) { const yx = yc.getContext('2d'), W = 480, H = 320, cols = ['#F5B8D4', '
             const rv = (b.vx - a.vx) * nx + (b.vy - a.vy) * ny; if (rv < 0) { const imp = -1.3 * rv / s; a.vx -= imp * nx * ma; a.vy -= imp * ny * ma; b.vx += imp * nx * mb; b.vy += imp * ny * mb; } } } }
       yx.clearRect(0, 0, W, H); balls.forEach(b => { yx.save(); yx.translate(b.x, b.y); yx.rotate(b.a); yx.fillStyle = b.c; yx.beginPath(); yx.arc(0, 0, b.r, 0, 7); yx.fill();
         yx.strokeStyle = '#ffffff99'; yx.lineWidth = 2; for (let k = -2; k <= 2; k++) { yx.beginPath(); yx.ellipse(0, 0, b.r * .9, Math.abs(k) * b.r * .25 + 2, k * .5, 0, 7); yx.stroke(); } yx.restore(); }); }
-    requestAnimationFrame(step); }
-  requestAnimationFrame(step); }
+    yarnKick(); }
+}
 
 // лазерная указка
 const area = $('.toy-area');
@@ -364,11 +376,7 @@ if (wall) { const KEY = 'mia-wall'; const getW = () => { try { return JSON.parse
 (() => { const f = document.querySelector('footer'); if (!f || reduce) return;
   f.addEventListener('pointermove', e => { const r = f.getBoundingClientRect(); f.style.setProperty('--mx', (e.clientX - r.left) + 'px'); f.style.setProperty('--my', (e.clientY - r.top) + 'px'); }, { passive: true }); })();
 
-// люстра: подвески отклоняются от курсора
-(() => { const ch = $('#chandelier'); if (!ch || reduce || !fine) return; const cr = $$('.crystal', ch); let raf = 0, px = 0, py = 0;
-  addEventListener('pointermove', e => { px = e.clientX; py = e.clientY; if (!raf) raf = requestAnimationFrame(() => { raf = 0;
-    cr.forEach(c => { const r = c.getBoundingClientRect(), dx = r.left - px, dy = (r.top + r.height) - py, d = Math.hypot(dx, dy);
-      c.style.setProperty('--push', d < 120 ? (Math.sign(dx) * (120 - d) / 4).toFixed(1) : 0); }); }); }, { passive: true }); })();
+// люстра: без курсорного push (дорого)
 // котёнок в коробке: выглядывает в своём ритме, моргает нерегулярно, 3 клика — выпрыгивает
 (() => { const k = $('#kitBox'); if (!k) return; let clicks = 0;
   const blink = () => { k.classList.remove('blink'); void k.offsetWidth; k.classList.add('blink'); };
@@ -381,14 +389,9 @@ if (wall) { const KEY = 'mia-wall'; const getW = () => { try { return JSON.parse
 // нажатие: волна; магнитные крупные кнопки; свет за курсором на карточках
 document.addEventListener('pointerdown', e => { const b = e.target.closest('.btn,.chip'); if (!b || reduce) return; const r = b.getBoundingClientRect(), s = document.createElement('span');
   s.className = 'ripple'; s.setAttribute('aria-hidden', 'true'); s.style.setProperty('--rx', (e.clientX - r.left) + 'px'); s.style.setProperty('--ry', (e.clientY - r.top) + 'px'); b.append(s); setTimeout(() => s.remove(), 650); });
-if (fine && !reduce) {
-  $$('.btn.big,.btn.huge').forEach(b => { b.classList.add('magnet');
-    b.addEventListener('pointermove', e => { const r = b.getBoundingClientRect(); b.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * .18}px,${(e.clientY - r.top - r.height / 2) * .3}px)`; });
-    b.addEventListener('pointerleave', () => { b.style.transform = ''; }); });
-  document.addEventListener('pointermove', e => { const c = e.target.closest && e.target.closest('.mood-card,.room,.panel,.card,.bento>*,.wallpapers>*,.shop>*,.gallery>*'); if (!c) return;
-    const r = c.getBoundingClientRect(); c.style.setProperty('--lx', (e.clientX - r.left) + 'px'); c.style.setProperty('--ly', (e.clientY - r.top) + 'px'); }, { passive: true }); }
+/* магнит и spotlight убраны ради FPS; остался CSS :hover */
 // пылинки в окне
-(() => { const w = $('.window'); if (!w || reduce) return; const m = document.createElement('span'); m.className = 'motes'; m.setAttribute('aria-hidden', 'true');
+(() => { const w = $('.window'); if (!w || true) return; // пылинки отключены ради FPS const m = document.createElement('span'); m.className = 'motes'; m.setAttribute('aria-hidden', 'true');
   for (let i = 0; i < 14; i++) { const d = document.createElement('i'); d.style.cssText = `left:${10 + Math.random() * 70}%;top:${30 + Math.random() * 60}%;--t:${6 + Math.random() * 7}s;--dl:${-Math.random() * 10}s;--dx:${(Math.random() * 40 - 20).toFixed(0)}px`; m.append(d); } w.append(m); })();
 // пасхалка: набери «мяу» (или meow) — дождь из лапок
 (() => { let buf = ''; addEventListener('keydown', e => { if (e.target.closest('input,textarea,select,[contenteditable]') || e.key.length !== 1) return; buf = (buf + e.key.toLowerCase()).slice(-4);

@@ -19,7 +19,7 @@ p{margin:0 0 .8em}
 body.night .announce{background:#120c22}
 .announce-track{display:inline-flex;gap:48px;animation:mq 32s linear infinite;padding-left:24px}
 /* шапка */
-.nav{position:sticky;top:0;z-index:60;display:flex;align-items:center;gap:14px;padding:10px clamp(14px,4vw,40px);background:color-mix(in srgb,var(--cream) 86%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav{position:sticky;top:0;z-index:60;display:flex;align-items:center;gap:14px;padding:10px clamp(14px,4vw,40px);background:var(--cream);/* blur removed for perf */border-bottom:1px solid var(--line)}
 .logo{font-weight:700;font-size:1.35rem;color:var(--coral2);text-decoration:none;white-space:nowrap}.logo span{color:var(--deep)}.logo i{font-style:normal;display:inline-block;animation:pulse 2.4s ease-in-out infinite}
 .inline-nav{display:flex;gap:4px;margin-left:auto;flex-wrap:nowrap}
 .inline-nav a{padding:8px 12px;border-radius:999px;color:var(--ink);text-decoration:none;font-weight:800;font-size:.93rem;white-space:nowrap;transition:background .25s,color .25s}
@@ -34,7 +34,7 @@ body.night .announce{background:#120c22}
 .btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;cursor:pointer;background:var(--coral2);color:#fff;padding:12px 24px;border-radius:999px;font-weight:600;font-size:1rem;text-decoration:none;line-height:1.2;box-shadow:0 6px 0 #b8455f,0 10px 24px #9E4F6E44;transition:transform .3s var(--spring),box-shadow .3s}
 .btn:hover{transform:translateY(-3px)}.btn:active{transform:translateY(3px);box-shadow:0 2px 0 #b8455f}
 .btn.ghost{background:var(--card);color:var(--coral2);box-shadow:inset 0 0 0 2px var(--coral2)}.btn.ghost:hover{box-shadow:inset 0 0 0 2px var(--coral2),0 0 18px #E7C3CF99}
-.btn.small{padding:8px 16px;font-size:.9rem}.btn.big{font-size:1.15rem;padding:15px 30px}.btn.huge{font-size:clamp(1.2rem,3vw,1.6rem);padding:20px 44px;animation:pulseGlow 2.6s ease-in-out infinite}
+.btn.small{padding:8px 16px;font-size:.9rem}.btn.big{font-size:1.15rem;padding:15px 30px}.btn.huge{font-size:clamp(1.2rem,3vw,1.6rem);padding:20px 44px;}
 .btn[aria-disabled=true]{opacity:.65;cursor:default}
 .rep{display:inline-block;height:1.2em;overflow:hidden;vertical-align:top}.rep span{display:block;height:1.2em;transition:transform .5s var(--spring)}
 .btn:hover .rep span,.btn:focus-visible .rep span{transform:translateY(-100%)}
@@ -121,8 +121,8 @@ input[type=range]{padding:0;accent-color:var(--coral2)}input[type=color]{height:
  body.paw .paw-cursor{display:block;position:fixed;left:0;top:0;width:30px;height:30px;z-index:9999;pointer-events:none;background:no-repeat center/contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cg fill='%23e0607e' stroke='%23fff' stroke-width='2'%3E%3Cellipse cx='20' cy='27' rx='9' ry='8'/%3E%3Ccircle cx='9' cy='16' r='4'/%3E%3Ccircle cx='16' cy='10' r='4'/%3E%3Ccircle cx='24' cy='10' r='4'/%3E%3Ccircle cx='31' cy='16' r='4'/%3E%3C/g%3E%3C/svg%3E");transition:width .2s,height .2s}
  body.paw .paw-cursor.down{width:24px;height:24px}}
 /* фоновые сердечки */
-.petals{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}.petal{position:absolute;top:0;left:0;color:var(--pink);opacity:.8;will-change:transform}
-.pop-heart{position:fixed;left:0;top:0;z-index:200;color:var(--coral2);font-size:22px;pointer-events:none;will-change:transform}
+.petals{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}.petal{position:absolute;top:0;left:0;color:var(--pink);opacity:.8;}
+.pop-heart{position:fixed;left:0;top:0;z-index:200;color:var(--coral2);font-size:22px;pointer-events:none;}
 /* модалки */
 .modal{position:fixed;inset:0;background:#2A2230dd;display:flex;align-items:center;justify-content:center;z-index:200;opacity:0;transition:opacity .25s;padding:16px}
 .modal[hidden]{display:none}.modal.open{opacity:1}
@@ -143,7 +143,7 @@ input[type=range]{padding:0;accent-color:var(--coral2)}input[type=color]{height:
 .countdown.big{font-size:clamp(2rem,8vw,4rem);margin:10px 0}
 .threshold{position:relative;min-height:min(100svh,960px);display:grid;grid-template-columns:1.1fr 1fr;align-items:center;gap:20px;padding:30px 5vw;overflow:hidden;--p:0}
 .scene{position:relative;height:min(84svh,720px);perspective:1000px}
-.layer{position:absolute;inset:0;will-change:transform;transition:transform .05s linear}
+.layer{position:absolute;inset:0;transition:transform .05s linear}
 .window{position:absolute;left:6%;top:4%;width:58%;height:48%;border-radius:120px 120px 18px 18px;overflow:hidden;background:linear-gradient(#2A1830,#5B3A5E 70%,#ff9fbf);box-shadow:inset 0 0 0 10px #fff,0 10px 40px #8a294333}
 .home.night .window{background:linear-gradient(#0d0a24,#2A1830 75%,#5a3a7a);box-shadow:inset 0 0 0 10px #4a3566,0 10px 40px #000a}
 .frame-h,.frame-v{position:absolute;background:#fff}.frame-h{left:0;right:0;top:55%;height:8px}.frame-v{top:0;bottom:0;left:calc(50% - 4px);width:8px}
@@ -155,8 +155,8 @@ input[type=range]{padding:0;accent-color:var(--coral2)}input[type=color]{height:
 .bulbs i{position:absolute;width:12px;height:16px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;background:#ffd98a;box-shadow:0 0 14px 4px #ffd98a99;transform:translate(-50%,-50%);animation:bl 3s ease-in-out var(--dl) infinite}
 .bulbs i:nth-child(3n){background:#ff8fb0;box-shadow:0 0 14px 4px #ff8fb099}.bulbs i:nth-child(3n+1){background:var(--lav);box-shadow:0 0 14px 4px #d9c8ff99}
 @keyframes bl{50%{opacity:.55}}
-.room-glow{position:absolute;left:30%;top:20%;width:70%;height:70%;border-radius:50%;background:radial-gradient(circle,#ff8fb088,transparent 65%);filter:blur(30px)}
-.home.night .room-glow{background:radial-gradient(circle,#ffd98a55,transparent 65%)}
+.room-glow{position:absolute;left:30%;top:20%;width:70%;height:70%;border-radius:50%;background:radial-gradient(circle,#ff8fb066 0%,#ff8fb022 45%,transparent 70%);}
+.home.night .room-glow{background:radial-gradient(circle,#ffd98a66 0%,#ffd98a22 45%,transparent 70%)}
 .portrait-wrap{display:flex;align-items:flex-end;justify-content:flex-end;padding:0 4% 6% 0}
 .door-card{position:relative;width:min(62%,340px);aspect-ratio:3/4.3;border-radius:160px 160px 26px 26px;overflow:hidden;cursor:pointer;background:#fff;box-shadow:0 0 0 10px #fff,0 0 0 14px var(--pink),0 30px 60px #8a294355;transform:rotateX(var(--rx,0)) rotateY(var(--ry,0));transform-style:preserve-3d;transition:transform .1s}
 .door-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
@@ -180,8 +180,8 @@ input[type=range]{padding:0;accent-color:var(--coral2)}input[type=color]{height:
 .kicker{text-transform:uppercase;letter-spacing:.18em;font-weight:700;color:var(--pink);font-size:.85rem}
 .threshold h1{font-size:clamp(2.6rem,6vw,5rem);line-height:1;margin:0 0 16px;color:var(--deep)}.threshold h1 em{color:var(--red);font-style:normal}
 .home.night .threshold h1 em{color:#ffd98a}
-.scroll-hint{margin-top:26px;opacity:.7;animation:float 2.5s ease-in-out infinite}
-.pop-heart{position:fixed;left:0;top:0;z-index:200;color:var(--red);font-size:22px;pointer-events:none;will-change:transform}
+.scroll-hint{margin-top:26px;opacity:.7;}
+.pop-heart{position:fixed;left:0;top:0;z-index:200;color:var(--red);font-size:22px;pointer-events:none;}
 /* ===== вступление ===== */
 .intro-page{background:radial-gradient(ellipse at 50% 0,#F6E9EC,var(--cream) 60%);min-height:100svh}
 .intro-top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px clamp(14px,4vw,40px);position:relative;z-index:5}
@@ -304,8 +304,8 @@ input[type=range]{padding:0;accent-color:var(--coral2)}input[type=color]{height:
 .wallpapers{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:22px;max-width:1100px;margin:0 auto 50px}
 .wp{display:grid;gap:12px;text-decoration:none;color:var(--ink);font-weight:800;text-align:center;padding:14px}.wp img{aspect-ratio:3/4;object-fit:cover;border-radius:16px;width:100%}
 .stickers{display:flex;gap:22px;justify-content:center;flex-wrap:wrap;margin:10px 0 10px}
-.sticker img{width:120px;height:120px;object-fit:cover;border-radius:50%;border:6px solid #fff;box-shadow:0 8px 20px #9E4F6E44;animation:float 4s ease-in-out infinite;transition:transform .3s var(--spring)}
-.sticker:nth-child(2) img{animation-delay:-1.3s}.sticker:nth-child(3) img{animation-delay:-2.6s}.sticker:hover img{transform:rotate(-10deg) scale(1.12);animation-play-state:paused}
+.sticker img{width:120px;height:120px;object-fit:cover;border-radius:50%;border:6px solid #fff;box-shadow:0 8px 20px #9E4F6E44;transition:transform .3s var(--spring);transition:transform .3s var(--spring)}
+.sticker:hover img{transform:rotate(-8deg) scale(1.1)}
 /* ===== фан-зона ===== */
 .tabs{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:28px}
 .tabpanel{max-width:1150px;margin:auto;animation:upIn .5s var(--spring)}
@@ -362,8 +362,8 @@ body.night .intro-page,body.night.intro-page{background:#221833}
 .village .houses-row{bottom:22%;transition:none}
 .village .house{opacity:1;transform:none;transition:none;animation:houseUp .9s var(--spring) both}
 .village .house.h1{animation-delay:.1s}.village .house.h2{animation-delay:.2s}.village .house.h3{animation-delay:.3s}.village .house.h4{animation-delay:.4s}.village .house.h5{animation-delay:.5s}
-.village .house .win{animation:winGlow 3.5s ease-in-out infinite both}
-.village .house.main{animation-name:houseUp,houseBob;animation-duration:.9s,4s;animation-delay:.3s,1.3s;animation-iteration-count:1,infinite;animation-timing-function:var(--spring),ease-in-out}
+
+.village .house.main{animation:houseUp .9s var(--spring) both}
 .village .houses-ground{height:24%;border-radius:50% 50% 0 0/40px 40px 0 0}
 .village:hover .hdoor,.village:focus-within .hdoor{transform:rotateY(-60deg)}.village:hover .light{opacity:1}
 @keyframes houseUp{from{opacity:0;transform:translateY(40px) scale(.9)}to{opacity:1;transform:none}}
@@ -386,11 +386,11 @@ html:not(.js) .reveal,.reveal-done .reveal{opacity:1!important;transform:none!im
 
 /* ===== мягкий фон: пылинки, звёздочки, сердечки ===== */
 .drift{position:fixed;inset:-10% 0;z-index:-1;pointer-events:none;overflow:hidden}
-.drift i{position:absolute;inset:0;background-repeat:repeat;opacity:.5;will-change:transform}
-.drift .d1{background-image:radial-gradient(2px 2px at 10% 20%,#E7C3CF,transparent),radial-gradient(2px 2px at 60% 70%,#f2766b88,transparent),radial-gradient(3px 3px at 85% 30%,#ffd98a,transparent);background-size:340px 340px;animation:driftA 40s linear infinite}
-.drift .d2{background-image:radial-gradient(1.5px 1.5px at 30% 50%,#B79AB0,transparent),radial-gradient(2px 2px at 75% 15%,#E7C3CF,transparent);background-size:220px 260px;animation:driftB 60s linear infinite;opacity:.4}
+.drift i{position:absolute;inset:0;background-repeat:repeat;opacity:.5;}
+.drift .d1{background-image:radial-gradient(2px 2px at 10% 20%,#E7C3CF,transparent),radial-gradient(2px 2px at 60% 70%,#f2766b88,transparent),radial-gradient(3px 3px at 85% 30%,#ffd98a,transparent);background-size:340px 340px;}
+.drift .d2{background-image:radial-gradient(1.5px 1.5px at 30% 50%,#B79AB0,transparent),radial-gradient(2px 2px at 75% 15%,#E7C3CF,transparent);background-size:220px 260px;opacity:.4}
 .drift .d3{font-size:14px;color:#E7C3CF;opacity:.35}
-.drift .d3 b{position:absolute;animation:heartFloat 14s ease-in-out infinite both}
+.drift .d3{display:none}
 @keyframes driftA{to{background-position:340px -340px}}@keyframes driftB{to{background-position:-220px -260px}}
 @keyframes heartFloat{0%{transform:translateY(20vh);opacity:0}20%{opacity:1}100%{transform:translateY(-60vh) rotate(25deg);opacity:0}}
 
@@ -446,7 +446,7 @@ p{text-wrap:pretty}
 footer,.footer{background:var(--plum2)!important}
 ::selection{background:#E7C3CF;color:var(--plum)}
 /* проход 2: реплика — дымчатое стекло вместо комиксной обводки; полировка */
-.bubble-line{border:1px solid #ffffffcc;background:linear-gradient(160deg,#fffdfbf2,#f6eceff0);box-shadow:inset 0 1px 0 #fff,0 0 0 1px #4a21401f,var(--sh2);border-radius:28px;font-weight:600;color:var(--plum);backdrop-filter:blur(10px) saturate(1.2);-webkit-backdrop-filter:blur(10px) saturate(1.2)}
+.bubble-line{border:1px solid #ffffffcc;background:linear-gradient(160deg,#fffdfbf2,#f6eceff0);box-shadow:inset 0 1px 0 #fff,0 0 0 1px #4a21401f,var(--sh2);border-radius:28px;font-weight:600;color:var(--plum);}
 .bubble-line::before{border-right-color:#4a21401f!important;border-bottom-color:#4a21401f!important}
 .bubble-line::after{border-right-color:#fbf5f6!important;border-bottom-color:#fbf5f6!important}
 .speech-dots i{background:var(--pink)!important}.speech-dots i.on{background:var(--coral2)!important;transform:scale(1.25)}
@@ -463,12 +463,13 @@ footer a:hover,.footer a:hover{background-size:100% 1px}
 
 /* проход 3: свет и материалы */
 /* плёночное зерно (статичное — дёшево для мобильных) */
-html::after{content:"";position:fixed;inset:0;z-index:9998;pointer-events:none;opacity:.07;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .3 0 0 0 0 .15 0 0 0 0 .25 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+html::after{content:"";position:fixed;inset:0;z-index:9998;pointer-events:none;opacity:.045;mix-blend-mode:multiply;background-image:url("img/noise.png");background-size:128px 128px}
+@media (max-width:700px),(prefers-reduced-motion:reduce){html::after{display:none!important}}
 body.night~*,body.night::after{}
 /* тёплые засветки: роза, слива, жемчуг — медленно дрейфуют */
-.drift::before,.drift::after{content:"";position:absolute;width:70vmax;height:70vmax;border-radius:50%;opacity:.55;will-change:transform}
-.drift::before{left:-25vmax;top:-10vmax;background:radial-gradient(closest-side,#E7C3CF88,#E7C3CF22 55%,transparent);animation:aur1 38s ease-in-out infinite alternate}
-.drift::after{right:-30vmax;top:30vh;background:radial-gradient(closest-side,#DCD0E288,#DCD0E222 55%,transparent);animation:aur2 46s ease-in-out infinite alternate}
+.drift::before,.drift::after{content:"";position:absolute;width:70vmax;height:70vmax;border-radius:50%;opacity:.55;}
+.drift::before{left:-25vmax;top:-10vmax;background:radial-gradient(closest-side,#E7C3CF88,#E7C3CF22 55%,transparent);}
+.drift::after{right:-30vmax;top:30vh;background:radial-gradient(closest-side,#DCD0E288,#DCD0E222 55%,transparent);}
 @keyframes aur1{to{transform:translate3d(18vmax,22vh,0) scale(1.15)}}@keyframes aur2{to{transform:translate3d(-16vmax,-18vh,0) scale(.9)}}
 body.night .drift::before{background:radial-gradient(closest-side,#9E4F6E55,transparent)}body.night .drift::after{background:radial-gradient(closest-side,#5B3A5E66,transparent)}
 /* «стекло с фаской» для карточек — без backdrop-filter, чтобы не тормозило */
@@ -481,7 +482,7 @@ body.night :is(.profile,.page-card,.mood-card,.room,.panel,.card,.bento>*,.about
 /* бархатный подвал: анизотропный блик идёт за курсором */
 footer,.footer{background:radial-gradient(600px 300px at var(--mx,30%) var(--my,0%),#6a3359 0%,transparent 70%),conic-gradient(from 200deg at 50% 0%,#2E1529,#3b1c35,#2a1226,#3b1c35,#2E1529)!important;color:#F1E2E6}
 /* тёплое дыхание света в комнате */
-.room-glow{animation:breathe 6s ease-in-out infinite}
+.room-glow{/* breathe off */}
 @keyframes breathe{50%{opacity:.75;transform:scale(1.06)}}
 .btn{position:relative;overflow:hidden}
 .btn::before{content:"";position:absolute;inset:0;background:radial-gradient(120px 40px at 50% -10%,#ffffff55,transparent 70%);pointer-events:none}
@@ -492,17 +493,17 @@ footer,.footer{background:radial-gradient(600px 300px at var(--mx,30%) var(--my,
 .chandelier{position:absolute;left:58%;top:-2%;width:150px;height:140px;transform-origin:50% 0;animation:chSway 7s ease-in-out infinite}
 .ch-chain{position:absolute;left:50%;top:0;width:1.5px;height:40px;background:linear-gradient(#cfc6cc,#8d7f8a);transform:translateX(-50%)}
 .ch-arm{position:absolute;left:4%;right:4%;top:40px;height:14px;border:1.5px solid #c9bfc6;border-top:0;border-radius:0 0 80px 80px/0 0 14px 14px;background:linear-gradient(#ffffff55,transparent)}
-.crystal{position:absolute;top:46px;left:var(--x);width:1px;height:var(--len);background:linear-gradient(#d8d0d6,#b9adb6);transform-origin:50% 0;transform:rotate(calc(var(--push,0) * 1deg));transition:transform 1.2s cubic-bezier(.2,1.6,.4,1);animation:crSway calc(3.2s + var(--i) * .37s) ease-in-out calc(var(--i) * -.6s) infinite}
-.crystal::after{content:"";position:absolute;left:50%;bottom:-14px;width:10px;height:16px;transform:translateX(-50%);clip-path:polygon(50% 0,100% 40%,50% 100%,0 40%);background:conic-gradient(from calc(var(--a,0deg)) at 50% 45%,#ffffff,#f3dbe6,#dfe8f6,#ffffff,#eadcf3,#ffffff);box-shadow:0 0 12px #fff;animation:prism 5s linear infinite}
-.ch-glow{position:absolute;left:50%;top:70px;width:220px;height:160px;transform:translate(-50%,-30%);background:radial-gradient(closest-side,#fff4ecaa,transparent);mix-blend-mode:screen;animation:breathe 5s ease-in-out infinite}
+.crystal{position:absolute;top:46px;left:var(--x);width:1px;height:var(--len);background:linear-gradient(#d8d0d6,#b9adb6);transform-origin:50% 0;}
+.crystal::after{content:"";position:absolute;left:50%;bottom:-14px;width:10px;height:16px;transform:translateX(-50%);clip-path:polygon(50% 0,100% 40%,50% 100%,0 40%);background:linear-gradient(135deg,#fff,#f3dbe6 40%,#dfe8f6);box-shadow:0 0 8px #fff8;}
+.ch-glow{position:absolute;left:50%;top:70px;width:220px;height:160px;transform:translate(-50%,-30%);background:radial-gradient(closest-side,#fff4ecaa,transparent);mix-blend-mode:screen;}
 @keyframes chSway{50%{transform:rotate(1.4deg)}}
 @keyframes crSway{0%,100%{rotate:-2deg}50%{rotate:2.5deg}}
 @property --a{syntax:"<angle>";inherits:false;initial-value:0deg}
 @keyframes prism{to{--a:360deg}}
-.rays{position:absolute;inset:-20% -60% -80% -10%;background:conic-gradient(from 160deg at 20% 0%,transparent 0deg,#fff6f0 8deg,transparent 18deg,#fff6f0 26deg,transparent 40deg);opacity:.18;mix-blend-mode:screen;pointer-events:none;animation:raysB 9s ease-in-out infinite;z-index:1}
+.rays{position:absolute;inset:-20% -60% -80% -10%;background:conic-gradient(from 160deg at 20% 0%,transparent 0deg,#fff6f0 8deg,transparent 18deg,#fff6f0 26deg,transparent 40deg);opacity:.18;mix-blend-mode:screen;pointer-events:none;;z-index:1}
 @keyframes raysB{50%{opacity:.3}}
 /* жемчужные чипсы */
-.chip.on,.chip[aria-pressed=true],.tab[aria-selected=true]{background:conic-gradient(from var(--a) at 30% 30%,#fff,#f4dfe7,#e2e8f4,#fff,#efe1f3,#fff)!important;animation:prism 8s linear infinite;color:var(--plum)!important;box-shadow:inset 0 1px 0 #fff,0 0 0 1px #9E4F6E55,0 4px 12px #4a214022!important}
+.chip.on,.chip[aria-pressed=true],.tab[aria-selected=true]{background:linear-gradient(135deg,#fff,#f4dfe7,#e2e8f4)!important;;color:var(--plum)!important;box-shadow:inset 0 1px 0 #fff,0 0 0 1px #9E4F6E55,0 4px 12px #4a214022!important}
 @media (max-width:800px){.chandelier{left:62%;transform:scale(.7);transform-origin:50% 0}}
 .chandelier{width:180px}
 .ch-chain{background:linear-gradient(#a89aa5,#6e5a6a);width:2px}
@@ -510,11 +511,11 @@ footer,.footer{background:radial-gradient(600px 300px at var(--mx,30%) var(--my,
 .ch-arm::before,.ch-arm::after{content:"";position:absolute;top:-14px;width:8px;height:14px;border-radius:4px 4px 2px 2px;background:linear-gradient(#fffaf6,#efe3e6);box-shadow:0 -6px 14px #fff1e6,0 0 0 1px #d9ccd3}
 .ch-arm::before{left:18%}.ch-arm::after{right:18%}
 .crystal{background:linear-gradient(#b9adb6,#8f8290)}
-.crystal::after{width:14px;height:24px;bottom:-20px;box-shadow:none;filter:drop-shadow(0 0 4px #fff) drop-shadow(0 1px 1px #6e5a6a55)}
+.crystal::after{width:14px;height:24px;bottom:-20px;box-shadow:none;}
 .crystal::after{width:16px;height:28px;bottom:-24px}
 
 /* проход 5: жизнь персонажа */
-.intro-portrait img,.portrait-main{animation:breathImg 5.3s cubic-bezier(.45,0,.55,1) infinite;transform-origin:50% 80%}
+.intro-portrait img,.portrait-main{transform-origin:50% 80%}
 @keyframes breathImg{0%,100%{transform:scale(1)}42%{transform:scale(1.014) translateY(-1px)}58%{transform:scale(1.012) translateY(-1px)}}
 /* котёнок в коробке */
 #rooms{position:relative}
@@ -536,7 +537,7 @@ footer,.footer{background:radial-gradient(600px 300px at var(--mx,30%) var(--my,
 .rooms{max-width:720px!important}@media (max-width:420px){.rooms{max-width:none!important}}
 
 /* проход 6: микровзаимодействия */
-.toast{background:linear-gradient(160deg,#3b1c35f0,#2e1529f2);color:#F6E9EC;border:1px solid #ffffff1f;box-shadow:inset 0 1px 0 #ffffff22,0 14px 40px #2e152955;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);font-weight:600}
+.toast{background:linear-gradient(160deg,#3b1c35f0,#2e1529f2);color:#F6E9EC;border:1px solid #ffffff1f;box-shadow:inset 0 1px 0 #ffffff22,0 14px 40px #2e152955;font-weight:600}
 .ripple{position:absolute;left:var(--rx);top:var(--ry);width:16px;height:16px;margin:-8px;border-radius:50%;background:#ffffff88;pointer-events:none;animation:rip .6s ease-out forwards}
 .btn.ghost .ripple,.chip .ripple{background:#9E4F6E33}
 @keyframes rip{to{transform:scale(14);opacity:0}}
@@ -564,7 +565,7 @@ footer,.footer{background:radial-gradient(600px 300px at var(--mx,30%) var(--my,
 .window .motes{position:absolute;inset:0;pointer-events:none;z-index:2}
 .window .motes i{position:absolute;width:3px;height:3px;border-radius:50%;background:#fff;box-shadow:0 0 6px #fff;opacity:0;animation:mote var(--t) ease-in-out var(--dl) infinite}
 @keyframes mote{0%{opacity:0;transform:translate(0,0)}20%{opacity:.85}80%{opacity:.6}100%{opacity:0;transform:translate(var(--dx),-60px)}}
-body.night .chandelier .crystal::after{filter:drop-shadow(0 0 7px #ffe7f0)}
+body.night .chandelier .crystal::after{}
 body.night .ch-glow{opacity:1;background:radial-gradient(closest-side,#ffd9e8aa,transparent)}
 body.night .flame::after{background:radial-gradient(closest-side,#ffd9c288,transparent)}
 /* дождь из лапок (пасхалка) */
@@ -595,10 +596,40 @@ footer::before{content:"";position:absolute;left:0;right:0;top:0;height:1px;back
 body.night .kicker{color:#EBC9D6}
 .kit-box:focus-visible{outline:2px solid var(--coral2);outline-offset:6px;border-radius:12px}
 @media (hover:none){:is(.mood-card,.room,.panel,.card,.bento>*,.wallpapers>*,.shop>*,.gallery>*)::before,:is(.mood-card,.room,.panel,.card,.bento>*,.wallpapers>*,.shop>*)::after{display:none}}
-@media (max-width:760px){.drift::before,.drift::after{animation-duration:60s,70s;opacity:.4}html::after{opacity:.05}}
+@media (max-width:760px){.drift::before,.drift::after{display:none}}
 @media (prefers-reduced-motion:reduce){
  .chandelier,.crystal,.crystal::after,.ch-glow,.rays,.flame,.flame::after,.intro-portrait img,.portrait-main,.room-glow,.drift::before,.drift::after,.chip.on,.chip[aria-pressed=true],.tab[aria-selected=true],.kit,.houses-sky,.yarn-progress{animation:none!important}
  .window .motes,.paw-rain,.ripple{display:none!important}
  .magnet{transform:none!important}
  :is(.mood-card,.room,.panel,.card,.bento>*,.wallpapers>*,.shop>*)::after{display:none}}
 @media (prefers-contrast:more){html::after{display:none}.bubble-line{background:#fff}}
+
+/* ===== PERF / LITE ===== */
+html.lite .drift,html.lite .chand-layer,html.lite .window .motes,html.lite .drift::before,html.lite .drift::after,html.lite::after{display:none!important}
+html.lite .chandelier{animation:none}
+@media (max-width:700px){
+ .drift,.drift::before,.drift::after,.drift i,.chand-layer,.window .motes,.window .rays{display:none!important}
+ .btn.huge{animation:none!important}
+ .village .house{animation:none!important;opacity:1;transform:none}
+}
+@media (prefers-reduced-motion:reduce){
+ .drift,.drift::before,.drift::after,.chand-layer,.window .motes{display:none!important}
+}
+
+/* PERF override drift */
+.drift .d1,.drift .d2{animation:none!important}
+.drift .d3 b{animation-duration:22s}
+.crystal{animation:none!important}
+.chandelier{animation:chSway 9s ease-in-out infinite}
+.ch-glow{}
+@media (max-width:700px){.chandelier,.ch-glow{animation:none!important}}
+
+.drift .d1,.drift .d2{animation:none!important}
+
+.stars i,.bulbs i{animation:none!important}
+.window .motes{display:none!important}
+.candle .flame,.flame{animation:flick 2.8s steps(6,jump-none) var(--d) infinite}
+html.lite::after{display:none!important}
+@media (max-width:700px){
+ .drift,.petals,.chandelier,.ch-glow,.rays,.candles .flame::after{display:none!important}
+}
