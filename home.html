@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MIA MAYS — порог уютного дома</title>
+<meta name="description" content="Главная: комната MIA, её настроение, дневник, комнаты-разделы и отсчёт до Уютной ночи.">
+<meta name="theme-color" content="#F5B8D4">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;800;900&subset=cyrillic&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="home">
+<div class="petals" aria-hidden="true"></div>
+<a class="skip" href="#main">К содержимому</a>
+<div class="announce" role="note"><div class="announce-track"><span>✦ Уютная ночь каждую пятницу в 20:00</span><span>♡ Новые стикеры в фан-зоне</span><span>✦ Это фанатский проект, всё вымышлено</span><span>♡ Уютная ночь каждую пятницу в 20:00</span><span>✦ Новые стикеры в фан-зоне</span><span>♡ Это фанатский проект, всё вымышлено</span></div></div>
+<header class="nav" id="top">
+  <a href="home.html" class="logo" aria-label="MIA MAYS — на главную">MIA <span>MAYS</span> <i aria-hidden="true">♡</i></a>
+  <nav class="inline-nav" aria-label="Основная навигация"><a href="home.html" aria-current="page">Главная</a><a href="story.html">История</a><a href="gallery.html">Галерея</a><a href="cozy-night.html">Уютная ночь</a><a href="shop.html">Магазин</a><a href="fans.html">Фан-зона</a><a href="about.html">О проекте</a></nav>
+  <div class="nav-tools">
+    <button class="icon-btn lamp-toggle" id="lampToggle" aria-pressed="false" aria-label="Лампа: включить ночной режим" title="Лампа"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10l3 8H4z" fill="currentColor"/><rect x="11" y="11" width="2" height="7" fill="currentColor"/><rect x="7" y="18" width="10" height="3" rx="1.5" fill="currentColor"/></svg></button>
+    <button class="icon-btn sound-toggle" id="soundToggle" aria-pressed="false" aria-label="Звуки: выключены" title="Звуки">🔇</button>
+    <button class="btn menu-btn" id="menuBtn" aria-haspopup="dialog" aria-controls="menuDialog"><span class="rep" aria-hidden="true"><span>Меню</span><span>Меню</span><span>Меню</span></span><span class="sr-only">Меню</span></button>
+  </div>
+</header>
+<dialog class="menu-dialog" id="menuDialog" aria-label="Меню сайта">
+  <div class="menu-inner">
+    <button class="icon-btn menu-close" id="menuClose" aria-label="Закрыть меню">×</button>
+    <ul class="big-nav"><li><a href="home.html" aria-current="page"><span>Главная</span></a></li><li><a href="story.html"><span>История</span></a></li><li><a href="gallery.html"><span>Галерея</span></a></li><li><a href="cozy-night.html"><span>Уютная ночь</span></a></li><li><a href="shop.html"><span>Магазин</span></a></li><li><a href="fans.html"><span>Фан-зона</span></a></li><li><a href="about.html"><span>О проекте</span></a></li></ul>
+    <details class="drop"><summary>Друзья и ссылки</summary><ul><li><span>Соцсети — скоро</span></li><li><span>Чат сообщества — скоро</span></li><li><a href="about.html#rules">Правила сообщества</a></li><li><a href="index.html?intro=1">Посмотреть приветствие ещё раз</a></li></ul></details>
+    <div class="marquee vertical" aria-hidden="true"><div class="track"><span>уют</span><span>пледы</span><span>звёзды</span><span>чай</span><span>ушки</span><span>уют</span><span>пледы</span><span>звёзды</span><span>чай</span><span>ушки</span></div></div>
+  </div>
+</dialog>
+<main id="main">
+<section class="threshold" id="threshold" aria-label="Порог: комната MIA">
+  <div class="scene" id="scene">
+    <div class="layer sky" data-depth="0.15" aria-hidden="true">
+      <div class="window"><div class="stars"></div><div class="moon"></div><div class="frame-h"></div><div class="frame-v"></div></div>
+    </div>
+    <div class="layer lights" data-depth="0.3" aria-hidden="true">
+      <svg viewBox="0 0 1000 120" preserveAspectRatio="none"><path d="M0 20 Q250 110 500 40 T1000 30" stroke="#8a2943" stroke-width="2" fill="none"/></svg>
+      <div class="bulbs"></div>
+    </div>
+    <div class="layer glow-layer" data-depth="0.4" aria-hidden="true"><div class="room-glow"></div></div>
+    <div class="layer portrait-wrap" data-depth="0.7">
+      <div class="door-card" id="doorCard">
+        <div class="door left" aria-hidden="true"></div><div class="door right" aria-hidden="true"></div>
+        <img src="img/mia-pillow.jpg" alt="MIA в розовой толстовке обнимает подушку и смущённо смотрит на тебя" class="portrait-main">
+        <img src="img/mia-pajama-pillow.jpg" alt="" aria-hidden="true" class="portrait-back">
+        <span class="eye-glow" aria-hidden="true"></span>
+        <span class="sparkle s1" aria-hidden="true"></span><span class="sparkle s2" aria-hidden="true"></span><span class="sparkle s3" aria-hidden="true"></span>
+      </div>
+    </div>
+    <div class="layer cushions" data-depth="1" aria-hidden="true"><span class="cush c1"></span><span class="cush c2"></span><span class="cush c3"></span></div>
+  </div>
+  <div class="threshold-text">
+    <p class="kicker">Фанатский проект · порог</p>
+    <h1 class="split">Тук-тук… заходи.</h1>
+    <p class="tag">Ты на пороге комнаты MIA. Пошевели мышкой или пальцем — она тебя заметит. Нажми на портрет, чтобы подарить сердечко.</p>
+    <div class="btns"><a class="btn big" href="#rooms"><span class="rep" aria-hidden="true"><span>Войти в комнаты</span><span>Войти в комнаты</span><span>Войти в комнаты</span></span><span class="sr-only">Войти в комнаты</span></a><a class="btn ghost" href="cozy-night.html">До Уютной ночи</a></div>
+    <p class="scroll-hint" aria-hidden="true">листай вниз — дверь откроется ↓</p>
+  </div>
+</section>
+
+
+<div class="marquee" aria-hidden="true"><div class="track"><span>♡ Уютная ночь каждую пятницу</span><span>✦ Новые комнаты открыты</span><span>♡ Пижамы приветствуются</span><span>✦ Строим форт из одеял</span><span>♡ Уютная ночь каждую пятницу</span><span>✦ Новые комнаты открыты</span><span>♡ Пижамы приветствуются</span><span>✦ Строим форт из одеял</span></div></div>
+<div class="marquee reverse alt-m" aria-hidden="true"><div class="track"><span>чай с мёдом</span><span>✦</span><span>мягкие носки</span><span>✦</span><span>гирлянда</span><span>✦</span><span>дождь за окном</span><span>✦</span><span>чай с мёдом</span><span>✦</span><span>мягкие носки</span><span>✦</span><span>гирлянда</span><span>✦</span><span>дождь за окном</span><span>✦</span></div></div>
+
+<section class="sec" id="moods">
+  <h2 class="reveal">Три MIA — три настроения</h2>
+  <div class="mood-cards">
+    <figure class="polaroid tilt reveal" style="--r:-4deg"><img src="img/face-pillow.png" alt="MIA надула щёки, уткнувшись в подушку" loading="lazy"><figcaption><b>Смущашка</b><span>«Не смотри так… я просто стесняюсь»</span></figcaption></figure>
+    <figure class="polaroid tilt reveal" style="--r:2deg"><img src="img/face-pajama2.png" alt="MIA мягко улыбается, прижавшись к подушке" loading="lazy"><figcaption><b>Мечтательница</b><span>«Ещё пять минуточек под пледом»</span></figcaption></figure>
+    <figure class="polaroid tilt reveal" style="--r:-1deg"><img src="img/face-pajama.png" alt="MIA в пижаме задумалась" loading="lazy"><figcaption><b>Хранительница уюта</b><span>«Я поставила чайник. Тебе с мёдом?»</span></figcaption></figure>
+  </div>
+  <div class="mood-strip reveal" role="group" aria-label="Шкала настроения">
+    <span>Настроение сейчас:</span>
+    <button class="chip" data-mood="Сонная" aria-pressed="true">😴 сонная</button><button class="chip" data-mood="Смущённая" aria-pressed="false">☺️ смущённая</button><button class="chip" data-mood="Игривая" aria-pressed="false">🧶 игривая</button><button class="chip" data-mood="Мечтательная" aria-pressed="false">🌙 мечтательная</button>
+  </div>
+</section>
+
+<section class="sec alt" id="bento">
+  <h2 class="reveal">Сегодня в доме</h2>
+  <div class="bento">
+    <article class="b-cell b-diary card reveal"><p class="kicker">Сегодня Мия…</p><ul class="diary-mini" id="diaryMini"><li>☀️ проснулась в 11:40 и решила, что это утро</li><li>🍵 заварила чай с мёдом и забыла его на подоконнике</li><li>🧶 нашла под кроватью потерянный клубок</li><li>🌙 ждёт пятницу и Уютную ночь</li></ul><a class="link-arrow" href="story.html">Читать дневник →</a></article>
+    <figure class="b-cell b-stack reveal"><div class="stack"><img src="img/mia-pajama-pillow.jpg" alt="MIA в пижаме обнимает подушку" loading="lazy"><img src="img/mia-pajama-crop.png" alt="MIA прячет лицо в подушку" loading="lazy"><img src="img/mia-pillow.jpg" alt="MIA в толстовке с подушкой" loading="lazy"></div><figcaption>Нажми на стопку — перелистни</figcaption></figure>
+    <article class="b-cell b-stats card reveal"><div class="stat"><b data-count="128">0</b><span>чашек чая в этом месяце</span></div><div class="stat"><b data-count="42">0</b><span>подушки в форте</span></div><div class="stat"><b data-count="7">0</b><span>комнат в доме</span></div><div class="stat"><b data-count="999">0</b><span>мурлыканий</span></div><p class="note">Цифры шуточные, как и всё здесь.</p></article>
+    <article class="b-cell b-quote card reveal"><div class="say">«Если тебе грустно — заходи. Плед на всех хватит.»</div><img src="img/face-pajama2.png" alt="" loading="lazy"></article>
+    <article class="b-cell b-night card reveal"><p class="kicker">До Уютной ночи</p><div class="countdown" id="countdown" aria-hidden="true"></div><p class="sr-only" id="countdownSr" aria-live="polite"></p><a class="btn small" href="cozy-night.html">Программа</a></article>
+    <article class="b-cell b-news card reveal"><p class="kicker">Новости дома</p><div class="news-ticker"><ul><li><b>Новое:</b> открылась Фан-зона с генератором аватарок.</li><li><b>Скоро:</b> конкурс фортов из одеял.</li><li><b>Обновление:</b> в галерее появились фильтры.</li><li><b>Новое:</b> бесплатные обои в магазине.</li><li><b>Новое:</b> открылась Фан-зона с генератором аватарок.</li></ul></div></article>
+  </div>
+</section>
+
+<section class="sec" id="rooms">
+  <h2 class="reveal">Комнаты</h2>
+  <div class="rooms"><a class="room-door" href="story.html"><span class="knob"></span><img src="img/face-pillow.png" alt="" loading="lazy"><b>История</b><small>дневник, профиль и комикс</small><i class="badge">войти</i></a><a class="room-door" href="gallery.html"><span class="knob"></span><img src="img/mia-pajama-crop.png" alt="" loading="lazy"><b>Галерея</b><small>уютные кадры и лайтбокс</small><i class="badge">войти</i></a><a class="room-door" href="cozy-night.html"><span class="knob"></span><img src="img/mia-pajama-pillow.jpg" alt="" loading="lazy"><b>Уютная ночь</b><small>программа и форт из одеял</small><i class="badge">войти</i></a><a class="room-door" href="shop.html"><span class="knob"></span><img src="img/face-pajama.png" alt="" loading="lazy"><b>Магазин</b><small>обои и стикеры бесплатно</small><i class="badge">войти</i></a><a class="room-door" href="fans.html"><span class="knob"></span><img src="img/face-pajama2.png" alt="" loading="lazy"><b>Фан-зона</b><small>аватарки, игры, стена</small><i class="badge">войти</i></a><a class="room-door" href="about.html"><span class="knob"></span><img src="img/mia-pillow.jpg" alt="" loading="lazy"><b>О проекте</b><small>вопросы и правила</small><i class="badge">войти</i></a></div>
+</section>
+</main>
+<footer class="foot">
+  <div class="foot-grid">
+    <div><a href="home.html" class="logo">MIA <span>MAYS</span> ♡</a><p>Маленький уютный уголок кошкодевочки MIA. Фанатский проект: персонаж и история вымышлены.</p></div>
+    <nav aria-label="Нижняя навигация"><a href="story.html">История</a><a href="gallery.html">Галерея</a><a href="cozy-night.html">Уютная ночь</a><a href="shop.html">Магазин</a><a href="fans.html">Фан-зона</a><a href="about.html">О проекте</a></nav>
+    <p class="note">Соцсети — скоро. Магазин — макет, ничего не продаётся.<br><a href="#top">Наверх ↑</a></p>
+  </div>
+</footer>
+<div class="toasts" id="toasts" aria-live="polite" aria-atomic="false"></div>
+<div class="paw-cursor" aria-hidden="true"></div>
+<script src="app.js"></script>
+</body></html>

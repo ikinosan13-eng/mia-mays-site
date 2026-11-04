@@ -2,98 +2,55 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>MIA MAYS — порог уютного мира</title>
-<meta name="description" content="Фанатский сайт о MIA: переступи порог её уютной комнаты. История, галерея, Уютная ночь и фан-зона.">
+<title>MIA MAYS — привет!</title>
+<meta name="description" content="Приветствие MIA: кошкодевочка встречает гостей у порога своего уютного дома.">
+<meta name="theme-color" content="#F5B8D4">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;800;900&subset=cyrillic&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<script>try{if(sessionStorage.getItem("mia-intro")==="1"&&!/intro=1/.test(location.search))location.replace("home.html")}catch(e){}</script>
 </head>
-<body class="home">
-<a class="skip" href="#main">К содержимому</a>
+<body class="intro-page">
 <div class="petals" aria-hidden="true"></div>
-<header class="nav">
-  <a href="./" class="logo" aria-current="page">MIA <span>MAYS</span> ♡</a>
-  <button class="lamp-toggle" id="lampToggle" aria-pressed="false" aria-label="Лампа: включить ночной режим" title="Лампа">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10l3 8H4z" fill="currentColor"/><rect x="11" y="11" width="2" height="7" fill="currentColor"/><rect x="7" y="18" width="10" height="3" rx="1.5" fill="currentColor"/></svg>
-  </button>
-  <button class="sound-toggle" id="soundToggle" aria-pressed="false" aria-label="Звуки: выключены" title="Звуки">🔇</button>
-  <button class="burger" aria-expanded="false" aria-controls="menu" aria-label="Меню">☰</button>
-  <nav id="menu" aria-label="Основная навигация">
-    <a href="./" aria-current="page" class="active">Главная</a><a href="#rooms">Комнаты</a><a href="#night">Уютная ночь</a><a href="#welcome">Привет</a>
-  </nav>
-</header>
 
 <main id="main">
-<section class="threshold" id="threshold" aria-label="Порог: комната MIA">
-  <div class="scene" id="scene">
-    <div class="layer sky" data-depth="0.15" aria-hidden="true">
-      <div class="window"><div class="stars"></div><div class="moon"></div><div class="frame-h"></div><div class="frame-v"></div></div>
-    </div>
-    <div class="layer lights" data-depth="0.3" aria-hidden="true">
-      <svg viewBox="0 0 1000 120" preserveAspectRatio="none"><path d="M0 20 Q250 110 500 40 T1000 30" stroke="#8a2943" stroke-width="2" fill="none"/></svg>
-      <div class="bulbs"></div>
-    </div>
-    <div class="layer glow-layer" data-depth="0.4" aria-hidden="true"><div class="room-glow"></div></div>
-    <div class="layer portrait-wrap" data-depth="0.7">
-      <div class="door-card" id="doorCard">
-        <div class="door left" aria-hidden="true"></div><div class="door right" aria-hidden="true"></div>
-        <img src="img/mia-pillow.jpg" alt="MIA в розовой толстовке обнимает подушку и смущённо смотрит на тебя" class="portrait-main">
-        <img src="img/mia-pajama-pillow.jpg" alt="" aria-hidden="true" class="portrait-back">
-        <span class="eye-glow" aria-hidden="true"></span>
-        <span class="sparkle s1" aria-hidden="true"></span><span class="sparkle s2" aria-hidden="true"></span><span class="sparkle s3" aria-hidden="true"></span>
-      </div>
-    </div>
-    <div class="layer cushions" data-depth="1" aria-hidden="true"><span class="cush c1"></span><span class="cush c2"></span><span class="cush c3"></span></div>
-  </div>
-  <div class="threshold-text">
-    <p class="kicker">Фанатский проект · порог</p>
-    <h1>Тук-тук… <em>заходи</em>.</h1>
-    <p class="tag">Ты на пороге комнаты MIA. Пошевели мышкой или пальцем — она тебя заметит. Нажми на портрет, чтобы подарить сердечко.</p>
-    <div class="btns"><a class="btn big" href="#rooms">Войти в комнаты</a><a class="btn ghost" href="#night">До Уютной ночи</a></div>
-    <p class="scroll-hint" aria-hidden="true">листай вниз — дверь откроется ↓</p>
-  </div>
-</section>
 
-<div class="marquee" aria-hidden="true"><div class="track"><span>♡ Уютная ночь каждую пятницу</span><span>✦ Новые комнаты открываются по одной</span><span>♡ Пижамы приветствуются</span><span>✦ Строим форт из одеял</span><span>♡ Уютная ночь каждую пятницу</span><span>✦ Новые комнаты открываются по одной</span><span>♡ Пижамы приветствуются</span><span>✦ Строим форт из одеял</span></div></div>
-
-<section id="welcome" class="sec">
-  <h2 class="reveal">Привет, я MIA</h2>
-  <div class="welcome card reveal">
-    <img src="img/face-pajama2.png" alt="MIA мягко улыбается, прижавшись к подушке" width="512" height="512">
-    <div>
-      <p>Я немножко стеснительная, поэтому сделала себе маленький уголок, где можно спрятаться от шума: тёплый свет гирлянды, плед, подушки и звёзды за окном.</p>
-      <p>Каждая комната здесь — отдельная история. Пока открыта только прихожая, а остальные двери я готовлю по одной. Спасибо, что заглянул(а)… правда. ♡</p>
-      <p class="note">Это фанатский проект: персонаж и история вымышлены.</p>
+<div class="intro-top">
+  <a class="logo" href="home.html">MIA <span>MAYS</span> ♡</a>
+  <div class="nav-tools"><button class="icon-btn sound-toggle" id="soundToggle" aria-pressed="false" aria-label="Звуки: выключены" title="Звуки">🔇</button><a class="skip-intro" id="skipIntro" href="home.html">Пропустить →</a></div>
+</div>
+<section class="intro" aria-label="Приветствие">
+  <div class="intro-stage">
+    <figure class="intro-portrait enter-loop" id="introPortrait">
+      <div class="frame"><img src="img/mia-pillow.jpg" alt="MIA в розовой толстовке обнимает подушку и смущённо смотрит на гостя" width="937" height="1400"><span class="blink" aria-hidden="true"></span></div>
+      <span class="ear-spark l" aria-hidden="true"></span><span class="ear-spark r" aria-hidden="true"></span>
+      <figcaption class="name-tag">MIA</figcaption>
+    </figure>
+    <div class="speech" id="speech" aria-live="polite">
+      <div class="bubble-line" id="bubble"><span id="speechText"></span><span class="caret" aria-hidden="true"></span></div>
+      <div class="speech-dots" id="speechDots" aria-hidden="true"></div>
+      <div class="speech-ctrl"><button class="btn ghost small" id="speechNext">Дальше</button><button class="btn ghost small" id="speechAll">Показать всё</button></div>
+      <ol class="speech-log sr-only" id="speechLog"></ol>
     </div>
   </div>
-</section>
-
-<section id="rooms" class="sec alt">
-  <h2 class="reveal">Комнаты</h2>
-  <div class="rooms">
-    <a class="room-door" href="old.html#story"><span class="knob"></span><img src="img/face-pillow.png" alt="" loading="lazy"><b>История</b><small>кто такая MIA и откуда у неё ушки</small><i class="badge">заглянуть</i></a>
-    <a class="room-door" href="old.html#gallery"><span class="knob"></span><img src="img/mia-pajama-crop.png" alt="" loading="lazy"><b>Галерея</b><small>уютные кадры с подушками</small><i class="badge">заглянуть</i></a>
-    <a class="room-door" href="old.html#events"><span class="knob"></span><img src="img/mia-pajama-pillow.jpg" alt="" loading="lazy"><b>Уютная ночь</b><small>программа, форт из одеял</small><i class="badge">заглянуть</i></a>
-    <a class="room-door" href="old.html#shop"><span class="knob"></span><img src="img/face-pajama.png" alt="" loading="lazy"><b>Магазин</b><small>макет, ничего не продаётся</small><i class="badge soon">скоро</i></a>
-    <a class="room-door" href="old.html#tools"><span class="knob"></span><img src="img/face-pajama2.png" alt="" loading="lazy"><b>Фан-зона</b><small>стикеры, мемы, игры, стена</small><i class="badge">заглянуть</i></a>
-    <div class="room-door locked" aria-disabled="true"><span class="knob"></span><img src="img/mia-pillow.jpg" alt="" loading="lazy"><b>О проекте</b><small>вопросы и правила сообщества</small><i class="badge soon">скоро</i></div>
-  </div>
-  <p class="note">Комнаты пока ведут в старую версию сайта — новые страницы появятся по одной.</p>
-</section>
-
-<section id="night" class="sec">
-  <h2 class="reveal">До Уютной ночи</h2>
-  <div class="card night-card reveal">
-    <p>Каждую пятницу в 20:00 (по твоему времени) — совместный просмотр, тихая музыка и конкурс фортов из одеял. Событие вымышленное, это макет.</p>
-    <div class="countdown big" id="countdown" aria-hidden="true"></div>
-    <p class="sr-only" id="countdownSr" aria-live="polite"></p>
-    <div class="btns center"><button class="btn" id="rsvpBtn">Я приду ♡</button></div>
+  <div class="intro-cta reveal in">
+    <h1 class="split">Добро пожаловать в мой дом</h1>
+    <button class="btn huge" id="enterHouse"><span class="rep" aria-hidden="true"><span>Войти в дом</span><span>Войти в дом</span><span>Войти в дом</span></span><span class="sr-only">Войти в дом</span></button>
+    <p class="note">Можно и <a href="home.html" id="skipIntro2">пропустить приветствие</a> — я не обижусь.</p>
   </div>
 </section>
+<div class="houses" id="houses" aria-hidden="true" hidden>
+  <div class="houses-sky"></div>
+  <div class="houses-row">
+    <div class="house h1"><div class="roof"></div><div class="body"><span class="win"></span><div class="doorway"><span class="light"></span><span class="hdoor"></span></div></div></div>
+    <div class="house h2"><div class="roof"></div><div class="body"><span class="win"></span><div class="doorway"><span class="light"></span><span class="hdoor"></span></div></div></div>
+    <div class="house h3 main"><div class="roof"></div><div class="body"><span class="win"></span><div class="doorway"><span class="light"></span><span class="hdoor"></span></div></div></div>
+    <div class="house h4"><div class="roof"></div><div class="body"><span class="win"></span><div class="doorway"><span class="light"></span><span class="hdoor"></span></div></div></div>
+    <div class="house h5"><div class="roof"></div><div class="body"><span class="win"></span><div class="doorway"><span class="light"></span><span class="hdoor"></span></div></div></div>
+  </div>
+  <div class="houses-ground"></div>
+</div>
 </main>
 
-<footer><p>MIA MAYS ♡ фанатский проект</p><p class="note">Ссылки на соцсети — скоро. Магазин — макет.</p></footer>
-
-<div class="modal" id="rsvpModal" role="dialog" aria-modal="true" aria-labelledby="rsvpTitle" hidden><div class="modal-box card"><button class="lb-close dark" data-close aria-label="Закрыть">×</button><h3 id="rsvpTitle">Записала тебя ♡</h3><p>Отметка сохранилась только в твоём браузере. Приноси плед и любимую кружку!</p><button class="btn" data-close>Хорошо, мур~</button></div></div>
 <script src="app.js"></script>
 </body></html>
