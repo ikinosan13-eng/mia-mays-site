@@ -58,6 +58,22 @@ $$('.rooms,.stickers,.comic,.gallery,.shop,.wallpapers,.about-grid,.diary,.mood-
 $$('.sec>h2').forEach(h => h.classList.add('reveal'));
 const io = 'IntersectionObserver' in window ? new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12, rootMargin: '0px 0px -30px' }) : null;
 $$('.reveal').forEach(el => reduce || !io ? el.classList.add('in') : io.observe(el));
+$$('.gallery>*').forEach(el => el.classList.add('zoom-in'));
+$$('.timeline li,.tl li').forEach((el, i) => { el.classList.add('reveal', i % 2 ? 'from-right' : 'from-left'); reduce || !io ? el.classList.add('in') : io.observe(el); });
+// страховка: через 3 с всё, что ещё скрыто, показываем
+setTimeout(() => $$('.reveal:not(.in)').forEach(el => { const r = el.getBoundingClientRect(); if (r.top < innerHeight * 1.5) el.classList.add('in'); }), 3000);
+setTimeout(() => document.documentElement.classList.add('reveal-done'), 8000);
+// мягкий параллакс фона
+const drift = $('.drift');
+if (drift && !reduce) { const ls = $$('i', drift); let ticking = false;
+  addEventListener('scroll', () => { if (ticking) return; ticking = true; requestAnimationFrame(() => { const y = scrollY; ls.forEach((l, i) => l.style.transform = `translate3d(0,${-y * (.04 + i * .05)}px,0)`); ticking = false; }); }, { passive: true }); }
+// переходы между страницами
+document.addEventListener('click', e => { const a = e.target.closest('a[href]'); if (!a || e.defaultPrevented || reduce) return;
+  if (e.button || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey || a.target || a.hasAttribute('download')) return;
+  const u = new URL(a.href, location.href); if (u.origin !== location.origin || !/\.html$|\/$/.test(u.pathname)) return;
+  if (u.pathname === location.pathname && u.hash) return;
+  e.preventDefault(); document.body.classList.add('leaving'); setTimeout(() => location.href = u.href, 300); });
+addEventListener('pageshow', e => { if (e.persisted) document.body.classList.remove('leaving'); });
 
 // счётчики
 const counters = $$('[data-count]');
@@ -150,13 +166,17 @@ if (speechText) {
   const mark = () => sess.set('mia-intro', '1');
   $$('#skipIntro,#skipIntro2').forEach(a => a.addEventListener('click', mark));
   const enter = $('#enterHouse'), houses = $('#houses');
-  if (enter) enter.addEventListener('click', () => { mark(); clearTimeout(timer);
-    if (reduce || !houses) { document.body.style.transition = 'opacity .4s'; document.body.style.opacity = 0; setTimeout(() => location.href = 'home.html', 400); return; }
-    houses.hidden = false; void houses.offsetWidth; houses.classList.add('show'); Sound.meow();
+  if (enter) enter.addEventListener('click', e => { if (e.button || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) return; e.preventDefault(); mark(); clearTimeout(timer);
+    const go = () => location.href = enter.href;
+    if (!houses) return go();
+    houses.classList.remove('open', 'zoom', 'flash'); void houses.offsetWidth; houses.classList.add('show');
+    if (reduce) return setTimeout(go, 700);
+    Sound.meow();
     setTimeout(() => { houses.classList.add('open'); Sound.tone(660, .3, 'triangle'); }, 650);
     setTimeout(() => houses.classList.add('zoom'), 1500);
     setTimeout(() => houses.classList.add('flash'), 2450);
-    setTimeout(() => location.href = 'home.html', 2900); });
+    setTimeout(go, 2900); });
+  addEventListener('pageshow', ev => { if (ev.persisted && houses) houses.classList.remove('show', 'open', 'zoom', 'flash'); });
 }
 
 // ===== главная: сцена-порог =====

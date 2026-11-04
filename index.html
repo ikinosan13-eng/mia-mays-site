@@ -7,10 +7,12 @@
 <meta name="theme-color" content="#F5B8D4">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;800;900&subset=cyrillic&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add("js")</script>
 <link rel="stylesheet" href="style.css">
-<script>try{if(sessionStorage.getItem("mia-intro")==="1"&&!/intro=1/.test(location.search))location.replace("home.html")}catch(e){}</script>
 </head>
 <body class="intro-page">
+<div class="curtain" aria-hidden="true"><span>🐾</span></div>
+<div class="drift" aria-hidden="true"><i class="d1"></i><i class="d2"></i><i class="d3"><b style="left:12%;animation-delay:-2s">♡</b><b style="left:38%;animation-delay:-7s">♡</b><b style="left:66%;animation-delay:-4s">♡</b><b style="left:88%;animation-delay:-10s">♡</b></i></div>
 <div class="petals" aria-hidden="true"></div>
 
 <main id="main">
@@ -35,11 +37,21 @@
   </div>
   <div class="intro-cta reveal in">
     <h1 class="split">Добро пожаловать в мой дом</h1>
-    <button class="btn huge" id="enterHouse"><span class="rep" aria-hidden="true"><span>Войти в дом</span><span>Войти в дом</span><span>Войти в дом</span></span><span class="sr-only">Войти в дом</span></button>
+    <a class="btn huge" id="enterHouse" href="home.html"><span class="rep" aria-hidden="true"><span>Войти в дом</span><span>Войти в дом</span><span>Войти в дом</span></span><span class="sr-only">Войти в дом</span></a>
     <p class="note">Можно и <a href="home.html" id="skipIntro2">пропустить приветствие</a> — я не обижусь.</p>
   </div>
+<div class="village" id="village" aria-hidden="true">
+  <div class="houses-row">
+    <div class="house h1"><div class="roof"></div><div class="body"><span class="win"></span><div class="doorway"><span class="light"></span><span class="hdoor"></span></div></div></div>
+    <div class="house h2"><div class="roof"></div><div class="body"><span class="win"></span><div class="doorway"><span class="light"></span><span class="hdoor"></span></div></div></div>
+    <div class="house h3 main"><div class="roof"></div><div class="body"><span class="win"></span><div class="doorway"><span class="light"></span><span class="hdoor"></span></div></div></div>
+    <div class="house h4"><div class="roof"></div><div class="body"><span class="win"></span><div class="doorway"><span class="light"></span><span class="hdoor"></span></div></div></div>
+    <div class="house h5"><div class="roof"></div><div class="body"><span class="win"></span><div class="doorway"><span class="light"></span><span class="hdoor"></span></div></div></div>
+  </div>
+  <div class="houses-ground"></div>
+</div>
 </section>
-<div class="houses" id="houses" aria-hidden="true" hidden>
+<div class="houses" id="houses" aria-hidden="true">
   <div class="houses-sky"></div>
   <div class="houses-row">
     <div class="house h1"><div class="roof"></div><div class="body"><span class="win"></span><div class="doorway"><span class="light"></span><span class="hdoor"></span></div></div></div>

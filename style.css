@@ -354,3 +354,65 @@ body.night .intro-page,body.night.intro-page{background:#221833}
 @media (max-width:420px){.window{width:70%;left:4%}.door-card{width:66%}}
 @media (max-width:760px){.speech{margin-top:18px}.intro-portrait .frame{border-width:7px}}
 .intro{min-height:calc(100svh - 80px);align-content:center}
+
+/* ===== этап 3: деревня на вступлении (всегда видна, без JS) ===== */
+.houses{visibility:hidden;pointer-events:none}
+.houses.show{visibility:visible;pointer-events:auto}
+.village{position:relative;height:clamp(150px,24vw,250px);margin:6px auto 0;width:100%;max-width:900px;overflow:hidden;border-radius:0 0 40px 40px}
+.village .houses-row{bottom:22%;transition:none}
+.village .house{opacity:1;transform:none;transition:none;animation:houseUp .9s var(--spring) both}
+.village .house.h1{animation-delay:.1s}.village .house.h2{animation-delay:.2s}.village .house.h3{animation-delay:.3s}.village .house.h4{animation-delay:.4s}.village .house.h5{animation-delay:.5s}
+.village .house .win{animation:winGlow 3.5s ease-in-out infinite both}
+.village .house.main{animation-name:houseUp,houseBob;animation-duration:.9s,4s;animation-delay:.3s,1.3s;animation-iteration-count:1,infinite;animation-timing-function:var(--spring),ease-in-out}
+.village .houses-ground{height:24%;border-radius:50% 50% 0 0/40px 40px 0 0}
+.village:hover .hdoor,.village:focus-within .hdoor{transform:rotateY(-60deg)}.village:hover .light{opacity:1}
+@keyframes houseUp{from{opacity:0;transform:translateY(40px) scale(.9)}to{opacity:1;transform:none}}
+@keyframes houseBob{50%{transform:translateY(-5px)}}
+@keyframes winGlow{50%{filter:brightness(1.25) drop-shadow(0 0 6px #ffd98a)}}
+a.btn{text-decoration:none;display:inline-flex}
+
+/* ===== reveal: скрываем только при работающем JS ===== */
+html:not(.js) .reveal,.reveal-done .reveal{opacity:1!important;transform:none!important}
+.reveal.from-left{transform:translateX(-30px)}.reveal.from-right{transform:translateX(30px)}.reveal.zoom-in{transform:scale(.94)}
+.reveal.in.from-left,.reveal.in.from-right,.reveal.in.zoom-in{transform:none}
+
+/* ===== hover / нажатие ===== */
+.btn,.chip,.tab,.icon-btn,.skip-intro{transition:transform .25s var(--spring),box-shadow .25s,filter .25s}
+.btn:hover,.chip:hover,.icon-btn:hover,.skip-intro:hover{transform:translateY(-2px);box-shadow:0 8px 22px #e0607e40}
+.btn:active,.chip:active,.tab:active,.icon-btn:active,.skip-intro:active{transform:translateY(1px) scale(.96);transition-duration:.08s}
+.mood-card,.room,.page-card,.bento>*,.shop>*,.wallpapers>*,.about-grid>*,.gallery>*,.stickers>*,.profile,.panel,.card{transition:transform .35s var(--spring),box-shadow .35s}
+.mood-card:hover,.room:hover,.bento>*:hover,.shop>*:hover,.wallpapers>*:hover,.about-grid>*:hover,.stickers>*:hover,.panel:hover,.card:hover{transform:translateY(-6px);box-shadow:0 18px 40px #e0607e33,0 0 0 3px #F5B8D455}
+.page-card:hover{transform:translateY(-6px) rotate(0)}
+
+/* ===== мягкий фон: пылинки, звёздочки, сердечки ===== */
+.drift{position:fixed;inset:-10% 0;z-index:-1;pointer-events:none;overflow:hidden}
+.drift i{position:absolute;inset:0;background-repeat:repeat;opacity:.5;will-change:transform}
+.drift .d1{background-image:radial-gradient(2px 2px at 10% 20%,#F5B8D4,transparent),radial-gradient(2px 2px at 60% 70%,#f2766b88,transparent),radial-gradient(3px 3px at 85% 30%,#ffd98a,transparent);background-size:340px 340px;animation:driftA 40s linear infinite}
+.drift .d2{background-image:radial-gradient(1.5px 1.5px at 30% 50%,#b99cff,transparent),radial-gradient(2px 2px at 75% 15%,#F5B8D4,transparent);background-size:220px 260px;animation:driftB 60s linear infinite;opacity:.4}
+.drift .d3{font-size:14px;color:#F5B8D4;opacity:.35}
+.drift .d3 b{position:absolute;animation:heartFloat 14s ease-in-out infinite both}
+@keyframes driftA{to{background-position:340px -340px}}@keyframes driftB{to{background-position:-220px -260px}}
+@keyframes heartFloat{0%{transform:translateY(20vh);opacity:0}20%{opacity:1}100%{transform:translateY(-60vh) rotate(25deg);opacity:0}}
+
+body.night .drift{opacity:.8}
+
+/* ===== переход между страницами ===== */
+.curtain{position:fixed;inset:0;z-index:900;pointer-events:none;background:linear-gradient(160deg,#fde3ee,#F5B8D4);display:grid;place-items:center;font-size:42px;color:#e0607e;animation:curtainOut .55s ease .05s both}
+.curtain span{animation:pawPulse .5s ease both}
+html:not(.js) .curtain{display:none}
+body.leaving .curtain{animation:curtainIn .32s ease both}
+@keyframes curtainOut{from{opacity:1;transform:none}to{opacity:0;transform:translateY(-100%)}}
+@keyframes curtainIn{from{opacity:0;transform:translateY(100%)}to{opacity:1;transform:none}}
+@keyframes pawPulse{50%{transform:scale(1.2)}}
+@media (prefers-reduced-motion:reduce){.curtain,.drift{display:none!important}.village .house,.village .house .win{animation:none!important}.btn:hover,.btn:active{transform:none}}
+/* деревня закреплена внизу экрана — видна сразу при любом размере */
+.village{position:fixed;left:0;right:0;bottom:0;margin:0;max-width:none;height:clamp(80px,15vh,150px);border-radius:0;z-index:0;pointer-events:none}
+.village .houses-row{bottom:12px;transform:translateX(-50%) scale(.55);transform-origin:50% 100%}
+.village .houses-ground{height:30px;border-radius:50% 50% 0 0/24px 24px 0 0}
+.intro-page .intro{padding-bottom:calc(clamp(80px,15vh,150px) + 20px)}
+.intro-page .intro-stage,.intro-page .intro-cta{position:relative;z-index:2}
+@media (min-width:761px){.intro-portrait{width:min(100%,330px)}}
+.village{height:clamp(96px,17vh,170px)}.village .houses-row{bottom:4px}
+@media (max-width:760px){.village{height:110px}.village .houses-row{transform:translateX(-50%) scale(.85)}.intro-page .intro{padding-bottom:130px}.intro-portrait{width:min(58%,240px)}.intro{gap:14px}}
+@media (max-width:760px){.village{position:relative;order:-1;height:86px;margin:-6px -16px 0;width:auto}.village .houses-row{transform:translateX(-50%) scale(.6)}.intro-page .intro{padding-bottom:40px}}
+html,body{overflow-x:clip}
