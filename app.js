@@ -89,8 +89,8 @@ if (fine && !reduce) $$('.tilt').forEach(el => {
 
 // курсор-лапка (только мышь)
 const paw = $('.paw-cursor');
-if (paw && fine && !reduce) { document.body.classList.add('paw'); let x = -100, y = -100, cx = x, cy = y, raf = 0;
-  addEventListener('pointermove', e => { if (e.pointerType !== 'mouse') return; x = e.clientX; y = e.clientY; if (!raf) raf = requestAnimationFrame(step); }, { passive: true });
+if (paw && fine && !reduce) { document.body.classList.add('paw'); paw.style.opacity = 0; let x = -100, y = -100, cx = x, cy = y, raf = 0;
+  addEventListener('pointermove', e => { if (e.pointerType !== 'mouse') return; if (paw.style.opacity === '0') { paw.style.opacity = 1; cx = e.clientX; cy = e.clientY; } x = e.clientX; y = e.clientY; if (!raf) raf = requestAnimationFrame(step); }, { passive: true });
   addEventListener('pointerdown', () => paw.classList.add('down')); addEventListener('pointerup', () => paw.classList.remove('down'));
   document.addEventListener('mouseleave', () => { paw.style.opacity = 0; }); document.addEventListener('mouseenter', () => { paw.style.opacity = 1; });
   function step() { raf = 0; cx += (x - cx) * .35; cy += (y - cy) * .35; paw.style.transform = `translate3d(${cx - 15}px,${cy - 15}px,0) rotate(${(x - cx) * .5}deg)`; if (Math.abs(x - cx) + Math.abs(y - cy) > .5) raf = requestAnimationFrame(step); } }
@@ -161,7 +161,7 @@ if (speechText) {
   next.addEventListener('click', () => { if (typing) { clearTimeout(timer); typing = false; speechText.textContent = lines[li]; schedule(); return; } say(li < lines.length - 1 ? li + 1 : 0); if (li === 0) next.textContent = 'Дальше'; });
   all.addEventListener('click', () => { clearTimeout(timer); typing = false; speechText.textContent = lines.join(' '); li = lines.length - 1; [...dots.children].forEach(d => d.classList.add('on')); next.textContent = 'Сначала'; });
   if (pic) pic.addEventListener('click', e => { react('spark'); burst(e.clientX, e.clientY); Sound.meow(); });
-  if (!reduce) setInterval(() => react('blinking'), 3800);
+  if (!reduce) (function blinkLoop() { setTimeout(() => { react('blinking'); if (Math.random() < .22) setTimeout(() => react('blinking'), 260); blinkLoop(); }, 2200 + Math.random() * 4300); })();
   setTimeout(() => say(0), reduce ? 0 : 900);
   const mark = () => sess.set('mia-intro', '1');
   $$('#skipIntro,#skipIntro2').forEach(a => a.addEventListener('click', mark));
@@ -359,4 +359,43 @@ if (wall) { const KEY = 'mia-wall'; const getW = () => { try { return JSON.parse
     const l = getW(), w = { n: n.slice(0, 24), m: m.slice(0, 140) }; l.push(w); store.set(KEY, JSON.stringify(l.slice(-100))); $('#wallMsg').value = '';
     if (placeholder) { wall.textContent = ''; placeholder = false; } const li = liFor(w, l.length); li.classList.add('new'); wall.prepend(li); while (wall.children.length > 30) wall.lastElementChild.remove(); Sound.tone(880, .14, 'triangle'); toast('Записка приколота ♡'); });
   render(); }
+
+// ===== LUXE: бархатный блик подвала за курсором =====
+(() => { const f = document.querySelector('footer'); if (!f || reduce) return;
+  f.addEventListener('pointermove', e => { const r = f.getBoundingClientRect(); f.style.setProperty('--mx', (e.clientX - r.left) + 'px'); f.style.setProperty('--my', (e.clientY - r.top) + 'px'); }, { passive: true }); })();
+
+// люстра: подвески отклоняются от курсора
+(() => { const ch = $('#chandelier'); if (!ch || reduce || !fine) return; const cr = $$('.crystal', ch); let raf = 0, px = 0, py = 0;
+  addEventListener('pointermove', e => { px = e.clientX; py = e.clientY; if (!raf) raf = requestAnimationFrame(() => { raf = 0;
+    cr.forEach(c => { const r = c.getBoundingClientRect(), dx = r.left - px, dy = (r.top + r.height) - py, d = Math.hypot(dx, dy);
+      c.style.setProperty('--push', d < 120 ? (Math.sign(dx) * (120 - d) / 4).toFixed(1) : 0); }); }); }, { passive: true }); })();
+// котёнок в коробке: выглядывает в своём ритме, моргает нерегулярно, 3 клика — выпрыгивает
+(() => { const k = $('#kitBox'); if (!k) return; let clicks = 0;
+  const blink = () => { k.classList.remove('blink'); void k.offsetWidth; k.classList.add('blink'); };
+  if (reduce) { k.classList.add('peek'); } else {
+    const peek = () => { k.classList.add('peek'); setTimeout(blink, 900 + Math.random() * 900); setTimeout(() => { if (!k.matches(':hover')) k.classList.remove('peek'); setTimeout(peek, 3000 + Math.random() * 6000); }, 2600 + Math.random() * 2600); };
+    setTimeout(peek, 1500 + Math.random() * 2000);
+    (function bl() { setTimeout(() => { if (k.classList.contains('peek')) blink(); bl(); }, 1800 + Math.random() * 3500); })(); }
+  k.addEventListener('click', e => { clicks++; blink(); Sound.meow();
+    if (clicks % 3 === 0) { k.classList.add('out'); const r = k.getBoundingClientRect(); burst(r.left + r.width / 2, r.top + 20, 14); toast('Мяу! Ты нашёл(ла) котёнка в коробке ♡'); setTimeout(() => k.classList.remove('out'), 1200); } }); })();
+// нажатие: волна; магнитные крупные кнопки; свет за курсором на карточках
+document.addEventListener('pointerdown', e => { const b = e.target.closest('.btn,.chip'); if (!b || reduce) return; const r = b.getBoundingClientRect(), s = document.createElement('span');
+  s.className = 'ripple'; s.setAttribute('aria-hidden', 'true'); s.style.setProperty('--rx', (e.clientX - r.left) + 'px'); s.style.setProperty('--ry', (e.clientY - r.top) + 'px'); b.append(s); setTimeout(() => s.remove(), 650); });
+if (fine && !reduce) {
+  $$('.btn.big,.btn.huge').forEach(b => { b.classList.add('magnet');
+    b.addEventListener('pointermove', e => { const r = b.getBoundingClientRect(); b.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * .18}px,${(e.clientY - r.top - r.height / 2) * .3}px)`; });
+    b.addEventListener('pointerleave', () => { b.style.transform = ''; }); });
+  document.addEventListener('pointermove', e => { const c = e.target.closest && e.target.closest('.mood-card,.room,.panel,.card,.bento>*,.wallpapers>*,.shop>*,.gallery>*'); if (!c) return;
+    const r = c.getBoundingClientRect(); c.style.setProperty('--lx', (e.clientX - r.left) + 'px'); c.style.setProperty('--ly', (e.clientY - r.top) + 'px'); }, { passive: true }); }
+// пылинки в окне
+(() => { const w = $('.window'); if (!w || reduce) return; const m = document.createElement('span'); m.className = 'motes'; m.setAttribute('aria-hidden', 'true');
+  for (let i = 0; i < 14; i++) { const d = document.createElement('i'); d.style.cssText = `left:${10 + Math.random() * 70}%;top:${30 + Math.random() * 60}%;--t:${6 + Math.random() * 7}s;--dl:${-Math.random() * 10}s;--dx:${(Math.random() * 40 - 20).toFixed(0)}px`; m.append(d); } w.append(m); })();
+// пасхалка: набери «мяу» (или meow) — дождь из лапок
+(() => { let buf = ''; addEventListener('keydown', e => { if (e.target.closest('input,textarea,select,[contenteditable]') || e.key.length !== 1) return; buf = (buf + e.key.toLowerCase()).slice(-4);
+  if (/мяу$|meow$/.test(buf)) { buf = ''; Sound.meow(); toast('Мяу-мяу! Лапки сыплются с неба ♡'); if (reduce) return;
+    for (let i = 0; i < 26; i++) setTimeout(() => { const p = document.createElement('span'); p.className = 'paw-rain'; p.textContent = '🐾'; p.setAttribute('aria-hidden', 'true');
+      p.style.cssText = `left:${Math.random() * 100}vw;--t:${2.4 + Math.random() * 2}s;--dx:${(Math.random() * 120 - 60).toFixed(0)}px;--r:${(Math.random() * 360).toFixed(0)}deg`; document.body.append(p); setTimeout(() => p.remove(), 4600); }, i * 70); } }); })();
+// поздним вечером лампа сама приглушается, если гость ещё не выбирал
+(() => { const h = new Date().getHours(); if ((h >= 22 || h < 6) && store.get('mia-night') == null && typeof setNight === 'function') { setNight(true); } })();
+// @@LUXE-END
 })();

@@ -6,11 +6,13 @@
 <meta name="description" content="Главная: комната MIA, её настроение, дневник, комнаты-разделы и отсчёт до Уютной ночи.">
 <meta name="theme-color" content="#F5B8D4">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;800;900&subset=cyrillic&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;800;900&subset=cyrillic&display=swap" rel="stylesheet">
 <script>document.documentElement.classList.add("js")</script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E%F0%9F%90%BE%3C/text%3E%3C/svg%3E">
 <link rel="stylesheet" href="style.css">
 </head>
 <body class="home">
+<div class="yarn-progress" aria-hidden="true"></div>
 <div class="curtain" aria-hidden="true"><span>🐾</span></div>
 <div class="drift" aria-hidden="true"><i class="d1"></i><i class="d2"></i><i class="d3"><b style="left:12%;animation-delay:-2s">♡</b><b style="left:38%;animation-delay:-7s">♡</b><b style="left:66%;animation-delay:-4s">♡</b><b style="left:88%;animation-delay:-10s">♡</b></i></div>
 <div class="petals" aria-hidden="true"></div>
@@ -37,11 +39,14 @@
 <section class="threshold" id="threshold" aria-label="Порог: комната MIA">
   <div class="scene" id="scene">
     <div class="layer sky" data-depth="0.15" aria-hidden="true">
-      <div class="window"><div class="stars"></div><div class="moon"></div><div class="frame-h"></div><div class="frame-v"></div></div>
+      <div class="window"><span class="rays"></span><div class="stars"></div><div class="moon"></div><div class="frame-h"></div><div class="frame-v"></div></div>
     </div>
     <div class="layer lights" data-depth="0.3" aria-hidden="true">
       <svg viewBox="0 0 1000 120" preserveAspectRatio="none"><path d="M0 20 Q250 110 500 40 T1000 30" stroke="#8a2943" stroke-width="2" fill="none"/></svg>
       <div class="bulbs"></div>
+    </div>
+    <div class="layer chand-layer" data-depth="0.25" aria-hidden="true">
+      <div class="chandelier" id="chandelier"><span class="ch-chain"></span><span class="ch-arm"></span><span class="crystal" style="--i:0;--x:6%;--len:34px"></span><span class="crystal" style="--i:1;--x:20%;--len:52px"></span><span class="crystal" style="--i:2;--x:34%;--len:40px"></span><span class="crystal" style="--i:3;--x:50%;--len:64px"></span><span class="crystal" style="--i:4;--x:66%;--len:40px"></span><span class="crystal" style="--i:5;--x:80%;--len:52px"></span><span class="crystal" style="--i:6;--x:94%;--len:34px"></span><span class="ch-glow"></span></div>
     </div>
     <div class="layer glow-layer" data-depth="0.4" aria-hidden="true"><div class="room-glow"></div></div>
     <div class="layer portrait-wrap" data-depth="0.7">
@@ -94,6 +99,7 @@
 </section>
 
 <section class="sec" id="rooms">
+  <button class="kit-box" id="kitBox" type="button" aria-label="Коробка: кто-то там живёт. Нажми"><span class="kit" aria-hidden="true"><i class="kear l"></i><i class="kear r"></i><i class="keye l"></i><i class="keye r"></i><i class="knose"></i></span><span class="box" aria-hidden="true"><b>с любовью</b></span></button>
   <h2 class="reveal">Комнаты</h2>
   <div class="rooms"><a class="room-door" href="story.html"><span class="knob"></span><img src="img/face-pillow.png" alt="" loading="lazy"><b>История</b><small>дневник, профиль и комикс</small><i class="badge">войти</i></a><a class="room-door" href="gallery.html"><span class="knob"></span><img src="img/mia-pajama-crop.png" alt="" loading="lazy"><b>Галерея</b><small>уютные кадры и лайтбокс</small><i class="badge">войти</i></a><a class="room-door" href="cozy-night.html"><span class="knob"></span><img src="img/mia-pajama-pillow.jpg" alt="" loading="lazy"><b>Уютная ночь</b><small>программа и форт из одеял</small><i class="badge">войти</i></a><a class="room-door" href="shop.html"><span class="knob"></span><img src="img/face-pajama.png" alt="" loading="lazy"><b>Магазин</b><small>обои и стикеры бесплатно</small><i class="badge">войти</i></a><a class="room-door" href="fans.html"><span class="knob"></span><img src="img/face-pajama2.png" alt="" loading="lazy"><b>Фан-зона</b><small>аватарки, игры, стена</small><i class="badge">войти</i></a><a class="room-door" href="about.html"><span class="knob"></span><img src="img/mia-pillow.jpg" alt="" loading="lazy"><b>О проекте</b><small>вопросы и правила</small><i class="badge">войти</i></a></div>
 </section>
