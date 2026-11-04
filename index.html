@@ -13,6 +13,7 @@
 <div class="petals" aria-hidden="true"></div>
 <header class="nav">
   <a href="#home" class="logo">MIA<span>_</span>MAYS ♡</a>
+  <button class="sound-toggle" id="soundToggle" aria-pressed="false" aria-label="Hover sounds: off" title="Hover sounds">🔇</button>
   <button class="burger" aria-expanded="false" aria-controls="menu" aria-label="Menu">☰</button>
   <nav id="menu" aria-label="Main"><a href="#story">Story</a><a href="#comic">Comic</a><a href="#tools">Fan Tools</a><a href="#games">Games</a><a href="#events">Events</a><a href="#shop">Shop</a><a href="#gallery">Gallery</a><a href="#community">Community</a></nav>
 </header>
@@ -23,7 +24,7 @@
     <p class="tag">The shyest cat-girl on the internet. Blankets mandatory. ♡</p>
     <div class="btns"><a class="btn big" href="#tools">Make a meme</a><a class="btn big ghost" href="https://x.com/" target="_blank" rel="noopener">Follow on X</a></div>
   </div>
-  <div class="hero-img reveal"><div class="glow"></div><img id="heroMia" src="img/mia-hoodie.png" alt="MIA, a pink-haired cat-girl in a cozy hoodie, smiling shyly"><span class="ear-react" aria-hidden="true">✨</span></div>
+  <div class="hero-img reveal"><div class="parallax glow-wrap" data-depth="0.25"><div class="glow"></div></div><div class="parallax" data-depth="-0.12"><img id="heroMia" src="img/mia-hoodie.png" alt="MIA, a pink-haired cat-girl in a cozy hoodie, smiling shyly"></div><span class="ear-react" aria-hidden="true">✨</span></div>
 </section>
 
 <section id="story" class="sec">
@@ -123,7 +124,7 @@
 <section id="events" class="sec">
   <h2 class="reveal">Events</h2>
   <div class="events reveal">
-    <div class="card"><h3>🌙 Cozy Night</h3><p>Watch-along + blanket fort contest (mock event).</p><div class="countdown" id="countdown" aria-live="polite"></div></div>
+    <div class="card"><h3>🌙 Cozy Night</h3><p>Watch-along + blanket fort contest (mock event).</p><div class="countdown" id="countdown" aria-hidden="true"></div><p class="sr-only" id="countdownSr" aria-live="polite"></p></div>
     <div class="card"><h3>Calendar</h3><ul class="cal"><li><b>Fri</b> Cozy Night stream</li><li><b>Sat</b> Fan-art share day</li><li><b>Sun</b> Sleepy lo-fi hours</li></ul><p class="note">Mock dates.</p></div>
   </div>
 </section>
@@ -131,10 +132,10 @@
 <section id="shop" class="sec alt">
   <h2 class="reveal">Cozy Shop <small>(mock — no checkout)</small></h2>
   <div class="shop">
-    <div class="card item reveal"><img src="img/mia-bed.png" alt="Plushie preview"><h3>Mia Plushie</h3><p class="price">$— mock</p><button class="btn ghost" disabled>Coming soon</button></div>
-    <div class="card item reveal"><img src="img/mia-hoodie.png" alt="Hoodie preview"><h3>Cat-Ear Hoodie</h3><p class="price">$— mock</p><button class="btn ghost" disabled>Coming soon</button></div>
-    <div class="card item reveal"><img src="img/face-pajama.png" alt="Enamel pin preview"><h3>Enamel Pin</h3><p class="price">$— mock</p><button class="btn ghost" disabled>Coming soon</button></div>
-    <div class="card item reveal"><img src="img/face-hoodie.png" alt="Sticker pack preview"><h3>Sticker Pack</h3><p class="price">$— mock</p><button class="btn ghost" disabled>Coming soon</button></div>
+    <div class="card item reveal"><img src="img/mia-bed.png" alt="Plushie preview"><h3>Mia Plushie</h3><p class="price">$— mock</p><button class="btn ghost shop-soon">Coming soon</button></div>
+    <div class="card item reveal"><img src="img/mia-hoodie.png" alt="Hoodie preview"><h3>Cat-Ear Hoodie</h3><p class="price">$— mock</p><button class="btn ghost shop-soon">Coming soon</button></div>
+    <div class="card item reveal"><img src="img/face-pajama.png" alt="Enamel pin preview"><h3>Enamel Pin</h3><p class="price">$— mock</p><button class="btn ghost shop-soon">Coming soon</button></div>
+    <div class="card item reveal"><img src="img/face-hoodie.png" alt="Sticker pack preview"><h3>Sticker Pack</h3><p class="price">$— mock</p><button class="btn ghost shop-soon">Coming soon</button></div>
   </div>
 </section>
 
@@ -160,6 +161,7 @@
 </section>
 </main>
 <footer><p>MIA_MAYS ♡ <a href="https://x.com/" target="_blank" rel="noopener">X</a> · <a href="https://x.com/" target="_blank" rel="noopener">Updates</a></p><p class="note">Fan prototype. Shop is mock. Links are placeholders.</p></footer>
-<div class="lightbox" id="lb" role="dialog" aria-modal="true" aria-label="Image viewer" hidden><button class="lb-close" aria-label="Close">×</button><img alt=""></div>
+<div class="lightbox modal" id="lb" role="dialog" aria-modal="true" aria-label="Image viewer" hidden><div class="modal-box lb-box"><button class="lb-close" data-close aria-label="Close">×</button><button class="lb-nav prev" aria-label="Previous image">‹</button><img alt=""><button class="lb-nav next" aria-label="Next image">›</button></div></div>
+<div class="modal" id="shopModal" role="dialog" aria-modal="true" aria-labelledby="shopTitle" hidden><div class="modal-box card"><button class="lb-close dark" data-close aria-label="Close">×</button><h3 id="shopTitle">Coming soon ♡</h3><p>This is a mock shop — nothing is for sale yet. Follow Mia on X for updates!</p><button class="btn" data-close>Okay, nya~</button></div></div>
 <script src="app.js"></script>
 </body></html>
