@@ -1,167 +1,99 @@
 <!doctype html>
-<html lang="en">
+<html lang="ru">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>MIA_MAYS — cozy cat-girl homebase</title>
-<meta name="description" content="MIA_MAYS: shy cozy cat-girl. Story, comic, fan tools, games, events, mock shop.">
+<title>MIA MAYS — порог уютного мира</title>
+<meta name="description" content="Фанатский сайт о MIA: переступи порог её уютной комнаты. История, галерея, Уютная ночь и фан-зона.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
-<body>
-<a class="skip" href="#main">Skip to content</a>
+<body class="home">
+<a class="skip" href="#main">К содержимому</a>
 <div class="petals" aria-hidden="true"></div>
 <header class="nav">
-  <a href="#home" class="logo">MIA<span>_</span>MAYS ♡</a>
-  <button class="sound-toggle" id="soundToggle" aria-pressed="false" aria-label="Hover sounds: off" title="Hover sounds">🔇</button>
-  <button class="burger" aria-expanded="false" aria-controls="menu" aria-label="Menu">☰</button>
-  <nav id="menu" aria-label="Main"><a href="#story">Story</a><a href="#comic">Comic</a><a href="#tools">Fan Tools</a><a href="#games">Games</a><a href="#events">Events</a><a href="#shop">Shop</a><a href="#gallery">Gallery</a><a href="#community">Community</a></nav>
+  <a href="./" class="logo" aria-current="page">MIA <span>MAYS</span> ♡</a>
+  <button class="lamp-toggle" id="lampToggle" aria-pressed="false" aria-label="Лампа: включить ночной режим" title="Лампа">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10l3 8H4z" fill="currentColor"/><rect x="11" y="11" width="2" height="7" fill="currentColor"/><rect x="7" y="18" width="10" height="3" rx="1.5" fill="currentColor"/></svg>
+  </button>
+  <button class="sound-toggle" id="soundToggle" aria-pressed="false" aria-label="Звуки: выключены" title="Звуки">🔇</button>
+  <button class="burger" aria-expanded="false" aria-controls="menu" aria-label="Меню">☰</button>
+  <nav id="menu" aria-label="Основная навигация">
+    <a href="./" aria-current="page" class="active">Главная</a><a href="#rooms">Комнаты</a><a href="#night">Уютная ночь</a><a href="#welcome">Привет</a>
+  </nav>
 </header>
+
 <main id="main">
-<section id="home" class="hero">
-  <div class="hero-text reveal">
-    <h1>Hi… I'm <em>MIA</em>.<br>Stay in. Stay cozy.</h1>
-    <p class="tag">The shyest cat-girl on the internet. Blankets mandatory. ♡</p>
-    <div class="btns"><a class="btn big" href="#tools">Make a meme</a><a class="btn big ghost" href="https://x.com/" target="_blank" rel="noopener">Follow on X</a></div>
-  </div>
-  <div class="hero-img reveal"><div class="parallax glow-wrap" data-depth="0.25"><div class="glow"></div></div><div class="parallax" data-depth="-0.12"><img id="heroMia" src="img/mia-pillow.jpg" alt="MIA, a pink-haired cat-girl in a pink hoodie, hugging a pillow shyly"></div><span class="ear-react" aria-hidden="true">✨</span></div>
-</section>
-
-<section id="story" class="sec">
-  <h2 class="reveal">My Story</h2>
-  <div class="story-grid">
-    <article class="card reveal"><h3>Chapter 1 · The Blanket Kingdom</h3><p>I'm Mia. I live in a tiny apartment that smells like strawberry tea. My ears twitch when someone says my name, which is very embarrassing.</p></article>
-    <article class="card reveal"><h3>Chapter 2 · The Bow</h3><p>My red bow clip was a gift from my grandma. I wear it every day, even on sleepy pajama days. It's my bravery charm.</p></article>
-    <article class="card reveal"><h3>Chapter 3 · Hello, You</h3><p>I'm shy, but I wanted to make a little corner where we can be cozy together. Thanks for visiting… really. ♡</p></article>
-  </div>
-  <p class="note">Placeholder lore — to be replaced.</p>
-</section>
-
-<section id="comic" class="sec alt">
-  <h2 class="reveal">Comic · “Five More Minutes”</h2>
-  <div class="comic reveal">
-    <figure class="panel"><img src="img/face-pillow.png" alt="Mia pouting into her pillow"><span class="bubble">Alarm…? No thank you.</span></figure>
-    <figure class="panel"><img src="img/face-pajama.png" alt="Mia in pajamas, thinking"><span class="bubble">Maybe if I just… stay in pajamas all day?</span></figure>
-    <figure class="panel"><img src="img/face-pajama2.png" alt="Mia smiling softly on her pillow"><span class="bubble">Okay! Pajamas = cozy mode.</span></figure>
-    <figure class="panel"><img src="img/mia-pajama-pillow.jpg" alt="Mia back in bed hugging her pillow"><span class="bubble">…productive napping. ♡</span></figure>
-  </div>
-</section>
-
-<section id="tools" class="sec">
-  <h2 class="reveal">Fan Tools</h2>
-  <h3 class="sub">Free stickers <small>(click to download)</small></h3>
-  <div class="stickers reveal">
-    <a download href="img/face-pillow.png" class="sticker"><img src="img/face-pillow.png" alt="Sticker: pouty Mia"></a>
-    <a download href="img/face-pajama2.png" class="sticker"><img src="img/face-pajama2.png" alt="Sticker: smiley Mia"></a>
-    <a download href="img/face-pajama.png" class="sticker"><img src="img/face-pajama.png" alt="Sticker: pajama Mia"></a>
-  </div>
-
-  <div class="tool-grid">
-    <div class="card tool reveal" id="gif">
-      <h3>GIF Factory</h3>
-      <canvas id="gifCanvas" width="320" height="320" aria-label="Animated preview"></canvas>
-      <div class="ctrls">
-        <label>Image <select id="gifImg"><option value="img/face-pillow.png">Hoodie</option><option value="img/face-pajama2.png">Sleepy</option><option value="img/face-pajama.png">Pajama</option></select></label>
-        <label>Caption <input id="gifText" maxlength="30" value="nya~"></label>
-        <label>Sticker <select id="gifStk"><option value="">none</option><option>♡</option><option>✨</option><option>💤</option><option>🎀</option></select></label>
-        <label>Motion <select id="gifAnim"><option>bounce</option><option>shake</option><option>wiggle</option></select></label>
-        <div class="row"><button class="btn" id="gifRec">Export WebM</button><button class="btn ghost" id="gifPng">Save PNG</button></div>
-        <p class="status" id="gifStatus" role="status"></p>
+<section class="threshold" id="threshold" aria-label="Порог: комната MIA">
+  <div class="scene" id="scene">
+    <div class="layer sky" data-depth="0.15" aria-hidden="true">
+      <div class="window"><div class="stars"></div><div class="moon"></div><div class="frame-h"></div><div class="frame-v"></div></div>
+    </div>
+    <div class="layer lights" data-depth="0.3" aria-hidden="true">
+      <svg viewBox="0 0 1000 120" preserveAspectRatio="none"><path d="M0 20 Q250 110 500 40 T1000 30" stroke="#8a2943" stroke-width="2" fill="none"/></svg>
+      <div class="bulbs"></div>
+    </div>
+    <div class="layer glow-layer" data-depth="0.4" aria-hidden="true"><div class="room-glow"></div></div>
+    <div class="layer portrait-wrap" data-depth="0.7">
+      <div class="door-card" id="doorCard">
+        <div class="door left" aria-hidden="true"></div><div class="door right" aria-hidden="true"></div>
+        <img src="img/mia-pillow.jpg" alt="MIA в розовой толстовке обнимает подушку и смущённо смотрит на тебя" class="portrait-main">
+        <img src="img/mia-pajama-pillow.jpg" alt="" aria-hidden="true" class="portrait-back">
+        <span class="eye-glow" aria-hidden="true"></span>
+        <span class="sparkle s1" aria-hidden="true"></span><span class="sparkle s2" aria-hidden="true"></span><span class="sparkle s3" aria-hidden="true"></span>
       </div>
     </div>
+    <div class="layer cushions" data-depth="1" aria-hidden="true"><span class="cush c1"></span><span class="cush c2"></span><span class="cush c3"></span></div>
+  </div>
+  <div class="threshold-text">
+    <p class="kicker">Фанатский проект · порог</p>
+    <h1>Тук-тук… <em>заходи</em>.</h1>
+    <p class="tag">Ты на пороге комнаты MIA. Пошевели мышкой или пальцем — она тебя заметит. Нажми на портрет, чтобы подарить сердечко.</p>
+    <div class="btns"><a class="btn big" href="#rooms">Войти в комнаты</a><a class="btn ghost" href="#night">До Уютной ночи</a></div>
+    <p class="scroll-hint" aria-hidden="true">листай вниз — дверь откроется ↓</p>
+  </div>
+</section>
 
-    <div class="card tool reveal" id="tryon">
-      <h3>Try-on</h3>
-      <div class="tryon-stage">
-        <img id="tryImg" src="img/face-pillow.png" alt="Mia's face for try-on">
-        <svg class="acc acc-bow" viewBox="0 0 100 60" aria-hidden="true"><path d="M50 30 L10 8 Q2 30 10 52 Z M50 30 L90 8 Q98 30 90 52 Z" fill="#c8102e"/><circle cx="50" cy="30" r="9" fill="#e63950"/></svg>
-        <svg class="acc acc-choker" viewBox="0 0 200 40" aria-hidden="true"><rect x="0" y="12" width="200" height="12" rx="6" fill="#2b1a1f"/><path d="M100 38 C80 22 88 10 100 20 C112 10 120 22 100 38Z" fill="#e63950"/></svg>
-        <svg class="acc acc-mask" viewBox="0 0 200 60" aria-hidden="true"><rect x="5" y="8" width="190" height="44" rx="22" fill="#ffc6d6"/><path d="M40 30 q15 12 30 0 M130 30 q15 12 30 0" stroke="#8a2943" stroke-width="5" fill="none" stroke-linecap="round"/></svg>
-        <svg class="acc acc-phones" viewBox="0 0 200 160" aria-hidden="true"><path d="M20 110 Q20 10 100 10 Q180 10 180 110" stroke="#ff8fb0" stroke-width="12" fill="none"/><rect x="2" y="90" width="38" height="60" rx="16" fill="#e63950"/><rect x="160" y="90" width="38" height="60" rx="16" fill="#e63950"/></svg>
-      </div>
-      <div class="ctrls">
-        <label>Face <select id="tryFace"><option value="img/face-pillow.png">Hoodie</option><option value="img/face-pajama2.png">Sleepy</option><option value="img/face-pajama.png">Pajama</option></select></label>
-        <div class="toggles" role="group" aria-label="Accessories">
-          <button class="chip" aria-pressed="false" data-acc="bow">🎀 Bow</button>
-          <button class="chip" aria-pressed="false" data-acc="choker">♡ Choker</button>
-          <button class="chip" aria-pressed="false" data-acc="mask">😴 Sleep mask</button>
-          <button class="chip" aria-pressed="false" data-acc="phones">🎧 Headphones</button>
-        </div>
-      </div>
-    </div>
+<div class="marquee" aria-hidden="true"><div class="track"><span>♡ Уютная ночь каждую пятницу</span><span>✦ Новые комнаты открываются по одной</span><span>♡ Пижамы приветствуются</span><span>✦ Строим форт из одеял</span><span>♡ Уютная ночь каждую пятницу</span><span>✦ Новые комнаты открываются по одной</span><span>♡ Пижамы приветствуются</span><span>✦ Строим форт из одеял</span></div></div>
 
-    <div class="card tool reveal" id="meme">
-      <h3>Meme Maker</h3>
-      <canvas id="memeCanvas" width="600" height="600" aria-label="Meme preview"></canvas>
-      <div class="ctrls">
-        <label>Image <select id="memeImg"><option value="img/mia-pillow.jpg">Hoodie</option><option value="img/mia-pajama-pillow.jpg">Bed</option><option value="img/mia-pajama-crop.png">Pajama</option></select></label>
-        <label>Top <input id="memeTop" maxlength="40" value="ME ON A FRIDAY NIGHT"></label>
-        <label>Bottom <input id="memeBot" maxlength="40" value="BLANKET FORT: ACTIVATED"></label>
-        <button class="btn" id="memeDl">Download PNG</button>
-      </div>
-    </div>
-
-    <div class="card tool reveal" id="toy">
-      <h3>Laser Pointer Toy</h3>
-      <p>Move your cursor (or finger) inside the box — Mia's ears perk up and follow!</p>
-      <div class="toy-area" tabindex="0" aria-label="Laser pointer play area. Use arrow keys to move the dot.">
-        <img src="img/face-pillow.png" alt="" class="toy-face"><span class="ear l"></span><span class="ear r"></span><span class="laser"></span>
-      </div>
+<section id="welcome" class="sec">
+  <h2 class="reveal">Привет, я MIA</h2>
+  <div class="welcome card reveal">
+    <img src="img/face-pajama2.png" alt="MIA мягко улыбается, прижавшись к подушке" width="512" height="512">
+    <div>
+      <p>Я немножко стеснительная, поэтому сделала себе маленький уголок, где можно спрятаться от шума: тёплый свет гирлянды, плед, подушки и звёзды за окном.</p>
+      <p>Каждая комната здесь — отдельная история. Пока открыта только прихожая, а остальные двери я готовлю по одной. Спасибо, что заглянул(а)… правда. ♡</p>
+      <p class="note">Это фанатский проект: персонаж и история вымышлены.</p>
     </div>
   </div>
 </section>
 
-<section id="games" class="sec alt">
-  <h2 class="reveal">Cozy Games</h2>
-  <div class="card reveal game">
-    <h3>Catch the Hearts</h3>
-    <p>Move the pillow with mouse, touch or ← → keys. 30 seconds!</p>
-    <canvas id="game" width="480" height="320" aria-label="Catch the hearts mini-game"></canvas>
-    <div class="row"><button class="btn" id="gameStart">Start</button><span id="gameScore" role="status">Score: 0 · Best: 0</span></div>
+<section id="rooms" class="sec alt">
+  <h2 class="reveal">Комнаты</h2>
+  <div class="rooms">
+    <a class="room-door" href="old.html#story"><span class="knob"></span><img src="img/face-pillow.png" alt="" loading="lazy"><b>История</b><small>кто такая MIA и откуда у неё ушки</small><i class="badge">заглянуть</i></a>
+    <a class="room-door" href="old.html#gallery"><span class="knob"></span><img src="img/mia-pajama-crop.png" alt="" loading="lazy"><b>Галерея</b><small>уютные кадры с подушками</small><i class="badge">заглянуть</i></a>
+    <a class="room-door" href="old.html#events"><span class="knob"></span><img src="img/mia-pajama-pillow.jpg" alt="" loading="lazy"><b>Уютная ночь</b><small>программа, форт из одеял</small><i class="badge">заглянуть</i></a>
+    <a class="room-door" href="old.html#shop"><span class="knob"></span><img src="img/face-pajama.png" alt="" loading="lazy"><b>Магазин</b><small>макет, ничего не продаётся</small><i class="badge soon">скоро</i></a>
+    <a class="room-door" href="old.html#tools"><span class="knob"></span><img src="img/face-pajama2.png" alt="" loading="lazy"><b>Фан-зона</b><small>стикеры, мемы, игры, стена</small><i class="badge">заглянуть</i></a>
+    <div class="room-door locked" aria-disabled="true"><span class="knob"></span><img src="img/mia-pillow.jpg" alt="" loading="lazy"><b>О проекте</b><small>вопросы и правила сообщества</small><i class="badge soon">скоро</i></div>
   </div>
+  <p class="note">Комнаты пока ведут в старую версию сайта — новые страницы появятся по одной.</p>
 </section>
 
-<section id="events" class="sec">
-  <h2 class="reveal">Events</h2>
-  <div class="events reveal">
-    <div class="card"><h3>🌙 Cozy Night</h3><p>Watch-along + blanket fort contest (mock event).</p><div class="countdown" id="countdown" aria-hidden="true"></div><p class="sr-only" id="countdownSr" aria-live="polite"></p><div class="gallery"><figure><img src="img/mia-pillow.jpg" alt="Mia in a pink hoodie hugging a grey pillow on her bed, looking flustered" loading="lazy"><figcaption class="note">Cozy night in</figcaption></figure><figure><img src="img/mia-pajama-pillow.jpg" alt="Mia in pink patterned pajamas lying on the bed hugging a pillow with a soft smile" loading="lazy"><figcaption class="note">Pajama pillow time</figcaption></figure></div></div>
-    <div class="card"><h3>Calendar</h3><ul class="cal"><li><b>Fri</b> Cozy Night stream</li><li><b>Sat</b> Fan-art share day</li><li><b>Sun</b> Sleepy lo-fi hours</li></ul><p class="note">Mock dates.</p></div>
+<section id="night" class="sec">
+  <h2 class="reveal">До Уютной ночи</h2>
+  <div class="card night-card reveal">
+    <p>Каждую пятницу в 20:00 (по твоему времени) — совместный просмотр, тихая музыка и конкурс фортов из одеял. Событие вымышленное, это макет.</p>
+    <div class="countdown big" id="countdown" aria-hidden="true"></div>
+    <p class="sr-only" id="countdownSr" aria-live="polite"></p>
+    <div class="btns center"><button class="btn" id="rsvpBtn">Я приду ♡</button></div>
   </div>
-</section>
-
-<section id="shop" class="sec alt">
-  <h2 class="reveal">Cozy Shop <small>(mock — no checkout)</small></h2>
-  <div class="shop">
-    <div class="card item reveal"><img src="img/mia-pajama-pillow.jpg" alt="Plushie preview"><h3>Mia Plushie</h3><p class="price">$— mock</p><button class="btn ghost shop-soon">Coming soon</button></div>
-    <div class="card item reveal"><img src="img/mia-pillow.jpg" alt="Hoodie preview"><h3>Cat-Ear Hoodie</h3><p class="price">$— mock</p><button class="btn ghost shop-soon">Coming soon</button></div>
-    <div class="card item reveal"><img src="img/face-pajama.png" alt="Enamel pin preview"><h3>Enamel Pin</h3><p class="price">$— mock</p><button class="btn ghost shop-soon">Coming soon</button></div>
-    <div class="card item reveal"><img src="img/face-pillow.png" alt="Sticker pack preview"><h3>Sticker Pack</h3><p class="price">$— mock</p><button class="btn ghost shop-soon">Coming soon</button></div>
-  </div>
-</section>
-
-<section id="gallery" class="sec">
-  <h2 class="reveal">Gallery</h2>
-  <div class="gallery reveal">
-    <button class="g"><img src="img/mia-pajama-crop.png" alt="Mia in pajamas"></button>
-    <button class="g"><img src="img/mia-pillow.jpg" alt="Mia in a pink hoodie hugging a grey pillow on her bed, looking flustered — Cozy night in" loading="lazy"></button>
-    <button class="g"><img src="img/mia-pajama-pillow.jpg" alt="Mia in pink patterned pajamas hugging a pillow with a soft smile — Pajama pillow time" loading="lazy"></button>
-  </div>
-</section>
-
-<section id="community" class="sec alt">
-  <h2 class="reveal">Community</h2>
-  <div class="btns center"><a class="btn" href="https://x.com/" target="_blank" rel="noopener">X / Twitter</a><a class="btn ghost" href="#" aria-disabled="true">Discord (soon)</a></div>
-  <form id="wallForm" class="card wall-form reveal">
-    <label>Name <input id="wallName" maxlength="24" required></label>
-    <label>Message <input id="wallMsg" maxlength="140" required></label>
-    <button class="btn">Pin to fan wall ♡</button>
-  </form>
-  <ul id="wall" class="wall" aria-live="polite"></ul>
-  <p class="note">Messages are stored only in your browser (localStorage).</p>
 </section>
 </main>
-<footer><p>MIA_MAYS ♡ <a href="https://x.com/" target="_blank" rel="noopener">X</a> · <a href="https://x.com/" target="_blank" rel="noopener">Updates</a></p><p class="note">Fan prototype. Shop is mock. Links are placeholders.</p></footer>
-<div class="lightbox modal" id="lb" role="dialog" aria-modal="true" aria-label="Image viewer" hidden><div class="modal-box lb-box"><button class="lb-close" data-close aria-label="Close">×</button><button class="lb-nav prev" aria-label="Previous image">‹</button><img alt=""><button class="lb-nav next" aria-label="Next image">›</button></div></div>
-<div class="modal" id="shopModal" role="dialog" aria-modal="true" aria-labelledby="shopTitle" hidden><div class="modal-box card"><button class="lb-close dark" data-close aria-label="Close">×</button><h3 id="shopTitle">Coming soon ♡</h3><p>This is a mock shop — nothing is for sale yet. Follow Mia on X for updates!</p><button class="btn" data-close>Okay, nya~</button></div></div>
+
+<footer><p>MIA MAYS ♡ фанатский проект</p><p class="note">Ссылки на соцсети — скоро. Магазин — макет.</p></footer>
+
+<div class="modal" id="rsvpModal" role="dialog" aria-modal="true" aria-labelledby="rsvpTitle" hidden><div class="modal-box card"><button class="lb-close dark" data-close aria-label="Закрыть">×</button><h3 id="rsvpTitle">Записала тебя ♡</h3><p>Отметка сохранилась только в твоём браузере. Приноси плед и любимую кружку!</p><button class="btn" data-close>Хорошо, мур~</button></div></div>
 <script src="app.js"></script>
 </body></html>
