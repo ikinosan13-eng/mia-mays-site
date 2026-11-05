@@ -814,3 +814,214 @@ body.leaving .curtain{animation:curtainIn .28s ease both}
   }
   .marquee.reverse{display:none}
 }
+
+/* ===== RESTRUCTURE 2026-11-06 ===== */
+
+/* P0: stronger edge masks on announce/marquee */
+.announce,.marquee{
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 12%,#000 88%,transparent 100%);
+  mask-image:linear-gradient(90deg,transparent 0,#000 12%,#000 88%,transparent 100%);
+}
+.announce{padding-block:7px}
+.announce-track{gap:56px;padding-inline:8%}
+.marquee .track{gap:48px;padding-inline:4%}
+
+/* home news ticker: less vertical clip of phrases */
+.news-ticker{
+  height:148px;
+  -webkit-mask-image:linear-gradient(transparent 0,#000 14%,#000 86%,transparent 100%);
+  mask-image:linear-gradient(transparent 0,#000 14%,#000 86%,transparent 100%);
+}
+.news-ticker li{height:48px;padding-inline:2px;overflow:hidden}
+
+/* P0: intro CTA clear of village roofs / skip line */
+.intro-page .intro-cta{
+  position:relative;z-index:3;
+  padding:8px 12px 4px;
+  margin-inline:auto;
+  max-width:42rem;
+  isolation:isolate;
+}
+.intro-page .intro-cta .btn.huge{position:relative;z-index:2}
+.intro-page .intro-cta .note{
+  position:relative;z-index:2;
+  display:inline-block;
+  margin-top:14px;
+  padding:6px 12px;
+  border-radius:999px;
+  background:color-mix(in srgb,var(--cream) 88%,transparent);
+}
+.intro-cta-spacer{height:clamp(18px,3vh,36px)}
+.intro-page .intro{
+  padding-bottom:calc(clamp(110px,19vh,190px) + 24px);
+}
+@media (max-width:760px){
+  .intro-page .intro{padding-bottom:24px}
+  .intro-cta-spacer{height:10px}
+  .intro-page .intro-cta .note{background:transparent;padding:0}
+}
+
+/* breadcrumbs */
+.crumbs{
+  display:flex;flex-wrap:wrap;align-items:center;gap:8px;
+  max-width:1240px;margin:0 auto;
+  padding:14px clamp(16px,5vw,60px) 0;
+  font-size:.88rem;font-weight:700;color:var(--coral2);
+}
+.crumbs a{color:var(--coral2);text-decoration:none}
+.crumbs a:hover{text-decoration:underline}
+.crumbs-sep{opacity:.45;font-weight:600}
+.crumbs [aria-current=page]{color:var(--deep)}
+
+/* page-hero rhythm */
+.page .page-hero{
+  padding-top:clamp(18px,3vw,36px);
+  padding-bottom:clamp(18px,3vw,36px);
+  min-height:0;
+  align-items:center;
+}
+.page .page-hero + .sec{padding-top:clamp(36px,5vw,64px)}
+.page .crumbs + .page-hero{padding-top:clamp(12px,2vw,24px)}
+
+/* cart badge */
+.cart-link{position:relative;text-decoration:none}
+.cart-badge{
+  position:absolute;top:-4px;right:-4px;
+  min-width:18px;height:18px;padding:0 5px;
+  border-radius:999px;background:var(--coral2);color:#fff;
+  font:800 .68rem/18px var(--fb);text-align:center;
+  box-shadow:0 0 0 2px var(--cream);
+}
+.cart-badge[hidden]{display:none!important}
+body.night .cart-badge{box-shadow:0 0 0 2px var(--cream)}
+
+/* shop free + quiet soon */
+.shop-soon-row{max-width:960px;margin:auto}
+.shop-soon-row .item{position:relative}
+.wp.card .cart-add,.sticker-wrap .cart-add{margin-top:10px;width:100%}
+.sticker-wrap{display:flex;flex-direction:column;align-items:center;gap:8px}
+.wallpapers .wp{display:flex;flex-direction:column}
+.wallpapers .wp > a{text-decoration:none;color:inherit}
+
+/* comics */
+.comics-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));
+  gap:22px;max-width:920px;margin:auto;
+}
+.comic-card{
+  display:flex;flex-direction:column;gap:10px;text-decoration:none;color:inherit;
+  transition:transform .35s var(--spring),box-shadow .35s;
+}
+.comic-card:hover{transform:translateY(-4px)}
+html.lite .comic-card:hover{transform:none}
+.comic-card-thumbs,.comic-teaser-art{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:6px;
+}
+.comic-card-thumbs img,.comic-teaser-art img{
+  width:100%;aspect-ratio:1;object-fit:cover;object-position:50% 25%;
+  border-radius:12px;border:2px solid var(--pink2);
+}
+.comic-card.soon-slot{opacity:.85;border-style:dashed}
+.comic-teaser{
+  display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);
+  gap:22px;align-items:center;max-width:920px;margin:auto;text-decoration:none;color:inherit;
+}
+@media (max-width:700px){.comic-teaser{grid-template-columns:1fr}}
+.link-arrow{font-weight:800;color:var(--coral2)}
+
+/* projects hub */
+.projects-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));
+  gap:24px;max-width:1000px;margin:auto;
+}
+.project-card{
+  display:grid;grid-template-columns:120px 1fr;gap:18px;align-items:center;
+  text-decoration:none;color:inherit;
+  transition:transform .35s var(--spring),box-shadow .35s;
+}
+.project-card:hover{transform:translateY(-5px)}
+html.lite .project-card:hover{transform:none}
+.project-card img{
+  width:120px;height:120px;border-radius:28px;object-fit:cover;object-position:50% 25%;
+  border:4px solid var(--pink2);
+}
+@media (max-width:520px){
+  .project-card{grid-template-columns:1fr;justify-items:start}
+  .project-card img{width:96px;height:96px}
+}
+
+/* cart page */
+.cart-empty{text-align:center;max-width:480px;margin:auto;padding:36px 24px}
+.cart-empty img{margin:0 auto 16px;border-radius:50%;border:5px solid var(--pink2)}
+.cart-items{list-style:none;margin:18px auto 0;padding:0;max-width:720px;display:grid;gap:12px}
+.cart-items li{
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;
+  background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px 16px;
+}
+.cart-items .meta{display:grid;gap:2px}
+.cart-items .tag{font-size:.78rem;font-weight:800;color:var(--coral2);text-transform:uppercase;letter-spacing:.06em}
+.cart-items .title{font-weight:800}
+
+/* fans games: avoid lonely 4th card hole */
+.games-grid{
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+}
+@media (max-width:760px){
+  .games-grid{grid-template-columns:1fr!important}
+}
+
+/* P2: home-only side garland rails */
+.garland-rail{
+  display:none;
+  position:fixed;top:0;bottom:0;width:56px;z-index:25;
+  pointer-events:none;opacity:.78;
+}
+.garland-rail.left{left:0}
+.garland-rail.right{right:0;transform:scaleX(-1)}
+.garland-rail .garland-wire{
+  position:absolute;left:50%;top:0;bottom:0;width:2px;
+  background:linear-gradient(#8a2943,#8a294388);transform:translateX(-50%);
+  opacity:.55;
+}
+.garland-rail .bulbs{position:absolute;inset:0}
+.garland-rail .bulbs i{
+  position:absolute;width:14px;height:18px;
+  border-radius:50% 50% 50% 50%/60% 60% 40% 40%;
+  background:#ffd98a;box-shadow:0 0 14px 4px #ffd98a99;
+  transform:translate(-50%,-50%);
+  animation:bl 3.2s ease-in-out var(--dl,0s) infinite;
+}
+.garland-rail .bulbs i:nth-child(3n){background:#ff8fb0;box-shadow:0 0 14px 4px #ff8fb099}
+.garland-rail .bulbs i:nth-child(3n+1){background:var(--lav);box-shadow:0 0 14px 4px #d9c8ff99}
+@media (min-width:901px){
+  body.home .garland-rail{display:block}
+  body.home .nav,
+  body.home .announce,
+  body.home .marquee,
+  body.home .sec,
+  body.home .threshold,
+  body.home .foot .foot-grid{
+    padding-inline:calc(clamp(16px,5vw,60px) + 40px);
+  }
+  body.home .nav{padding-inline:calc(clamp(14px,4vw,40px) + 40px)}
+  body.home .threshold{padding-inline:calc(5vw + 36px)}
+}
+@media (max-width:900px){
+  .garland-rail{display:none!important}
+}
+@media (prefers-reduced-motion:reduce){
+  .garland-rail .bulbs i{animation:none!important;opacity:.9}
+}
+html.lite .garland-rail .bulbs i{animation:none!important}
+html.lite .garland-rail{opacity:.55}
+
+/* big-nav delay for 7 items already; about is 7th — ok */
+.big-nav li:nth-child(8){animation-delay:.35s!important}
+
+/* center helper already used */
+.center{text-align:center}
+
+/* shop add buttons above sheen overlays */
+.wp .cart-add,.sticker-wrap .cart-add,.shop-soon-row .cart-add{position:relative;z-index:2}
+.wp.card > a{position:relative;z-index:2;display:grid;gap:12px;text-decoration:none;color:inherit;font-weight:800;text-align:center}
+.wp.card > a img{aspect-ratio:3/4;object-fit:cover;border-radius:16px;width:100%}

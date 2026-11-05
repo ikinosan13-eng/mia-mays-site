@@ -56,7 +56,7 @@ $$('.split').forEach(el => { const txt = el.textContent.trim(); el.setAttribute(
   requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add('go'))); });
 
 // появление при прокрутке
-$$('.rooms,.stickers,.comic,.gallery,.shop,.wallpapers,.about-grid,.diary,.mood-cards').forEach(g => [...g.children].forEach((c, i) => { c.style.setProperty('--d', (i % 6) * .08 + 's'); c.classList.add('reveal'); }));
+$$('.rooms,.stickers,.comic,.gallery,.shop,.wallpapers,.about-grid,.diary,.mood-cards,.comics-grid,.projects-grid,.cart-items,.comic-teaser,.project-card').forEach(g => [...g.children].forEach((c, i) => { c.style.setProperty('--d', (i % 6) * .08 + 's'); c.classList.add('reveal'); }));
 $$('.sec>h2').forEach(h => h.classList.add('reveal'));
 const io = 'IntersectionObserver' in window ? new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12, rootMargin: '0px 0px -30px' }) : null;
 $$('.reveal').forEach(el => reduce || !io ? el.classList.add('in') : io.observe(el));
@@ -136,7 +136,7 @@ const Modal = (() => { let cur = null, back = null;
       if (e.shiftKey && document.activeElement === a) { e.preventDefault(); z.focus(); } else if (!e.shiftKey && document.activeElement === z) { e.preventDefault(); a.focus(); } } });
   $$('.modal').forEach(m => m.addEventListener('click', e => { if (e.target === m || e.target.closest('[data-close]')) close(); }));
   return { open, close, get cur() { return cur; } }; })();
-$$('.shop-soon').forEach(b => b.addEventListener('click', () => Modal.open($('#shopModal'), b)));
+// shop-soon → handled by Cart (+ back-compat below)
 $$('a[download]').forEach(a => a.addEventListener('click', () => toast('Скачиваю… спасибо! ♡')));
 
 // отсчёт до пятницы 20:00
@@ -419,5 +419,104 @@ document.addEventListener('pointerdown', e => { const b = e.target.closest('.btn
       p.style.cssText = `left:${Math.random() * 100}vw;--t:${2.4 + Math.random() * 2}s;--dx:${(Math.random() * 120 - 60).toFixed(0)}px;--r:${(Math.random() * 360).toFixed(0)}deg`; document.body.append(p); setTimeout(() => p.remove(), 4600); }, i * 70); } }); })();
 // поздним вечером лампа сама приглушается, если гость ещё не выбирал
 (() => { const h = new Date().getHours(); if ((h >= 22 || h < 6) && store.get('mia-night') == null && typeof setNight === 'function') { setNight(true); } })();
+
+// ===== корзина-список (localStorage wishlist, без оплаты) =====
+const Cart = (() => {
+  const KEY = 'mia-cart-v1';
+  const read = () => { try { return JSON.parse(store.get(KEY)) || []; } catch { return []; } };
+  const write = list => store.set(KEY, JSON.stringify(list.slice(0, 40)));
+  const badges = () => $$('[data-cart-badge]');
+  const sync = () => {
+    const n = read().length;
+    badges().forEach(b => {
+      b.textContent = String(n);
+      if (n) b.removeAttribute('hidden'); else b.setAttribute('hidden', '');
+      const link = b.closest('.cart-link');
+      if (link) link.setAttribute('aria-label', n ? `Список желаний: ${n}` : 'Список желаний');
+    });
+  };
+  const add = item => {
+    const list = read();
+    if (list.some(x => x.id === item.id)) { toast('Уже в списке ♡'); sync(); return false; }
+    list.push(item); write(list); sync();
+    toast(item.type === 'interest' ? 'Записала интерес ♡' : 'Добавила в список ♡');
+    return true;
+  };
+  const remove = id => { write(read().filter(x => x.id !== id)); sync(); toast('Убрала из списка'); };
+  const clear = () => { write([]); sync(); toast('Список очищен'); };
+  // shop buttons
+  document.addEventListener('click', e => {
+    const btn = e.target.closest('[data-cart-add]');
+    if (!btn) return;
+    const wrap = btn.closest('[data-cart-item]');
+    if (!wrap) return;
+    const item = {
+      id: wrap.dataset.id,
+      title: wrap.dataset.title || 'Без названия',
+      type: wrap.dataset.type || 'free',
+      href: wrap.dataset.href || ''
+    };
+    const wasNew = add(item);
+    if (btn.classList.contains('shop-soon') && wasNew) {
+      const m = $('#shopModal'); if (m) Modal.open(m, btn);
+    }
+  });
+  // cart page render
+  const box = $('#cartItems'), empty = $('#cartEmpty'), listWrap = $('#cartList');
+  const render = () => {
+    if (!box) return;
+    const list = read();
+    if (!list.length) {
+      if (empty) empty.hidden = false;
+      if (listWrap) listWrap.hidden = true;
+      box.textContent = '';
+      return;
+    }
+    if (empty) empty.hidden = true;
+    if (listWrap) listWrap.hidden = false;
+    box.textContent = '';
+    list.forEach(it => {
+      const li = document.createElement('li');
+      const meta = document.createElement('div'); meta.className = 'meta';
+      const tag = document.createElement('span'); tag.className = 'tag';
+      tag.textContent = it.type === 'interest' ? 'интерес · скоро' : 'бесплатно';
+      const title = document.createElement('span'); title.className = 'title'; title.textContent = it.title;
+      meta.append(tag, title);
+      const actions = document.createElement('div'); actions.className = 'row';
+      if (it.href) {
+        const a = document.createElement('a'); a.className = 'btn ghost small'; a.href = it.href; a.download = '';
+        a.textContent = 'Скачать'; actions.append(a);
+      }
+      const rm = document.createElement('button'); rm.type = 'button'; rm.className = 'btn ghost small';
+      rm.textContent = 'Убрать'; rm.addEventListener('click', () => { remove(it.id); render(); });
+      actions.append(rm);
+      li.append(meta, actions); box.append(li);
+    });
+  };
+  const clearBtn = $('#cartClear');
+  if (clearBtn) clearBtn.addEventListener('click', () => { clear(); render(); });
+  sync(); render();
+  return { add, remove, clear, sync, read };
+})();
+// shop-soon without data-cart-add still opens modal (back-compat)
+$$('.shop-soon:not([data-cart-add])').forEach(b => b.addEventListener('click', () => Modal.open($('#shopModal'), b)));
+
+// ===== гирлянды по бокам (только главная, вне .threshold) =====
+(() => {
+  const rails = $$('[data-garland]');
+  if (!rails.length) return;
+  const n = lite ? 10 : 16;
+  rails.forEach(box => {
+    box.textContent = '';
+    for (let i = 0; i < n; i++) {
+      const b = document.createElement('i');
+      const y = ((i + .5) / n) * 100;
+      const x = 50 + Math.sin(i * .9) * 18;
+      b.style.cssText = `left:${x}%;top:${y}%;--dl:${(-i * .35).toFixed(2)}s`;
+      box.append(b);
+    }
+  });
+})();
+
 // @@LUXE-END
 })();
