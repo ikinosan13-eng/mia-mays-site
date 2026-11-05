@@ -61,7 +61,7 @@ $$('.sec>h2').forEach(h => h.classList.add('reveal'));
 const io = 'IntersectionObserver' in window ? new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12, rootMargin: '0px 0px -30px' }) : null;
 $$('.reveal').forEach(el => reduce || !io ? el.classList.add('in') : io.observe(el));
 $$('.gallery>*').forEach(el => el.classList.add('zoom-in'));
-$$('.timeline li,.tl li').forEach((el, i) => { el.classList.add('reveal', i % 2 ? 'from-right' : 'from-left'); reduce || !io ? el.classList.add('in') : io.observe(el); });
+$$('.timeline li,.tl li').forEach((el, i) => { el.classList.add('reveal', 'tl-reveal', i % 2 ? 'from-right' : 'from-left'); reduce || !io ? el.classList.add('in') : io.observe(el); });
 // страховка: через 3 с всё, что ещё скрыто, показываем
 setTimeout(() => $$('.reveal:not(.in)').forEach(el => { const r = el.getBoundingClientRect(); if (r.top < innerHeight * 1.5) el.classList.add('in'); }), 3000);
 setTimeout(() => document.documentElement.classList.add('reveal-done'), 8000);
@@ -69,12 +69,19 @@ setTimeout(() => document.documentElement.classList.add('reveal-done'), 8000);
 const drift = $('.drift');
 if (drift && !reduce && !lite) { const ls = $$('i', drift); let ticking = false;
   addEventListener('scroll', () => { if (ticking) return; ticking = true; requestAnimationFrame(() => { const y = scrollY; ls.forEach((l, i) => l.style.transform = `translate3d(0,${-y * (.04 + i * .05)}px,0)`); ticking = false; }); }, { passive: true }); }
-// переходы между страницами
+// переходы между страницами: Cross-doc View Transitions (CSS) или лёгкий curtain
+const canVT = !reduce && !lite && typeof document.startViewTransition === 'function';
+const crossDocVT = canVT && CSS.supports('view-transition-name', 'none');
 document.addEventListener('click', e => { const a = e.target.closest('a[href]'); if (!a || e.defaultPrevented || reduce) return;
   if (e.button || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey || a.target || a.hasAttribute('download')) return;
   const u = new URL(a.href, location.href); if (u.origin !== location.origin || !/\.html$|\/$/.test(u.pathname)) return;
   if (u.pathname === location.pathname && u.hash) return;
-  e.preventDefault(); document.body.classList.add('leaving'); setTimeout(() => location.href = u.href, 300); });
+  if (a.id === 'enterHouse') return; // свой houses-переход
+  // если браузер сам анимирует MPA — не мешаем
+  if (crossDocVT) return;
+  e.preventDefault();
+  document.body.classList.add('leaving');
+  setTimeout(() => { location.href = u.href; }, 280); });
 addEventListener('pageshow', e => { if (e.persisted) document.body.classList.remove('leaving'); });
 
 // счётчики
@@ -212,11 +219,20 @@ if (moods.length) { const set = b => { moods.forEach(m => m.setAttribute('aria-p
 // ===== галерея =====
 const lb = $('#lb');
 if (lb) { const lbImg = $('img', lb), cap = $('#lbCap'), items = $$('.g'); let list = items, gi = 0;
-  const show = i => { gi = (i + list.length) % list.length; const im = $('img', list[gi]); lbImg.src = im.src; lbImg.alt = im.alt; if (cap) cap.textContent = ($('.g-cap', list[gi]) || {}).textContent || ''; };
-  items.forEach(b => b.addEventListener('click', () => { list = items.filter(x => !x.classList.contains('hide')); show(list.indexOf(b)); Modal.open(lb, b); }));
+  const BLANK = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+  const show = i => { gi = (i + list.length) % list.length; const im = $('img', list[gi]); lbImg.removeAttribute('width'); lbImg.removeAttribute('height'); lbImg.src = im.src; lbImg.alt = im.alt || ''; if (cap) cap.textContent = ($('.g-cap', list[gi]) || {}).textContent || ''; };
+  const clearLb = () => { if (!lbImg) return; lbImg.src = BLANK; lbImg.alt = ''; lbImg.width = 1; lbImg.height = 1; if (cap) cap.textContent = ''; };
+  const openLb = (b) => { list = items.filter(x => !x.classList.contains('hide')); show(list.indexOf(b));
+    const run = () => Modal.open(lb, b);
+    if (canVT) { try { document.startViewTransition(run); return; } catch {} }
+    run(); };
+  items.forEach(b => b.addEventListener('click', () => openLb(b)));
   $('.lb-nav.prev', lb).addEventListener('click', () => show(gi - 1)); $('.lb-nav.next', lb).addEventListener('click', () => show(gi + 1));
   addEventListener('keydown', e => { if (Modal.cur === lb && (e.key === 'ArrowLeft' || e.key === 'ArrowRight')) show(gi + (e.key === 'ArrowLeft' ? -1 : 1)); });
-  let sx = null; lb.addEventListener('pointerdown', e => sx = e.clientX); lb.addEventListener('pointerup', e => { if (sx !== null && Math.abs(e.clientX - sx) > 50) show(gi + (e.clientX < sx ? 1 : -1)); sx = null; }); }
+  let sx = null; lb.addEventListener('pointerdown', e => sx = e.clientX); lb.addEventListener('pointerup', e => { if (sx !== null && Math.abs(e.clientX - sx) > 50) show(gi + (e.clientX < sx ? 1 : -1)); sx = null; });
+  // очищаем src после закрытия, чтобы не висел broken img
+  const mo = new MutationObserver(() => { if (lb.hidden) clearLb(); });
+  mo.observe(lb, { attributes: true, attributeFilter: ['hidden'] }); }
 const filters = $$('[data-filter]');
 filters.forEach(f => f.addEventListener('click', () => { filters.forEach(x => x.setAttribute('aria-pressed', x === f)); const c = f.dataset.filter;
   $$('.g').forEach(g => g.classList.toggle('hide', c !== 'all' && g.dataset.cat !== c)); }));
