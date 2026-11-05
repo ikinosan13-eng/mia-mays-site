@@ -201,8 +201,11 @@ if (th && scene) { const layers = $$('.layer', scene); let mx = 0, my = 0, cx = 
   function kick() { if (!raf && visible) raf = requestAnimationFrame(step); }
   function step() { raf = 0; const k = reduce ? 1 : .12; cx += (mx - cx) * k; cy += (my - cy) * k;
     const prog = Math.min(1, Math.max(0, scrollY / (th.offsetHeight * .8))); th.style.setProperty('--p', prog.toFixed(3));
-    if (!reduce) layers.forEach(l => { const d = +l.dataset.depth; l.style.transform = `translate3d(${(-cx * 40 * d).toFixed(1)}px,${(-cy * 30 * d + scrollY * d * .25).toFixed(1)}px,0) scale(${1 + prog * d * .25})`; });
-    if (card && !reduce) { card.style.setProperty('--rx', (cy * -12).toFixed(2) + 'deg'); card.style.setProperty('--ry', (cx * 16).toFixed(2) + 'deg'); }
+    const narrow = matchMedia('(max-width:800px)').matches;
+    if (!reduce && !narrow) layers.forEach(l => { const d = +l.dataset.depth; l.style.transform = `translate3d(${(-cx * 40 * d).toFixed(1)}px,${(-cy * 30 * d + scrollY * d * .25).toFixed(1)}px,0) scale(${1 + prog * d * .25})`; });
+    else if (narrow) layers.forEach(l => { l.style.transform = ''; });
+    if (card && !reduce && !narrow) { card.style.setProperty('--rx', (cy * -12).toFixed(2) + 'deg'); card.style.setProperty('--ry', (cx * 16).toFixed(2) + 'deg'); }
+    else if (card && narrow) { card.style.setProperty('--rx', '0deg'); card.style.setProperty('--ry', '0deg'); }
     if (card) { card.style.setProperty('--gx', (50 + cx * 60) + '%'); card.style.setProperty('--gy', (38 + cy * 40) + '%'); }
     if (Math.abs(mx - cx) + Math.abs(my - cy) > .002 && !reduce) kick(); }
   step();
