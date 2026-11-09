@@ -251,3 +251,28 @@ html[data-motion=reduce] :is(.pop-heart,.box-fly){display:none}
   .ios-share{display:inline-flex;vertical-align:-4px;color:var(--berry)}
   .toast[data-sticky]{border:1px solid color-mix(in srgb,var(--rose) 60%,transparent)}
 }
+@layer components{
+.knead{display:inline-flex;align-items:center;gap:8px;font-weight:700;color:var(--berry);font-size:var(--fs-1)}
+.knead-paws{width:34px;height:17px;fill:currentColor}
+[aria-busy=true] .knead-paws g{animation:knead .36s steps(2) infinite}
+[aria-busy=true] .knead-paws g+g{animation-delay:-.18s}
+[data-motion=reduce] .knead-paws g{animation:none}
+@keyframes knead{50%{transform:translateY(2px)}}
+.mia-chip .chip-bell{position:absolute;left:28px;top:2px;width:16px;height:16px;padding:2px;border-radius:50%;background:var(--honey);color:#3B2A33;stroke-width:2.4}
+.mia-chip .chip-bell[hidden]{display:none}
+}
+@layer motion{
+.mia-chip.ear img{animation:earT .24s ease-out}
+.mia-chip.blink img{animation:chipBlink .44s ease-in-out}
+@keyframes earT{50%{transform:rotate(-3deg)}}
+@keyframes chipBlink{50%{transform:scaleY(.92)}}
+[data-motion=reduce] .mia-chip.ear img,[data-motion=reduce] .mia-chip.blink img{animation:none}
+}
+@layer rooms{
+.lost{position:relative;overflow:hidden}
+.lost picture{display:block;width:160px;margin:auto;transition:transform .22s var(--spring)}
+.laser404{position:fixed;z-index:30;left:0;top:0;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;background:#e8364f;box-shadow:0 0 10px 3px rgb(232 54 79 / .55);opacity:0;pointer-events:none;transition:opacity .2s}
+.laser404.on{opacity:1}
+.lost-hint{margin:0 0 var(--s4)}
+}
+@layer components{.sheet-ic{width:40px;height:40px;vertical-align:middle;margin-right:8px}}
