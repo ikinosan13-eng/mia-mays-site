@@ -1,7 +1,7 @@
 // PWA: регистрация SW (не в prerender), тост обновления, предложение «Поселить Мию на экран», подсказка для iOS.
-import { $, whenActive, icon } from './dom.js';
-import { MiaStore } from './store.js';
-import { toast } from './toast.js';
+import { $, whenActive, icon } from './dom.js?v=16';
+import { MiaStore } from './store.js?v=16';
+import { toast } from './toast.js?v=16';
 const DAY = 864e5;
 const room = () => document.body.dataset.room;
 export const isStandalone = () => matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;

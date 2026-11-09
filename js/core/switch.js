@@ -1,10 +1,10 @@
 // лист «Выключатель»: свет, звук, меньше движения, имя, ссылки, «Забыть всё»
-import { MiaStore } from './store.js';
-import { $, whenActive, dayKey } from './dom.js';
-import { toast } from './toast.js';
-import { Sound } from './sound.js';
-import { P } from '../life/phrases.js';
-import { knead } from './knead.js';
+import { MiaStore } from './store.js?v=16';
+import { $, whenActive, dayKey } from './dom.js?v=16';
+import { toast } from './toast.js?v=16';
+import { Sound } from './sound.js?v=16';
+import { P } from '../life/phrases.js?v=16';
+import { knead } from './knead.js?v=16';
 export function initSwitch() {
   const dlg = $('#switchSheet'), btn = $('[data-switch-open]');
   if (!dlg || !btn) return;

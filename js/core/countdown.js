@@ -1,5 +1,5 @@
 // отсчёт до пятницы 20:00 (местное время): дни/часы/минуты, обновление раз в минуту, только когда виден и вкладка открыта
-import { reduced } from './dom.js';
+import { reduced } from './dom.js?v=16';
 export const nextFriday20 = (now = new Date()) => { const d = new Date(now); d.setDate(d.getDate() + ((5 - d.getDay() + 7) % 7)); d.setHours(20, 0, 0, 0); if (d <= now && now - d > 4 * 3600e3) d.setDate(d.getDate() + 7); return d; };
 export function countdown(el, srEl) {
   if (!el) return;

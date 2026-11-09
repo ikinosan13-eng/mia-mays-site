@@ -1,13 +1,17 @@
 // оболочка: активная комната, бейдж Коробки, статус Мии в чипе, «есть новое» (колокольчик в чипе + точка на табе)
-import { MiaStore } from './store.js';
-import { $, $$, daypart, dayKey, hash, idle, whenActive } from './dom.js';
-import { P } from '../life/phrases.js';
-import { data } from '../life/data.js';
-let STATUS_OVR = null, fridayHour = 20;
-export const miaStatus = (d = new Date(), seed = '') => {
-  const grp = (d.getDay() === 5 && d.getHours() >= fridayHour) ? 'friday' : daypart(d);
-  const list = (STATUS_OVR && STATUS_OVR[grp]) || P[`status.${grp}`];
-  return list[hash(dayKey(d) + grp + seed) % list.length];
+import { MiaStore } from './store.js?v=16';
+import { $, $$, daypart, idle, whenActive } from './dom.js?v=16';
+import { P } from '../life/phrases.js?v=16';
+import { data } from '../life/data.js?v=16';
+let MIA = null, fridayHour = 20;
+// статус в чипе = статус текущей базовой позы (data/mia.json → daypart + status): один источник правды с картинкой в Комнате
+const POSE = { morning: 'sleepy', day: 'wave', evening: 'tea', night: 'sleep', lampOn: 'shy' };
+const PST = { sleepy: 'просыпается', wave: 'дома, машет тебе', tea: 'пьёт чай', read: 'читает', blanket: 'в пледе', sleep: 'спит 💤', shy: 'не спит из-за лампы', happy: 'радуется', box: 'сидит в коробке' };
+export const poseKey = (dp, lightsOff) => lightsOff ? 'night' : dp === 'night' ? 'lampOn' : dp;
+export const miaStatus = (d = new Date(), lightsOff = document.documentElement.classList.contains('night')) => {
+  if (d.getDay() === 5 && d.getHours() >= fridayHour) return P['status.friday'][0];
+  const dp = daypart(d), pose = ((MIA && MIA.daypart) || POSE)[poseKey(dp, lightsOff)];
+  return ((MIA && MIA.status) || PST)[pose] || PST[POSE[dp]];
 };
 // непросмотренные обновления: date > seen.updates; при первом визите старые новости не показываем
 export const unseen = (ups, s) => ups.filter(u => Date.parse(u.date) > ((s.seen && s.seen.updates) || 0));
@@ -26,10 +30,11 @@ export function initShell() {
   };
   badge(); MiaStore.on('box', badge);
   const st = $('[data-mia-status]');
-  const status = () => { if (st) st.textContent = miaStatus(new Date(), MiaStore.read('guest.seed') || ''); };
+  const status = () => { if (st) st.textContent = miaStatus(); };
   status();
   document.addEventListener('visibilitychange', () => { if (!document.hidden) status(); });
-  data('mia').then(m => { if (m && m.status) STATUS_OVR = m.status; if (m && m.fridayHour) fridayHour = m.fridayHour; status(); });
+  new MutationObserver(status).observe(document.documentElement, { attributes: true, attributeFilter: ['class'] }); // лампа/свет → другая поза → другой статус
+  data('mia').then(m => { if (m && m.daypart && m.status && !Array.isArray(m.status)) MIA = m; if (m && m.fridayHour) fridayHour = m.fridayHour; status(); });
   // новое с прошлого раза: на Комнате блок «Пока тебя не было» сам снимает отметку
   whenActive(() => idle(() => data('updates').then(ups => {
     const s = MiaStore.get();

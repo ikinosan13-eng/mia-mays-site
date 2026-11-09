@@ -1,5 +1,5 @@
 // событийные эффекты: сердечки (только запись на Уютную ночь) и «поп». Ничего не крутится само.
-import { reduced } from './dom.js';
+import { reduced } from './dom.js?v=16';
 const fx = []; let raf = 0, lastT = 0;
 export function burst(x, y, n = 5) {
   if (reduced()) return;

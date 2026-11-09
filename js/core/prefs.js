@@ -1,5 +1,5 @@
-import { MiaStore } from './store.js';
-import { daypart } from './dom.js';
+import { MiaStore } from './store.js?v=16';
+import { daypart } from './dom.js?v=16';
 const d = document.documentElement;
 const mq = matchMedia('(prefers-reduced-motion: reduce)'), dark = matchMedia('(prefers-color-scheme: dark)');
 export { daypart };

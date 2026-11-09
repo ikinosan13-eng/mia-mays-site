@@ -1,5 +1,5 @@
 // MiaStore — единое состояние гостя в localStorage['mia:v1'].
-import { migrateLegacy, LEGACY } from './migrate.js';
+import { migrateLegacy, LEGACY } from './migrate.js?v=16';
 const KEY = 'mia:v1';
 const seed = () => Math.random().toString(36).slice(2, 8).padEnd(6, '0');
 export const defaults = () => ({

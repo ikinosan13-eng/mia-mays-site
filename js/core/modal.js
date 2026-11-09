@@ -1,6 +1,6 @@
 // простая модалка с ловушкой фокуса (лайтбокс Альбома)
-import { $$, reduced } from './dom.js';
-import { Sound } from './sound.js';
+import { $$, reduced } from './dom.js?v=16';
+import { Sound } from './sound.js?v=16';
 let cur = null, back = null;
 const focusables = m => $$('button,[href],input,select,[tabindex]:not([tabindex="-1"])', m).filter(x => !x.disabled && x.offsetParent !== null);
 export const Modal = {

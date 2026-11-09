@@ -1,5 +1,5 @@
 // синтез звуков без файлов; выключено по умолчанию (prefs.sound)
-import { MiaStore } from './store.js';
+import { MiaStore } from './store.js?v=16';
 let ctx = null, last = 0;
 const isOn = () => !!MiaStore.read('prefs.sound');
 const ensure = () => { if (!ctx) { const C = window.AudioContext || window.webkitAudioContext; if (!C) return null; ctx = new C(); } if (ctx.state === 'suspended') ctx.resume(); return ctx; };

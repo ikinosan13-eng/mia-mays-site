@@ -1,8 +1,8 @@
 // Коробка: всё, что гость «утащил» (обои, стикеры, сувениры, интерес к Лавке). ≤ 60, уникально по id.
-import { MiaStore } from './store.js';
-import { $, reduced, icon } from './dom.js';
-import { toast } from './toast.js';
-import { Sound } from './sound.js';
+import { MiaStore } from './store.js?v=16';
+import { $, reduced, icon } from './dom.js?v=16';
+import { toast } from './toast.js?v=16';
+import { Sound } from './sound.js?v=16';
 const KINDS = ['wallpaper', 'sticker', 'souvenir', 'note', 'wish', 'lavka', 'avatar'];
 export const Box = {
   list: () => MiaStore.read('box') || [],
