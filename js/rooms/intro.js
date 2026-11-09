@@ -6,7 +6,7 @@ const LINES = ['Ой… привет! Это мой дом. Я Мия — кош
 export default function init() {
   const line = $('#hallLine'), next = $('#hallNext'), skip = $('#hallSkip'), form = $('#hallForm'), ctrl = $('#hallCtrl'), dots = $$('.hall-dots i'), name = $('#hallName');
   if (!line || !form) return;
-  let i = 0; form.hidden = true;
+  let i = 0;
   const saved = MiaStore.read('guest.name'); if (saved) name.value = saved;
   const say = n => { i = n; line.textContent = LINES[i]; dots.forEach((d, k) => d.classList.toggle('on', k <= i)); Sound.tone(900, .05, 'sine', .015); };
   const ask = () => { ctrl.hidden = true; line.textContent = LINES[LINES.length - 1]; dots.forEach(d => d.classList.add('on')); form.hidden = false; name.focus({ preventScroll: true }); };

@@ -1,12 +1,31 @@
 // Гостиная: отсчёт до пятницы, «Я приду», стена записок
-import { $ } from '../core/dom.js';
+import { $, $$ } from '../core/dom.js';
 import { MiaStore } from '../core/store.js';
 import { countdown } from '../core/countdown.js';
 import { toast } from '../core/toast.js';
 import { Sound } from '../core/sound.js';
 import { burst } from '../core/fx.js';
 const isoWeek = d => { const t = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate())); const day = t.getUTCDay() || 7; t.setUTCDate(t.getUTCDate() + 4 - day); const y = t.getUTCFullYear(), w = Math.ceil(((t - Date.UTC(y, 0, 1)) / 864e5 + 1) / 7); return `${y}-W${String(w).padStart(2, '0')}`; };
+const HASH = { friday: 'friday', rsvp: 'friday', countdown: 'friday', wall: 'wall', info: 'info', rules: 'info', about: 'info' };
+// полки «Пятница · Стена · О доме» (как в Игровой); без JS видны все разделы подряд
+function shelves() {
+  const btns = $$('[data-shelf]'), panels = $$('[data-shelf-panel]');
+  const set = (v, focus) => {
+    btns.forEach(b => { const on = b.dataset.shelf === v; b.setAttribute('aria-checked', on); b.tabIndex = on ? 0 : -1; if (on && focus) b.focus(); });
+    panels.forEach(p => { p.hidden = p.dataset.shelfPanel !== v; });
+    document.dispatchEvent(new CustomEvent('mia:shelf', { detail: v }));
+  };
+  btns.forEach((b, i) => {
+    b.addEventListener('click', () => set(b.dataset.shelf));
+    b.addEventListener('keydown', e => { const d = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key]; if (!d) return; e.preventDefault(); set(btns[(i + d + btns.length) % btns.length].dataset.shelf, true); });
+  });
+  const go = () => { const h = location.hash.slice(1); set(HASH[h] || 'friday');
+    if (HASH[h] && !['friday', 'wall', 'info'].includes(h)) { const t = document.getElementById(h); if (t) requestAnimationFrame(() => t.scrollIntoView({ block: 'start' })); } };
+  go(); addEventListener('hashchange', go);
+  return set;
+}
 export default function init() {
+  const setShelf = shelves();
   countdown($('#countdown'), $('#countdownSr'));
   const name = MiaStore.read('guest.name') || '';
   // запись на Уютную ночь
@@ -16,7 +35,15 @@ export default function init() {
     if (name) nm.value = name; show();
     f.addEventListener('submit', e => { e.preventDefault(); const n = nm.value.replace(/\s+/g, ' ').trim().slice(0, 24); if (!n) return;
       MiaStore.update(s => { s.rsvp = { name: n, bring: br.value, week: isoWeek(new Date()), at: Date.now() }; s.guest.name ||= n; });
-      show(); toast('Записала тебя на Уютную ночь ♡'); Sound.meow(); const r = f.getBoundingClientRect(); burst(r.left + r.width / 2, r.top + 40); });
+      show(); bar(); toast('Записала тебя на Уютную ночь ♡'); Sound.meow(); const r = f.getBoundingClientRect(); burst(r.left + r.width / 2, r.top + 40); });
+  }
+  // липкая кнопка «Я приду» над таб-баром — пока записи нет и форма не на экране
+  const barEl = $('#rsvpBar'); let formVisible = true, shelf = 'friday';
+  const bar = () => { if (barEl) barEl.hidden = !!(MiaStore.read('rsvp') || {}).name || formVisible || shelf !== 'friday'; };
+  if (barEl && f && 'IntersectionObserver' in window) {
+    new IntersectionObserver(es => { formVisible = es[0].isIntersecting; bar(); }).observe(f.querySelector('[type=submit]'));
+    document.addEventListener('mia:shelf', e => { shelf = e.detail; bar(); });
+    barEl.querySelector('[data-rsvp-go]').addEventListener('click', () => { setShelf('friday'); f.scrollIntoView({ block: 'center' }); $('#rsvpName').focus({ preventScroll: true }); });
   }
   // стена записок (только в этом браузере)
   const list = $('#wallList'), wf = $('#wallForm');

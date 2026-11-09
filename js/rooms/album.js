@@ -6,7 +6,7 @@ export default function init() {
   const lb = $('#lb'); if (!lb) return;
   const img = $('#lbImg'), cap = $('#lbCap'), items = $$('.g');
   const BLANK = img.src; let gi = 0;
-  const big = im => { const src = im.parentElement && im.parentElement.tagName === 'PICTURE' && $('source', im.parentElement); if (!src) return im.currentSrc || im.src; const c = src.srcset.split(',').map(x => x.trim().split(' ')[0]); return c[c.length - 1]; };
+  const big = im => { const src = im.parentElement && im.parentElement.tagName === 'PICTURE' && $('source:not([media])', im.parentElement); if (!src) return im.currentSrc || im.src; const c = src.srcset.split(',').map(x => x.trim().split(' ')[0]); return c[c.length - 1]; };
   const show = i => { gi = (i + items.length) % items.length; const im = $('img', items[gi]); img.removeAttribute('width'); img.removeAttribute('height'); img.src = big(im); img.alt = im.alt || '';
     cap.textContent = ($('.g-cap', items[gi].closest('figure')) || {}).textContent || ''; };
   items.forEach((b, i) => b.addEventListener('click', () => { show(i); const run = () => Modal.open(lb, b);

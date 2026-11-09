@@ -15,7 +15,7 @@ export default function init() {
     b.addEventListener('keydown', e => { const d = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key]; if (!d) return; e.preventDefault(); setShelf(btns[(i + d + btns.length) % btns.length].dataset.shelf, true); });
   });
   const h = location.hash.slice(1);
-  setShelf(HASH[h] || MiaStore.read('play.shelf') || 'play', false, !!HASH[h]);
+  setShelf(HASH[h] || MiaStore.read('play.shelf') || 'play', false, false); // хэш не меняет сохранённую полку
   if (HASH[h]) { const t = document.getElementById(h); if (t) requestAnimationFrame(() => t.scrollIntoView({ block: 'center' })); }
 
   const stats = () => { const g = MiaStore.read('games') || {}; const p = $('[data-purrs]'), b = $('[data-best]'); if (p) p.textContent = g.purrs ? `Мурлыканий: ${g.purrs}` : ''; if (b) b.textContent = g.heartsBest ? `Рекорд: ${g.heartsBest}` : ''; };

@@ -4,8 +4,6 @@ import { MiaStore } from '../core/store.js';
 import { countdown } from '../core/countdown.js';
 import { toast } from '../core/toast.js';
 import { Sound } from '../core/sound.js';
-import { burst } from '../core/fx.js';
-import { miaStatus } from '../core/shell.js';
 // фаза 1: приветствия по времени суток (фаза 3 — полный банк с приоритетами)
 const GREET = {
   morning: ['Доброе утро, {name} ☀️ Я ещё в пижаме, не смотри так|Доброе утро ☀️ Я ещё в пижаме, не смотри так', 'Ой, ты так рано… Подожди, я только ушки причешу', 'Утро! Чайник уже шумит — будешь со мной?', 'Мрр… ещё пять минуточек. Ладно, три. Привет!', 'Я уже проснулась. Почти. Наполовину точно'],
@@ -24,7 +22,6 @@ export default function init() {
   const greet = $('[data-greet]'), name = s.guest.name;
   if (greet) { const bank = GREET[dp]; greet.textContent = first ? FIRST : fill(bank[hash(k + dp + seed) % bank.length], name); }
   const kick = $('[data-now-kicker]'); if (kick) kick.textContent = KICK[dp];
-  const st = $('[data-now-status]'); if (st) st.textContent = `Сейчас Мия ${miaStatus()}.`;
   const today = $('[data-today]'); if (today) today.textContent = TODAY[hash(k + seed) % TODAY.length];
   countdown($('#countdown'), $('#countdownSr'));
   if (first) whenActive(() => {
@@ -41,5 +38,5 @@ function kitten() {
   const blink = () => { kb.classList.remove('blink'); void kb.offsetWidth; kb.classList.add('blink'); };
   whenActive(() => { if (reduced()) { kb.classList.add('peek'); return; } setTimeout(() => { kb.classList.add('peek'); setTimeout(blink, 900); setTimeout(() => kb.classList.remove('peek'), 3200); }, 1800); });
   kb.addEventListener('click', () => { clicks++; blink(); Sound.meow();
-    if (clicks % 3 === 0) { kb.classList.add('out'); const r = kb.getBoundingClientRect(); burst(r.left + r.width / 2, r.top + 20, 10); toast('Мяу! В коробке нашёлся котёнок ♡'); setTimeout(() => kb.classList.remove('out'), 1200); } });
+    if (clicks % 3 === 0) { kb.classList.add('out'); toast('Мяу! В коробке нашёлся котёнок ♡'); setTimeout(() => kb.classList.remove('out'), 1200); } });
 }

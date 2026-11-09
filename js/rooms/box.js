@@ -20,6 +20,18 @@ export default function init() {
     $('#statBest').textContent = s.games.heartsBest || 0; $('#statPurrs').textContent = s.games.purrs || 0; $('#statBox').textContent = all.length;
   };
   render(); MiaStore.on('box', render); MiaStore.on('rsvp', render); MiaStore.on('games', render);
-  document.addEventListener('click', e => { const b = e.target.closest('[data-rm]'); if (!b) return; const id = b.closest('[data-id]').dataset.id; Box.remove(id); toast('Убрала из коробки'); });
-  $('#boxClear').addEventListener('click', () => { if (!confirm('Очистить коробку? Сохранённые вещи исчезнут из этого браузера.')) return; Box.clear(); toast('Коробка пустая. Но всё ещё уютная'); });
+  // удаление: фокус уходит на соседнюю строку (или заголовок), в тосте — «Вернуть»
+  document.addEventListener('click', e => {
+    const b = e.target.closest('[data-rm]'); if (!b) return;
+    const li = b.closest('[data-id]'), id = li.dataset.id, item = MiaStore.get().box.find(x => x.id === id), idx = MiaStore.get().box.findIndex(x => x.id === id);
+    const near = li.nextElementSibling || li.previousElementSibling, nearId = near && near.dataset.id;
+    Box.remove(id);
+    const target = (nearId && document.querySelector(`[data-id="${CSS.escape(nearId)}"] [data-rm]`)) || $('#savedTitle');
+    if (target === $('#savedTitle')) target.tabIndex = -1;
+    target.focus();
+    toast('Убрала из коробки', { action: 'Вернуть', ms: 5000, onAction: () => MiaStore.update(s => { if (item && !s.box.some(x => x.id === id)) s.box.splice(Math.max(0, idx), 0, item); }) });
+  });
+  const dlg = $('#boxConfirm');
+  $('#boxClear').addEventListener('click', () => { if (dlg && dlg.showModal) dlg.showModal(); });
+  dlg?.addEventListener('close', () => { if (dlg.returnValue === 'yes') { Box.clear(); toast('Коробка пустая. Но всё ещё уютная'); $('#savedTitle').focus(); } else $('#boxClear').focus(); });
 }
