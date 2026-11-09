@@ -1,5 +1,6 @@
 import { $, load, dl, reduced, lite } from '../core/dom.js';
 import { toast } from '../core/toast.js';
+import { knead } from '../core/knead.js';
 export default function init() {
   const gc = $('#gifCanvas'); if (!gc) return;
   const gx = gc.getContext('2d'); let gImg, t0 = performance.now(), on = false, raf = 0;
@@ -26,6 +27,6 @@ export default function init() {
   $('#gifRec').addEventListener('click', () => { const st = $('#gifStatus');
     if (!window.MediaRecorder || !gc.captureStream) { st.textContent = 'Запись не поддерживается — сохранила кадр.'; return dl(gc.toDataURL(), 'mia-kadr.png'); }
     const r = new MediaRecorder(gc.captureStream(30), MediaRecorder.isTypeSupported('video/webm') ? { mimeType: 'video/webm' } : {}), chunks = [];
-    r.ondataavailable = e => chunks.push(e.data); r.onstop = () => { rec = false; dl(URL.createObjectURL(new Blob(chunks, { type: 'video/webm' })), 'mia-gifka.webm'); st.textContent = 'Готово!'; toast('Видео-гифка готова ♡'); };
-    st.textContent = 'Записываю 3 секунды…'; rec = true; kick(); r.start(); setTimeout(() => r.stop(), 3000); });
+    r.ondataavailable = e => chunks.push(e.data); r.onstop = () => { rec = false; done(); dl(URL.createObjectURL(new Blob(chunks, { type: 'video/webm' })), 'mia-gifka.webm'); st.textContent = 'Готово!'; toast('Видео-гифка готова ♡'); };
+    st.textContent = ''; const done = knead(st, 'Мия месит лапками… 3 секунды'); rec = true; kick(); r.start(); setTimeout(() => r.stop(), 3000); });
 }
