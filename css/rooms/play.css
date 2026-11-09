@@ -1,0 +1,50 @@
+@layer rooms{
+.seg-wrap{display:flex;justify-content:center;padding:8px var(--pad) 0}
+.shelf-seg{display:inline-flex;gap:4px;padding:4px;border-radius:var(--r-pill);background:var(--surface);box-shadow:var(--sh-1)}
+.shelf-seg .chip{border:0;min-width:130px;min-height:44px}
+.shelf{padding-top:var(--s5)}
+.toys{list-style:none;padding:0;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:var(--s4);max-width:960px}
+.toy{padding:0;scroll-margin-top:calc(var(--head-h) + 16px)}
+.toy-open{display:flex;align-items:center;gap:16px;width:100%;padding:14px;border:0;background:none;border-radius:inherit;text-align:left;cursor:pointer;color:var(--ink)}
+.toy-open img{width:84px;height:84px;flex:none;object-fit:cover;object-position:50% 25%;border-radius:24px;background:var(--blush)}
+.toy-open span{display:grid;gap:2px}
+.toy-open b{font-size:var(--fs2)}
+.toy-open small{color:var(--muted);font-size:var(--fs0)}
+.toy-open em{font-style:normal;font-weight:800;color:var(--berry);font-size:var(--fs-1)}
+@media (hover:hover){.toy:hover{box-shadow:var(--sh-2)}}
+dialog.fullscreen{position:fixed;inset:0;width:100%;height:100%;max-width:none;max-height:none;margin:0;padding:0;border:0;background:var(--paper);color:var(--ink);overflow:auto;overscroll-behavior:contain}
+dialog.fullscreen[open]{animation:fadeUp var(--t-base) var(--ease)}
+dialog.fullscreen::backdrop{background:var(--paper)}
+.fs-head{position:sticky;top:0;z-index:2;display:flex;align-items:center;gap:12px;padding:calc(8px + env(safe-area-inset-top)) var(--pad) 8px;background:color-mix(in srgb,var(--paper) 94%,transparent);box-shadow:0 1px 0 var(--line)}
+.fs-head h2{margin:0;font-size:var(--fs2)}
+.fs-back .i{width:20px;height:20px}
+.fs-body{max-width:720px;margin:0 auto;padding:var(--s5) var(--pad) calc(var(--s6) + var(--safe-b))}
+.fs-body.wide{max-width:var(--wrap)}
+.tool-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:var(--s5)}
+.tool{min-width:0}
+.game{text-align:center}
+.tool canvas{width:100%;max-width:480px;height:auto;border-radius:var(--r-m);background:var(--blush);display:block;margin:0 auto 12px;touch-action:none}
+#avaCanvas{cursor:grab;max-width:420px}#yarn{cursor:grab}
+#game{background:linear-gradient(var(--surface),var(--blush))}
+.ctrls{display:grid;gap:12px;align-content:start}
+.ctrls label{display:grid;gap:4px;font-weight:800;font-size:var(--fs0)}
+.file-btn{cursor:pointer}
+.toggles{display:flex;flex-wrap:wrap;gap:8px}
+.tryon-stage{position:relative;max-width:320px;margin:auto}
+.tryon-stage img{border-radius:var(--r-m);width:100%}
+.acc{position:absolute;display:none;pointer-events:none}
+.acc.on{display:block;animation:pop .45s var(--spring)}
+.acc-bow{width:30%;top:3%;right:10%;transform:rotate(15deg)}.acc-scarf{width:70%;bottom:2%;left:15%}.acc-mask{width:60%;top:36%;left:20%}.acc-phones{width:96%;top:4%;left:2%}
+.pet-zone{position:relative;display:block;margin:10px auto;padding:0;border:0;background:none;cursor:pointer;width:220px;height:220px;border-radius:50%;touch-action:none}
+.pet-zone img{width:100%;height:100%;object-fit:cover;border-radius:50%;border:5px solid var(--blush);transition:transform .2s}
+.pet-zone.petting img{transform:scale(.95) rotate(-3deg)}
+.purr{position:absolute;top:-6px;right:-10px;font:600 1.6rem/1 var(--fv);color:var(--berry);opacity:0}
+.pet-zone.petting .purr{animation:purr .8s ease-out}
+.toy-area{position:relative;height:280px;border-radius:var(--r-m);background:var(--blush);overflow:hidden;touch-action:none}
+.toy-face{width:140px;position:absolute;left:50%;bottom:0;transform:translateX(-50%);border-radius:50% 50% 0 0}
+.ear{position:absolute;bottom:120px;width:0;height:0;border:18px solid transparent;border-bottom:36px solid var(--rose);transition:transform .1s;transform-origin:50% 100%}
+.ear.l{left:calc(50% - 60px)}.ear.r{left:calc(50% + 24px)}
+.laser{position:absolute;width:14px;height:14px;border-radius:50%;background:#E0405E;box-shadow:0 0 12px 4px rgb(224 64 94 / .6);transform:translate(-50%,-50%);left:50%;top:30%}
+@keyframes purr{0%{opacity:0;transform:translateY(10px)}30%{opacity:1}100%{opacity:0;transform:translateY(-24px)}}
+html.fs-open{overflow:hidden}
+}
