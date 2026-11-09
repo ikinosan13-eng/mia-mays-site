@@ -1,83 +1,140 @@
 <!doctype html>
 <html lang="ru">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>MIA MAYS — порог уютного дома</title>
-<meta name="description" content="Главная: комната MIA, её настроение, дневник, комнаты-разделы и отсчёт до Уютной ночи.">
-<meta name="theme-color" content="#FBF6EF">
-<meta name="color-scheme" content="light dark">
+<meta charset="utf-8">
+<title>Комната · Дом Мии</title>
+<meta name="description" content="Комната Мии сейчас: приветствие, что она делает сегодня и сколько осталось до Уютной ночи.">
 <link rel="canonical" href="https://ikinosan13-eng.github.io/mia-mays-site/home.html">
-<meta property="og:type" content="website"><meta property="og:site_name" content="MIA MAYS"><meta property="og:locale" content="ru_RU">
-<meta property="og:title" content="MIA MAYS — порог уютного дома"><meta property="og:description" content="Главная: комната MIA, её настроение, дневник, комнаты-разделы и отсчёт до Уютной ночи.">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Дом Мии · MIA MAYS"><meta property="og:locale" content="ru_RU">
+<meta property="og:title" content="Комната · Дом Мии"><meta property="og:description" content="Комната Мии сейчас: приветствие, что она делает сегодня и сколько осталось до Уютной ночи.">
 <meta property="og:url" content="https://ikinosan13-eng.github.io/mia-mays-site/home.html"><meta property="og:image" content="https://ikinosan13-eng.github.io/mia-mays-site/img/og-cover.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
+<!--@shell:boot-->
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#FBF6EF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#FBF6EF" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light dark">
+<script>(()=>{try{const L=localStorage,s=JSON.parse(L.getItem('mia:v1')||'{}'),p=s.prefs||{},h=new Date().getHours(),d=document.documentElement,
+dp=h>=6&&h<11?'morning':h>=11&&h<18?'day':h>=18&&h<22?'evening':'night',o=L.getItem('mia-night'),
+l=p.light||(s.v?'auto':o==='1'?'night':o==='0'?'day':'auto'),n=l==='night'||(l!=='day'&&dp==='night');
+d.dataset.daypart=dp;d.dataset.light=l;d.classList.toggle('night',n);d.classList.add('js');
+if(p.motion==='reduce'||matchMedia('(prefers-reduced-motion: reduce)').matches)d.dataset.motion='reduce';
+document.querySelectorAll('meta[name=theme-color]').forEach(m=>m.content=n?'#1E1A2C':'#FBF6EF')}catch(e){}})()</script>
 <link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png">
 <link rel="preload" href="fonts/nunito.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" as="image" type="image/webp" imagesrcset="img/mia-pillow-320.webp 320w, img/mia-pillow-480.webp 480w, img/mia-pillow-640.webp 640w, img/mia-pillow-937.webp 937w" imagesizes="(max-width:800px) 210px, 330px" fetchpriority="high">
-<script>document.documentElement.classList.add("js")</script>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E%F0%9F%90%BE%3C/text%3E%3C/svg%3E">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="css/core.css?v=13">
+<script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/mia-mays-site/*.html"},{"not":{"selector_matches":"[data-no-prerender],[download]"}}]},"eagerness":"moderate"}]}</script>
+<script type="module" src="js/app.js?v=13"></script>
+<!--/@shell-->
+<link rel="stylesheet" href="css/rooms/home.css?v=13">
+<script>(()=>{const d=document.documentElement.dataset.daypart||'day',P={morning:'mia-pajama-pillow',day:'mia-pajama-pillow',evening:'mia-pillow',night:'face-pillow'}[d],W={'mia-pajama-pillow':[320,480,640,1216],'mia-pillow':[320,480,640,937],'face-pillow':[256,512]}[P],l=document.createElement('link');
+l.rel='preload';l.as='image';l.type='image/webp';l.fetchPriority='high';l.setAttribute('imagesrcset',W.map(w=>`img/${P}-${w}.webp ${w}w`).join(', '));l.setAttribute('imagesizes','(max-width:759px) 240px, 360px');document.head.append(l)})()</script>
 </head>
-<body class="home">
-
+<body data-room="home">
 <a class="skip" href="#main">К содержимому</a>
-
-<header class="nav" id="top"><a href="home.html" class="logo" aria-label="MIA MAYS — на главную">MIA <span>MAYS</span> <i aria-hidden="true">♡</i></a><nav class="inline-nav" aria-label="Основная навигация"><a href="home.html" aria-current="page">Главная</a><a href="story.html">История</a><a href="comics.html">Комиксы</a><a href="gallery.html">Галерея</a><a href="projects.html">Проекты</a><a href="shop.html">Магазин</a></nav><div class="nav-tools"><a class="icon-btn cart-link" href="cart.html" aria-label="Список желаний" title="Список"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h14l-1.5 9H8.5L7 7z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M7 7 6 4H3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="10" cy="20" r="1.4" fill="currentColor"/><circle cx="17" cy="20" r="1.4" fill="currentColor"/></svg><span class="cart-badge" data-cart-badge hidden>0</span></a><button class="icon-btn lamp-toggle" id="lampToggle" aria-pressed="false" aria-label="Лампа: включить ночной режим" title="Лампа"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10l3 8H4z" fill="currentColor"/><rect x="11" y="11" width="2" height="7" fill="currentColor"/><rect x="7" y="18" width="10" height="3" rx="1.5" fill="currentColor"/></svg></button><button class="icon-btn sound-toggle" id="soundToggle" aria-pressed="false" aria-label="Звуки: выключены" title="Звуки">🔇</button><button class="btn menu-btn" id="menuBtn" aria-haspopup="dialog" aria-controls="menuDialog">Меню</button></div></header>
-<dialog class="menu-dialog" id="menuDialog" aria-label="Меню сайта"><div class="menu-inner"><button class="icon-btn menu-close" id="menuClose" aria-label="Закрыть меню">×</button><ul class="big-nav"><li><a href="home.html" aria-current="page"><span>Главная</span></a></li><li><a href="story.html"><span>История</span></a></li><li><a href="comics.html"><span>Комиксы</span></a></li><li><a href="gallery.html"><span>Галерея</span></a></li><li><a href="projects.html"><span>Проекты</span></a></li><li><a href="shop.html"><span>Магазин</span></a></li><li><a href="about.html"><span>О доме</span></a></li></ul><details class="drop"><summary>Ещё в доме</summary><ul><li><a href="cart.html">Список желаний</a></li><li><a href="cozy-night.html">Уютная ночь</a></li><li><a href="fans.html">Фан-зона</a></li><li><a href="about.html#rules">Правила сообщества</a></li><li><a href="index.html?intro=1">Посмотреть приветствие ещё раз</a></li><li><span class="soon-note">Соцсети · готовим уголок ♡</span></li></ul></details></div></dialog>
-
-<main id="main">
-<section class="threshold" id="threshold" aria-label="Порог: комната MIA">
-  <div class="scene" id="scene">
-    <div class="layer sky" aria-hidden="true">
-      <div class="window"><div class="stars"></div><div class="moon"></div><div class="frame-h"></div><div class="frame-v"></div></div>
-    </div>
-    <div class="layer glow-layer" aria-hidden="true"><div class="room-glow"></div></div>
-    <div class="layer portrait-wrap">
-      <div class="door-card" id="doorCard">
-        <div class="door left" aria-hidden="true"></div><div class="door right" aria-hidden="true"></div>
-        <picture><source type="image/webp" srcset="img/mia-pillow-320.webp 320w, img/mia-pillow-480.webp 480w, img/mia-pillow-640.webp 640w, img/mia-pillow-937.webp 937w" sizes="(max-width:800px) 210px, 330px"><img src="img/mia-pillow.jpg" alt="MIA в розовой толстовке обнимает подушку и смущённо смотрит на тебя" class="portrait-main" width="937" height="1400" fetchpriority="high" decoding="async"></picture>
-        <picture><source type="image/webp" srcset="img/mia-pajama-pillow-320.webp 320w, img/mia-pajama-pillow-480.webp 480w, img/mia-pajama-pillow-640.webp 640w, img/mia-pajama-pillow-1216.webp 1216w" sizes="(max-width:800px) 210px, 330px"><img src="img/mia-pajama-pillow.jpg" alt="" aria-hidden="true" class="portrait-back" width="1216" height="1130" fetchpriority="low" decoding="async"></picture>
+<!--@shell:icons-->
+<svg class="sprite" width="0" height="0" aria-hidden="true" focusable="false"><defs>
+<symbol id="i-home" viewBox="0 0 24 24"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8"/><path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"/><path d="M12 4v6"/><path d="M2 18h20"/></symbol>
+<symbol id="i-diary" viewBox="0 0 24 24"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></symbol>
+<symbol id="i-album" viewBox="0 0 24 24"><path d="M18 22H4a2 2 0 0 1-2-2V6"/><path d="m22 13-1.3-1.3a2.4 2.4 0 0 0-3.4 0L11 18"/><circle cx="12" cy="8" r="2"/><rect width="16" height="16" x="6" y="2" rx="2"/></symbol>
+<symbol id="i-play" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M5.5 6.5c3.5.5 7 3.5 8.5 11.8"/><path d="M8.6 3.6c3.6 1.8 6.4 5.6 7 12.2"/><path d="M3.2 11.6c3 0 6 2 7.6 7.3"/><path d="M17 16.5c1.8.6 3.5 2 4 4.5"/></symbol>
+<symbol id="i-living" viewBox="0 0 24 24"><path d="M20 9V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v3"/><path d="M2 16a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-5a2 2 0 0 0-4 0v1.5a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5V11a2 2 0 0 0-4 0z"/><path d="M4 18v2"/><path d="M20 18v2"/></symbol>
+<symbol id="i-box" viewBox="0 0 24 24"><path d="M3.5 10h17v9a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2z"/><path d="M2.5 7.5h19V10h-19z"/><path d="M12 7.5V21"/><path d="M12 7.5C10.5 4 7.5 3 6.5 4.5S8 7.5 12 7.5"/><path d="M12 7.5c1.5-3.5 4.5-4.5 5.5-3S16 7.5 12 7.5"/></symbol>
+<symbol id="i-switch" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="4"/><rect x="8.5" y="5" width="7" height="6.5" rx="1.6"/><rect x="8.5" y="12.5" width="7" height="6.5" rx="1.6" style="fill:var(--sw-fill,none)"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+<symbol id="i-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
+<symbol id="i-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+<symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></symbol>
+<symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></symbol>
+<symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.9 4.9 1.4 1.4"/><path d="m17.7 17.7 1.4 1.4"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.3 17.7-1.4 1.4"/><path d="m19.1 4.9-1.4 1.4"/></symbol>
+<symbol id="i-moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></symbol>
+<symbol id="i-heart" viewBox="0 0 24 24"><path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7Z"/></symbol>
+<symbol id="i-volume" viewBox="0 0 24 24"><path d="M11 4.7a.7.7 0 0 0-1.2-.5L6.4 7.6A1.4 1.4 0 0 1 5.4 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.4a1.4 1.4 0 0 1 1 .4l3.4 3.4a.7.7 0 0 0 1.2-.5z"/><path d="M16 9a5 5 0 0 1 0 6"/><path d="M19.4 18.4a9 9 0 0 0 0-12.7"/></symbol>
+<symbol id="i-feather" viewBox="0 0 24 24"><path d="M12.7 3.3a2 2 0 0 0-2.8 0L3 10.1V21h10.9l6.8-6.9a2 2 0 0 0 0-2.8z"/><path d="M16 8 2 22"/><path d="M17.5 15H9"/></symbol>
+<symbol id="i-paw" viewBox="0 0 24 24"><circle cx="11" cy="4" r="2"/><circle cx="18" cy="8" r="2"/><circle cx="20" cy="16" r="2"/><path d="M9 10a5 5 0 0 1 5 5v3.5a3.5 3.5 0 0 1-6.8 1.1 1.5 1.5 0 0 0-1-1A3.5 3.5 0 0 1 7.2 12 5 5 0 0 1 9 10z"/></symbol>
+<symbol id="i-calendar" viewBox="0 0 24 24"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></symbol>
+<symbol id="i-trophy" viewBox="0 0 24 24"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.7V17c0 .6-.5 1-1 1.2-1.2.5-2 2-2 3.8"/><path d="M14 14.7V17c0 .6.5 1 1 1.2 1.2.5 2 2 2 3.8"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></symbol>
+</defs></svg>
+<!--/@shell-->
+<!--@shell:head-->
+<header class="app-head">
+  <a class="mia-chip" href="home.html" aria-label="Мия: дома. В Комнату">
+    <img src="img/avatar-64.webp" width="32" height="32" alt="" decoding="async">
+    <span class="mia-chip__txt"><b>Мия</b><span data-mia-status>дома</span></span>
+  </a>
+  <div class="app-head__tools">
+    <a class="icon-btn" href="box.html" data-box-link aria-label="Коробка"><svg class="i" aria-hidden="true"><use href="#i-box"/></svg><span class="badge" data-box-badge hidden>0</span></a>
+    <button class="icon-btn" type="button" data-switch-open aria-haspopup="dialog" aria-controls="switchSheet" aria-label="Выключатель"><svg class="i" aria-hidden="true"><use href="#i-switch"/></svg></button>
+  </div>
+</header>
+<!--/@shell-->
+<main id="main" tabindex="-1">
+<section class="now-hero" aria-labelledby="nowTitle">
+  <figure class="now-pic" id="nowPic"><noscript><picture><source type="image/webp" srcset="img/mia-pillow-320.webp 320w, img/mia-pillow-480.webp 480w, img/mia-pillow-640.webp 640w, img/mia-pillow-937.webp 937w" sizes="(max-width:759px) 240px, 360px"><img src="img/mia-pillow.jpg" alt="Мия в розовой толстовке обнимает подушку" width="937" height="1400" fetchpriority="high" decoding="async"></picture></noscript></figure>
+  <script>(()=>{const d=document.documentElement.dataset.daypart||'day',M={morning:['mia-pajama-pillow',[320,480,640,1216],'jpg',1216,1130,'Мия в пижаме обнимает подушку: утро, ещё сонная'],day:['mia-pajama-pillow',[320,480,640,1216],'jpg',1216,1130,'Мия в пижаме лежит в обнимку с подушкой'],evening:['mia-pillow',[320,480,640,937],'jpg',937,1400,'Мия в розовой толстовке обнимает подушку: уютный вечер'],night:['face-pillow',[256,512],'png',512,512,'Мия уткнулась в подушку: почти спит']}[d];
+document.getElementById('nowPic').insertAdjacentHTML('afterbegin',`<picture><source type="image/webp" srcset="${M[1].map(w=>`img/${M[0]}-${w}.webp ${w}w`).join(', ')}" sizes="(max-width:759px) 240px, 360px"><img src="img/${M[0]}.${M[2]}" alt="${M[5]}" width="${M[3]}" height="${M[4]}" fetchpriority="high" decoding="async"></picture>`)})()</script>
+  <div class="now-text">
+    <p class="kicker" data-now-kicker>Сейчас в комнате</p>
+    <h1 id="nowTitle">Комната Мии</h1>
+    <p class="now-bubble" data-greet>Привет! Заходи, чайник ещё тёплый</p>
+    <p class="note" data-now-status>Мия дома и рада гостям.</p>
+  </div>
+</section>
+<section class="now-cards" aria-label="Сегодня">
+  <article class="card now-today">
+    <p class="kicker">Сегодня Мия…</p>
+    <p class="say" data-today>нашла под кроватью потерянный клубок</p>
+    <button class="kit-box" id="kitBox" type="button" aria-label="Коробка «с любовью»: там кто-то живёт. Нажми"><span class="kit" aria-hidden="true"><i class="kear l"></i><i class="kear r"></i><i class="keye l"></i><i class="keye r"></i><i class="knose"></i></span><span class="box" aria-hidden="true"><b>с любовью</b></span></button>
+  </article>
+  <article class="card now-friday" data-friday>
+    <p class="kicker">До Уютной ночи</p>
+    <div class="countdown" id="countdown" aria-hidden="true"></div><p class="sr-only" id="countdownSr" aria-live="polite"></p>
+    <p class="note live-note">Каждую пятницу в 20:00: пледы, чай и форт из одеял.</p>
+    <a class="btn small" href="living.html#friday">В Гостиную</a>
+  </article>
+</section>
+<p class="peek-line">Загляни: <a href="diary.html"><svg class="i" aria-hidden="true"><use href="#i-diary"/></svg>Дневник</a> · <a href="album.html"><svg class="i" aria-hidden="true"><use href="#i-album"/></svg>Альбом</a></p>
+</main>
+<!--@shell:tabbar-->
+<nav class="rooms" aria-label="Комнаты">
+  <a href="home.html" data-room-link="home" aria-current="page"><svg class="i" aria-hidden="true"><use href="#i-home"/></svg><span>Комната</span><i class="dot" data-news-dot hidden></i></a>
+  <a href="diary.html" data-room-link="diary"><svg class="i" aria-hidden="true"><use href="#i-diary"/></svg><span>Дневник</span></a>
+  <a href="album.html" data-room-link="album"><svg class="i" aria-hidden="true"><use href="#i-album"/></svg><span>Альбом</span></a>
+  <a href="play.html" data-room-link="play"><svg class="i" aria-hidden="true"><use href="#i-play"/></svg><span>Игровая</span></a>
+  <a href="living.html" data-room-link="living"><svg class="i" aria-hidden="true"><use href="#i-living"/></svg><span>Гостиная</span></a>
+</nav>
+<!--/@shell-->
+<!--@shell:switch-->
+<dialog id="switchSheet" class="sheet" aria-labelledby="switchTitle">
+  <form method="dialog" class="sheet__inner">
+    <header class="sheet__head"><h2 id="switchTitle">Выключатель</h2><button class="icon-btn" value="close" aria-label="Закрыть"><svg class="i" aria-hidden="true"><use href="#i-x"/></svg></button></header>
+    <div data-sheet-main>
+      <fieldset class="seg">
+        <legend>Свет</legend>
+        <label><input type="radio" name="light" value="auto"><span>Как за окном</span></label>
+        <label><input type="radio" name="light" value="day"><span><svg class="i" aria-hidden="true"><use href="#i-sun"/></svg>День</span></label>
+        <label><input type="radio" name="light" value="night"><span><svg class="i" aria-hidden="true"><use href="#i-moon"/></svg>Ночь</span></label>
+      </fieldset>
+      <label class="row-sw"><svg class="i" aria-hidden="true"><use href="#i-volume"/></svg><span>Звуки (мур)</span><input type="checkbox" name="sound" role="switch"></label>
+      <label class="row-sw"><svg class="i" aria-hidden="true"><use href="#i-feather"/></svg><span>Ленивая кошка — меньше движения</span><input type="checkbox" name="motion" role="switch"></label>
+      <label class="row-name"><span>Как тебя зовут?</span><input type="text" name="name" maxlength="24" autocomplete="nickname" placeholder="можно без имени"></label>
+      <div class="sheet__links">
+        <button type="button" data-action="install" hidden>Поселить Мию на экран</button>
+        <a href="index.html?again=1" data-no-prerender>Приветствие заново</a>
+        <a href="living.html#about">О доме</a>
+        <button type="button" data-action="reset" class="danger">Забыть всё</button>
       </div>
     </div>
-    <div class="layer cushions" aria-hidden="true"><span class="cush c1"></span><span class="cush c2"></span><span class="cush c3"></span></div>
-  </div>
-  <div class="threshold-text">
-    <h1>Тук-тук… заходи.</h1>
-    <p class="tag">Ты на пороге комнаты MIA.</p>
-    <div class="btns"><a class="btn big" href="#rooms">Войти в комнаты</a><a class="btn ghost" href="projects.html">К проектам</a></div>
-  </div>
-</section>
-
-<section class="sec" id="moods">
-  <h2 class="reveal">Три MIA — три настроения</h2>
-  <div class="mood-cards">
-    <figure class="polaroid reveal" style="--r:-4deg"><picture><source type="image/webp" srcset="img/face-pillow-256.webp 256w, img/face-pillow-512.webp 512w" sizes="(max-width:700px) 80vw, 280px"><img src="img/face-pillow.png" alt="MIA надула щёки, уткнувшись в подушку" width="512" height="512" loading="lazy" decoding="async"></picture><figcaption><b>Смущашка</b><span>«Не смотри так… я просто стесняюсь»</span></figcaption></figure>
-    <figure class="polaroid reveal" style="--r:2deg"><picture><source type="image/webp" srcset="img/face-pajama2-256.webp 256w, img/face-pajama2-512.webp 512w" sizes="(max-width:700px) 80vw, 280px"><img src="img/face-pajama2.png" alt="MIA мягко улыбается, прижавшись к подушке" width="512" height="512" loading="lazy" decoding="async"></picture><figcaption><b>Мечтательница</b><span>«Ещё пять минуточек под пледом»</span></figcaption></figure>
-    <figure class="polaroid reveal" style="--r:-1deg"><picture><source type="image/webp" srcset="img/face-pajama-256.webp 256w" sizes="(max-width:700px) 280px, 280px"><img src="img/face-pajama.png" alt="MIA в пижаме задумалась" width="256" height="256" loading="lazy" decoding="async"></picture><figcaption><b>Хранительница уюта</b><span>«Я поставила чайник. Тебе с мёдом?»</span></figcaption></figure>
-  </div>
-  <div class="mood-strip reveal" role="group" aria-label="Шкала настроения">
-    <span>Настроение сейчас:</span>
-    <button class="chip" data-mood="Сонная" aria-pressed="true">😴 сонная</button><button class="chip" data-mood="Смущённая" aria-pressed="false">☺️ смущённая</button><button class="chip" data-mood="Игривая" aria-pressed="false">🧶 игривая</button><button class="chip" data-mood="Мечтательная" aria-pressed="false">🌙 мечтательная</button>
-  </div>
-</section>
-
-<section class="sec alt" id="bento">
-  <h2 class="reveal">Сегодня в доме</h2>
-  <div class="bento">
-    <article class="b-cell b-diary card reveal"><p class="kicker">Сегодня Мия…</p><ul class="diary-mini" id="diaryMini"><li>☀️ проснулась в 11:40 и решила, что это утро</li><li>🍵 заварила чай с мёдом и забыла его на подоконнике</li><li>🧶 нашла под кроватью потерянный клубок</li><li>🌙 ждёт пятницу и Уютную ночь</li></ul><a class="link-arrow" href="story.html">Читать дневник →</a></article>
-    <figure class="b-cell b-stack reveal"><div class="stack"><picture><source type="image/webp" srcset="img/mia-pajama-pillow-320.webp 320w, img/mia-pajama-pillow-480.webp 480w, img/mia-pajama-pillow-640.webp 640w, img/mia-pajama-pillow-1216.webp 1216w" sizes="(max-width:700px) 280px, 280px"><img src="img/mia-pajama-pillow.jpg" alt="MIA в пижаме обнимает подушку" width="1216" height="1130" loading="lazy" decoding="async"></picture><picture><source type="image/webp" srcset="img/mia-pajama-crop-320.webp 320w, img/mia-pajama-crop-480.webp 480w, img/mia-pajama-crop-640.webp 640w, img/mia-pajama-crop-900.webp 900w" sizes="(max-width:700px) 280px, 280px"><img src="img/mia-pajama-crop.jpg" alt="MIA прячет лицо в подушку" width="900" height="992" loading="lazy" decoding="async"></picture><picture><source type="image/webp" srcset="img/mia-pillow-320.webp 320w, img/mia-pillow-480.webp 480w, img/mia-pillow-640.webp 640w, img/mia-pillow-937.webp 937w" sizes="(max-width:700px) 280px, 280px"><img src="img/mia-pillow.jpg" alt="MIA в толстовке с подушкой" width="937" height="1400" loading="lazy" decoding="async"></picture></div></figure>
-    <article class="b-cell b-quote card reveal"><div class="say">«Если тебе грустно — заходи. Плед на всех хватит.»</div><picture><source type="image/webp" srcset="img/face-pajama2-256.webp 256w, img/face-pajama2-512.webp 512w" sizes="(max-width:700px) 30vw, 140px"><img src="img/face-pajama2.png" alt="MIA мягко улыбается" width="512" height="512" loading="lazy" decoding="async"></picture></article>
-    <article class="b-cell b-night card reveal"><p class="kicker">До Уютной ночи</p><div class="countdown" id="countdown" aria-hidden="true"></div><p class="sr-only" id="countdownSr" aria-live="polite"></p><a class="btn small" href="cozy-night.html">Программа</a></article>
-    <article class="b-cell b-news card reveal"><p class="kicker">Новости дома</p><ul class="news-list"><li><b>Новое:</b> раздел «Комиксы» и хаб «Проекты».</li><li><b>Скоро:</b> конкурс фортов из одеял.</li><li><b>Обновление:</b> в галерее появились фильтры.</li><li><b>Новое:</b> бесплатные обои в магазине.</li><li><b>Новое:</b> открылась Фан-зона с генератором аватарок.</li></ul></article>
-  </div>
-</section>
-
-<section class="sec" id="rooms">
-  <button class="kit-box" id="kitBox" type="button" aria-label="Коробка «с любовью»: кто-то там живёт. Нажми"><span class="kit" aria-hidden="true"><i class="kear l"></i><i class="kear r"></i><i class="keye l"></i><i class="keye r"></i><i class="knose"></i></span><span class="box" aria-hidden="true"><b>с любовью</b></span></button>
-  <h2 class="reveal">Комнаты</h2>
-  <div class="rooms"><a class="room-door" href="story.html"><span class="knob"></span><picture><source type="image/webp" srcset="img/face-pillow-256.webp 256w, img/face-pillow-512.webp 512w" sizes="(max-width:700px) 30vw, 140px"><img src="img/face-pillow.png" alt="" aria-hidden="true" width="512" height="512" loading="lazy" decoding="async"></picture><b>История</b><small>дневник и профиль</small><i class="badge">войти</i></a><a class="room-door" href="comics.html"><span class="knob"></span><picture><source type="image/webp" srcset="img/face-pajama-256.webp 256w" sizes="(max-width:700px) 30vw, 140px"><img src="img/face-pajama.png" alt="" aria-hidden="true" width="256" height="256" loading="lazy" decoding="async"></picture><b>Комиксы</b><small>кадры про утро и уют</small><i class="badge">войти</i></a><a class="room-door" href="gallery.html"><span class="knob"></span><picture><source type="image/webp" srcset="img/mia-pajama-crop-320.webp 320w, img/mia-pajama-crop-480.webp 480w, img/mia-pajama-crop-640.webp 640w, img/mia-pajama-crop-900.webp 900w" sizes="(max-width:700px) 30vw, 140px"><img src="img/mia-pajama-crop.jpg" alt="" aria-hidden="true" width="900" height="992" loading="lazy" decoding="async"></picture><b>Галерея</b><small>уютные кадры и лайтбокс</small><i class="badge">войти</i></a><a class="room-door" href="projects.html"><span class="knob"></span><picture><source type="image/webp" srcset="img/mia-pajama-pillow-320.webp 320w, img/mia-pajama-pillow-480.webp 480w, img/mia-pajama-pillow-640.webp 640w, img/mia-pajama-pillow-1216.webp 1216w" sizes="(max-width:700px) 30vw, 140px"><img src="img/mia-pajama-pillow.jpg" alt="" aria-hidden="true" width="1216" height="1130" loading="lazy" decoding="async"></picture><b>Проекты</b><small>Уютная ночь и Фан-зона</small><i class="badge">войти</i></a><a class="room-door" href="shop.html"><span class="knob"></span><picture><source type="image/webp" srcset="img/face-pajama2-256.webp 256w, img/face-pajama2-512.webp 512w" sizes="(max-width:700px) 30vw, 140px"><img src="img/face-pajama2.png" alt="" aria-hidden="true" width="512" height="512" loading="lazy" decoding="async"></picture><b>Магазин</b><small>обои и стикеры бесплатно</small><i class="badge">войти</i></a><a class="room-door" href="about.html"><span class="knob"></span><picture><source type="image/webp" srcset="img/mia-pillow-320.webp 320w, img/mia-pillow-480.webp 480w, img/mia-pillow-640.webp 640w, img/mia-pillow-937.webp 937w" sizes="(max-width:700px) 30vw, 140px"><img src="img/mia-pillow.jpg" alt="" aria-hidden="true" width="937" height="1400" loading="lazy" decoding="async"></picture><b>О доме</b><small>вопросы и правила</small><i class="badge">войти</i></a></div>
-</section>
-</main>
-<footer class="foot"><div class="foot-grid"><div><a href="home.html" class="logo">MIA <span>MAYS</span> ♡</a><p>Маленький уютный уголок кошкодевочки MIA. Фанатский проект: персонаж и история вымышлены.</p></div><nav aria-label="Нижняя навигация"><a href="story.html">История</a><a href="comics.html">Комиксы</a><a href="gallery.html">Галерея</a><a href="projects.html">Проекты</a><a href="shop.html">Магазин</a><a href="about.html">О доме</a></nav><p class="note">Соцсети ещё собираются. Магазин — макет, ничего не продаётся.<br><a href="#top">Наверх ↑</a></p></div></footer><div class="toasts" id="toasts" aria-live="polite" aria-atomic="false"></div>
-<script src="app.js" defer></script>
-</body></html>
+    <div class="sheet__confirm" data-sheet-confirm hidden>
+      <p>Точно всё забыть? Даже кошка помнит, где миска.</p>
+      <p class="note">Коробка, записки, рекорды и настройки в этом браузере исчезнут.</p>
+      <div class="row"><button type="button" class="btn" data-action="reset-yes">Да, забыть</button><button type="button" class="btn ghost" data-action="reset-no">Нет, оставить</button></div>
+    </div>
+  </form>
+</dialog>
+<!--/@shell-->
+<!--@shell:toasts-->
+<div class="toasts" role="status" aria-live="polite"></div>
+<!--/@shell-->
+</body>
+</html>

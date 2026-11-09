@@ -1,73 +1,49 @@
 <!doctype html>
 <html lang="ru">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>MIA MAYS — привет!</title>
-<meta name="description" content="Приветствие MIA: кошкодевочка встречает гостей у порога своего уютного дома.">
-<meta name="theme-color" content="#FBF6EF">
-<meta name="color-scheme" content="light dark">
+<meta charset="utf-8">
+<script>try{const s=JSON.parse(localStorage.getItem('mia:v1')||'null'),legacy=['mia-cart-v1','mia-night','mia-sound','mia-purr','mia-wall','mia-rsvp-v2','mia-best','mia-tab','mia-mood'].some(k=>localStorage.getItem(k)!==null);if(((s&&s.guest&&s.guest.enteredAt)||(!s&&legacy))&&!/again=1/.test(location.search))location.replace('home.html'+location.hash)}catch(e){}</script>
+<title>Дом Мии · MIA MAYS</title>
+<meta name="description" content="Дом Мии — уютный фанатский дом кошкодевочки MIA: комната, дневник, альбом, игровая и Уютная ночь по пятницам.">
 <link rel="canonical" href="https://ikinosan13-eng.github.io/mia-mays-site/">
-<meta property="og:type" content="website"><meta property="og:site_name" content="MIA MAYS"><meta property="og:locale" content="ru_RU">
-<meta property="og:title" content="MIA MAYS — привет!"><meta property="og:description" content="Приветствие MIA: кошкодевочка встречает гостей у порога своего уютного дома.">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Дом Мии · MIA MAYS"><meta property="og:locale" content="ru_RU">
+<meta property="og:title" content="Дом Мии · MIA MAYS"><meta property="og:description" content="Уютный фанатский дом кошкодевочки MIA: комната, дневник, альбом, игровая и Уютная ночь по пятницам.">
 <meta property="og:url" content="https://ikinosan13-eng.github.io/mia-mays-site/"><meta property="og:image" content="https://ikinosan13-eng.github.io/mia-mays-site/img/og-cover.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
+<!--@shell:boot-->
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#FBF6EF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#FBF6EF" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light dark">
+<script>(()=>{try{const L=localStorage,s=JSON.parse(L.getItem('mia:v1')||'{}'),p=s.prefs||{},h=new Date().getHours(),d=document.documentElement,
+dp=h>=6&&h<11?'morning':h>=11&&h<18?'day':h>=18&&h<22?'evening':'night',o=L.getItem('mia-night'),
+l=p.light||(s.v?'auto':o==='1'?'night':o==='0'?'day':'auto'),n=l==='night'||(l!=='day'&&dp==='night');
+d.dataset.daypart=dp;d.dataset.light=l;d.classList.toggle('night',n);d.classList.add('js');
+if(p.motion==='reduce'||matchMedia('(prefers-reduced-motion: reduce)').matches)d.dataset.motion='reduce';
+document.querySelectorAll('meta[name=theme-color]').forEach(m=>m.content=n?'#1E1A2C':'#FBF6EF')}catch(e){}})()</script>
 <link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png">
 <link rel="preload" href="fonts/nunito.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" as="image" type="image/webp" imagesrcset="img/mia-pillow-320.webp 320w, img/mia-pillow-480.webp 480w, img/mia-pillow-640.webp 640w, img/mia-pillow-937.webp 937w" imagesizes="(max-width:760px) 260px, 340px" fetchpriority="high">
-<script>document.documentElement.classList.add("js")</script>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E%F0%9F%90%BE%3C/text%3E%3C/svg%3E">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="css/core.css?v=13">
+<script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/mia-mays-site/*.html"},{"not":{"selector_matches":"[data-no-prerender],[download]"}}]},"eagerness":"moderate"}]}</script>
+<script type="module" src="js/app.js?v=13"></script>
+<!--/@shell-->
+<link rel="stylesheet" href="css/rooms/intro.css?v=13">
+<link rel="preload" as="image" type="image/webp" imagesrcset="img/mia-pillow-320.webp 320w, img/mia-pillow-480.webp 480w, img/mia-pillow-640.webp 640w, img/mia-pillow-937.webp 937w" imagesizes="(max-width:759px) 220px, 340px" fetchpriority="high">
 </head>
-<body class="intro-page">
-
-<main id="main">
-
-<div class="intro-top">
-  <a class="logo" href="home.html">MIA <span>MAYS</span> ♡</a>
-  <div class="nav-tools"><button class="icon-btn sound-toggle" id="soundToggle" aria-pressed="false" aria-label="Звуки: выключены" title="Звуки">🔇</button><a class="skip-intro" id="skipIntro" href="home.html">Пропустить →</a></div>
-</div>
-<section class="intro" aria-label="Приветствие">
-  <div class="intro-stage">
-    <figure class="intro-portrait" id="introPortrait">
-      <div class="frame"><picture><source type="image/webp" srcset="img/mia-pillow-320.webp 320w, img/mia-pillow-480.webp 480w, img/mia-pillow-640.webp 640w, img/mia-pillow-937.webp 937w" sizes="(max-width:760px) 260px, 340px"><img src="img/mia-pillow.jpg" alt="MIA в розовой толстовке обнимает подушку и смущённо смотрит на гостя" width="937" height="1400" fetchpriority="high" decoding="async"></picture><span class="blink" aria-hidden="true"></span></div>
-      <span class="ear-spark l" aria-hidden="true"></span><span class="ear-spark r" aria-hidden="true"></span>
-      <figcaption class="name-tag">MIA</figcaption>
-    </figure>
-    <div class="speech" id="speech" aria-live="polite">
-      <div class="bubble-line" id="bubble"><span id="speechText"></span><span class="caret" aria-hidden="true"></span></div>
-      <div class="speech-dots" id="speechDots" aria-hidden="true"></div>
-      <div class="speech-ctrl"><button class="btn ghost small" id="speechNext">Дальше</button><button class="btn ghost small" id="speechAll">Показать всё</button></div>
-      <ol class="speech-log sr-only" id="speechLog"></ol>
-    </div>
+<body data-room="intro">
+<main id="main" class="hall">
+  <figure class="hall-pic"><picture><source type="image/webp" srcset="img/mia-pillow-320.webp 320w, img/mia-pillow-480.webp 480w, img/mia-pillow-640.webp 640w, img/mia-pillow-937.webp 937w" sizes="(max-width:759px) 220px, 340px"><img src="img/mia-pillow.jpg" alt="Мия в розовой толстовке обнимает подушку и смущённо смотрит на гостя" width="937" height="1400" fetchpriority="high" decoding="async"></picture><figcaption class="name-tag">Мия</figcaption></figure>
+  <div class="hall-talk">
+    <p class="kicker">Прихожая</p>
+    <h1>Дом Мии</h1>
+    <div class="hall-bubble" aria-live="polite"><p class="say" id="hallLine">Ой… привет! Это мой дом. Я Мия — кошкодевочка-домоседка.</p></div>
+    <div class="row hall-ctrl" id="hallCtrl"><button class="btn" type="button" id="hallNext">Дальше</button><button class="btn ghost" type="button" id="hallSkip">Пропустить</button><span class="hall-dots" aria-hidden="true"><i class="on"></i><i></i><i></i></span></div>
+    <form class="hall-name card" id="hallForm" action="home.html" method="get">
+      <label for="hallName" class="say">Как тебя зовут? Я запишу на дверце</label>
+      <input id="hallName" name="name" maxlength="24" placeholder="Можно без имени" autocomplete="nickname">
+      <button class="btn big" type="submit">Войти</button>
+    </form>
   </div>
-  <div class="intro-cta reveal in">
-    <h1>Добро пожаловать в мой дом</h1>
-    <a class="btn huge" id="enterHouse" href="home.html">Войти в дом</a>
-    <p class="note">Можно и <a href="home.html" id="skipIntro2">пропустить приветствие</a> — я не обижусь.</p>
-  <div class="intro-cta-spacer" aria-hidden="true"></div></div>
-<div class="village" id="village" aria-hidden="true">
-  <div class="houses-row">
-    <div class="house h1"><div class="roof"></div><div class="body"><span class="win"></span><div class="doorway"><span class="light"></span><span class="hdoor"></span></div></div></div>
-    <div class="house h2"><div class="roof"></div><div class="body"><span class="win"></span><div class="doorway"><span class="light"></span><span class="hdoor"></span></div></div></div>
-    <div class="house h3 main"><div class="roof"></div><div class="body"><span class="win"></span><div class="doorway"><span class="light"></span><span class="hdoor"></span></div></div></div>
-    <div class="house h4"><div class="roof"></div><div class="body"><span class="win"></span><div class="doorway"><span class="light"></span><span class="hdoor"></span></div></div></div>
-    <div class="house h5"><div class="roof"></div><div class="body"><span class="win"></span><div class="doorway"><span class="light"></span><span class="hdoor"></span></div></div></div>
-  </div>
-  <div class="houses-ground"></div>
-</div>
-</section>
-<div class="houses" id="houses" aria-hidden="true">
-  <div class="houses-sky"></div>
-  <div class="houses-row">
-    <div class="house h1"><div class="roof"></div><div class="body"><span class="win"></span><div class="doorway"><span class="light"></span><span class="hdoor"></span></div></div></div>
-    <div class="house h2"><div class="roof"></div><div class="body"><span class="win"></span><div class="doorway"><span class="light"></span><span class="hdoor"></span></div></div></div>
-    <div class="house h3 main"><div class="roof"></div><div class="body"><span class="win"></span><div class="doorway"><span class="light"></span><span class="hdoor"></span></div></div></div>
-    <div class="house h4"><div class="roof"></div><div class="body"><span class="win"></span><div class="doorway"><span class="light"></span><span class="hdoor"></span></div></div></div>
-    <div class="house h5"><div class="roof"></div><div class="body"><span class="win"></span><div class="doorway"><span class="light"></span><span class="hdoor"></span></div></div></div>
-  </div>
-  <div class="houses-ground"></div>
-</div>
 </main>
-
-<script src="app.js" defer></script>
-</body></html>
+</body>
+</html>

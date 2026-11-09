@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Игровая · Дом Мии</title>
+<meta name="description" content="Игровая Мии: погладь котика, клубки, лови сердечки, лазерная указка и мастерская аватарок, гифок и мемов.">
+<link rel="canonical" href="https://ikinosan13-eng.github.io/mia-mays-site/play.html">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Дом Мии · MIA MAYS"><meta property="og:locale" content="ru_RU">
+<meta property="og:title" content="Игровая · Дом Мии"><meta property="og:description" content="Игровая Мии: погладь котика, клубки, лови сердечки, лазерная указка и мастерская аватарок, гифок и мемов.">
+<meta property="og:url" content="https://ikinosan13-eng.github.io/mia-mays-site/play.html"><meta property="og:image" content="https://ikinosan13-eng.github.io/mia-mays-site/img/og-cover.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<!--@shell:boot-->
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#FBF6EF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#FBF6EF" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light dark">
+<script>(()=>{try{const L=localStorage,s=JSON.parse(L.getItem('mia:v1')||'{}'),p=s.prefs||{},h=new Date().getHours(),d=document.documentElement,
+dp=h>=6&&h<11?'morning':h>=11&&h<18?'day':h>=18&&h<22?'evening':'night',o=L.getItem('mia-night'),
+l=p.light||(s.v?'auto':o==='1'?'night':o==='0'?'day':'auto'),n=l==='night'||(l!=='day'&&dp==='night');
+d.dataset.daypart=dp;d.dataset.light=l;d.classList.toggle('night',n);d.classList.add('js');
+if(p.motion==='reduce'||matchMedia('(prefers-reduced-motion: reduce)').matches)d.dataset.motion='reduce';
+document.querySelectorAll('meta[name=theme-color]').forEach(m=>m.content=n?'#1E1A2C':'#FBF6EF')}catch(e){}})()</script>
+<link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png">
+<link rel="preload" href="fonts/nunito.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/core.css?v=13">
+<script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/mia-mays-site/*.html"},{"not":{"selector_matches":"[data-no-prerender],[download]"}}]},"eagerness":"moderate"}]}</script>
+<script type="module" src="js/app.js?v=13"></script>
+<!--/@shell-->
+<link rel="stylesheet" href="css/rooms/play.css?v=13">
+</head>
+<body data-room="play">
+<a class="skip" href="#main">К содержимому</a>
+<!--@shell:icons-->
+<svg class="sprite" width="0" height="0" aria-hidden="true" focusable="false"><defs>
+<symbol id="i-home" viewBox="0 0 24 24"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8"/><path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"/><path d="M12 4v6"/><path d="M2 18h20"/></symbol>
+<symbol id="i-diary" viewBox="0 0 24 24"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></symbol>
+<symbol id="i-album" viewBox="0 0 24 24"><path d="M18 22H4a2 2 0 0 1-2-2V6"/><path d="m22 13-1.3-1.3a2.4 2.4 0 0 0-3.4 0L11 18"/><circle cx="12" cy="8" r="2"/><rect width="16" height="16" x="6" y="2" rx="2"/></symbol>
+<symbol id="i-play" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M5.5 6.5c3.5.5 7 3.5 8.5 11.8"/><path d="M8.6 3.6c3.6 1.8 6.4 5.6 7 12.2"/><path d="M3.2 11.6c3 0 6 2 7.6 7.3"/><path d="M17 16.5c1.8.6 3.5 2 4 4.5"/></symbol>
+<symbol id="i-living" viewBox="0 0 24 24"><path d="M20 9V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v3"/><path d="M2 16a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-5a2 2 0 0 0-4 0v1.5a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5V11a2 2 0 0 0-4 0z"/><path d="M4 18v2"/><path d="M20 18v2"/></symbol>
+<symbol id="i-box" viewBox="0 0 24 24"><path d="M3.5 10h17v9a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2z"/><path d="M2.5 7.5h19V10h-19z"/><path d="M12 7.5V21"/><path d="M12 7.5C10.5 4 7.5 3 6.5 4.5S8 7.5 12 7.5"/><path d="M12 7.5c1.5-3.5 4.5-4.5 5.5-3S16 7.5 12 7.5"/></symbol>
+<symbol id="i-switch" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="4"/><rect x="8.5" y="5" width="7" height="6.5" rx="1.6"/><rect x="8.5" y="12.5" width="7" height="6.5" rx="1.6" style="fill:var(--sw-fill,none)"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+<symbol id="i-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
+<symbol id="i-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+<symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></symbol>
+<symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></symbol>
+<symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.9 4.9 1.4 1.4"/><path d="m17.7 17.7 1.4 1.4"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.3 17.7-1.4 1.4"/><path d="m19.1 4.9-1.4 1.4"/></symbol>
+<symbol id="i-moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></symbol>
+<symbol id="i-heart" viewBox="0 0 24 24"><path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7Z"/></symbol>
+<symbol id="i-volume" viewBox="0 0 24 24"><path d="M11 4.7a.7.7 0 0 0-1.2-.5L6.4 7.6A1.4 1.4 0 0 1 5.4 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.4a1.4 1.4 0 0 1 1 .4l3.4 3.4a.7.7 0 0 0 1.2-.5z"/><path d="M16 9a5 5 0 0 1 0 6"/><path d="M19.4 18.4a9 9 0 0 0 0-12.7"/></symbol>
+<symbol id="i-feather" viewBox="0 0 24 24"><path d="M12.7 3.3a2 2 0 0 0-2.8 0L3 10.1V21h10.9l6.8-6.9a2 2 0 0 0 0-2.8z"/><path d="M16 8 2 22"/><path d="M17.5 15H9"/></symbol>
+<symbol id="i-paw" viewBox="0 0 24 24"><circle cx="11" cy="4" r="2"/><circle cx="18" cy="8" r="2"/><circle cx="20" cy="16" r="2"/><path d="M9 10a5 5 0 0 1 5 5v3.5a3.5 3.5 0 0 1-6.8 1.1 1.5 1.5 0 0 0-1-1A3.5 3.5 0 0 1 7.2 12 5 5 0 0 1 9 10z"/></symbol>
+<symbol id="i-calendar" viewBox="0 0 24 24"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></symbol>
+<symbol id="i-trophy" viewBox="0 0 24 24"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.7V17c0 .6-.5 1-1 1.2-1.2.5-2 2-2 3.8"/><path d="M14 14.7V17c0 .6.5 1 1 1.2 1.2.5 2 2 2 3.8"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></symbol>
+</defs></svg>
+<!--/@shell-->
+<!--@shell:head-->
+<header class="app-head">
+  <a class="mia-chip" href="home.html" aria-label="Мия: дома. В Комнату">
+    <img src="img/avatar-64.webp" width="32" height="32" alt="" decoding="async">
+    <span class="mia-chip__txt"><b>Мия</b><span data-mia-status>дома</span></span>
+  </a>
+  <div class="app-head__tools">
+    <a class="icon-btn" href="box.html" data-box-link aria-label="Коробка"><svg class="i" aria-hidden="true"><use href="#i-box"/></svg><span class="badge" data-box-badge hidden>0</span></a>
+    <button class="icon-btn" type="button" data-switch-open aria-haspopup="dialog" aria-controls="switchSheet" aria-label="Выключатель"><svg class="i" aria-hidden="true"><use href="#i-switch"/></svg></button>
+  </div>
+</header>
+<!--/@shell-->
+<main id="main" tabindex="-1">
+<header class="room-head"><h1>Игровая</h1><p class="lead">Поиграй с Мией или смастери что-нибудь своё. Всё работает прямо в браузере, фото никуда не отправляются.</p></header>
+<div class="seg-wrap"><div class="shelf-seg" role="radiogroup" aria-label="Полка">
+  <button class="chip" type="button" role="radio" aria-checked="true" data-shelf="play" aria-controls="games">Поиграть</button>
+  <button class="chip" type="button" role="radio" aria-checked="false" data-shelf="workshop" aria-controls="workshop" tabindex="-1">Мастерская</button>
+</div></div>
+<section class="sec shelf" id="games" data-shelf-panel="play" aria-label="Поиграть">
+  <ul class="toys">
+    <li class="toy card" id="pet"><button class="toy-open" type="button" data-open="d-pet" aria-haspopup="dialog"><picture><source type="image/webp" srcset="img/face-pajama2-256.webp 256w, img/face-pajama2-512.webp 512w" sizes="96px"><img src="img/face-pajama2.png" alt="" width="512" height="512" loading="lazy" decoding="async"></picture><span><b>Погладь котика</b><small>Гладь Мию по голове — она мурлычет</small><em data-purrs></em></span></button></li>
+    <li class="toy card" id="yarn-card"><button class="toy-open" type="button" data-open="d-yarn" aria-haspopup="dialog"><picture><source type="image/webp" srcset="img/face-pajama-256.webp 256w" sizes="96px"><img src="img/face-pajama.png" alt="" width="256" height="256" loading="lazy" decoding="async"></picture><span><b>Куча клубков</b><small>Таскай и подкидывай клубки</small></span></button></li>
+    <li class="toy card" id="hearts"><button class="toy-open" type="button" data-open="d-hearts" aria-haspopup="dialog"><picture><source type="image/webp" srcset="img/mia-pajama-pillow-320.webp 320w, img/mia-pajama-pillow-480.webp 480w, img/mia-pajama-pillow-640.webp 640w, img/mia-pajama-pillow-1216.webp 1216w" sizes="96px"><img src="img/mia-pajama-pillow.jpg" alt="" width="1216" height="1130" loading="lazy" decoding="async"></picture><span><b>Лови сердечки</b><small>30 секунд, двигай подушку</small><em data-best></em></span></button></li>
+    <li class="toy card" id="laser"><button class="toy-open" type="button" data-open="d-laser" aria-haspopup="dialog"><picture><source type="image/webp" srcset="img/face-pillow-256.webp 256w, img/face-pillow-512.webp 512w" sizes="96px"><img src="img/face-pillow.png" alt="" width="512" height="512" loading="lazy" decoding="async"></picture><span><b>Лазерная указка</b><small>Ушки следят за точкой</small></span></button></li>
+  </ul>
+</section>
+<section class="sec shelf" id="workshop" data-shelf-panel="workshop" aria-label="Мастерская" hidden>
+  <ul class="toys">
+    <li class="toy card" id="ava"><button class="toy-open" type="button" data-open="d-ava" aria-haspopup="dialog"><picture><source type="image/webp" srcset="img/face-pajama2-256.webp 256w, img/face-pajama2-512.webp 512w" sizes="96px"><img src="img/face-pajama2.png" alt="" width="512" height="512" loading="lazy" decoding="async"></picture><span><b>Генератор аватарки</b><small>Твоё фото с ушками и бантиком</small></span></button></li>
+    <li class="toy card" id="make"><button class="toy-open" type="button" data-open="d-gif" aria-haspopup="dialog"><picture><source type="image/webp" srcset="img/face-pillow-256.webp 256w, img/face-pillow-512.webp 512w" sizes="96px"><img src="img/face-pillow.png" alt="" width="512" height="512" loading="lazy" decoding="async"></picture><span><b>Гиф-фабрика</b><small>Прыгающая Мия с подписью</small></span></button></li>
+    <li class="toy card" id="meme"><button class="toy-open" type="button" data-open="d-meme" aria-haspopup="dialog"><picture><source type="image/webp" srcset="img/mia-pillow-320.webp 320w, img/mia-pillow-480.webp 480w, img/mia-pillow-640.webp 640w, img/mia-pillow-937.webp 937w" sizes="96px"><img src="img/mia-pillow.jpg" alt="" width="937" height="1400" loading="lazy" decoding="async"></picture><span><b>Мем-мейкер</b><small>Верхний и нижний текст</small></span></button></li>
+    <li class="toy card" id="try"><button class="toy-open" type="button" data-open="d-try" aria-haspopup="dialog"><picture><source type="image/webp" srcset="img/face-pajama-256.webp 256w" sizes="96px"><img src="img/face-pajama.png" alt="" width="256" height="256" loading="lazy" decoding="async"></picture><span><b>Примерка</b><small>Бантик, шарфик, наушники</small></span></button></li>
+  </ul>
+</section>
+<dialog class="fullscreen" id="d-pet" aria-labelledby="d-pet-t">
+  <div class="fs-head"><button class="btn ghost small fs-back" type="button" data-close-dlg><svg class="i" aria-hidden="true"><use href="#i-left"/></svg>Назад</button><h2 id="d-pet-t">Погладь котика</h2></div>
+  <div class="fs-body">
+    <div class="card tool game"><p>Гладь Мию по голове — она мурлычет.</p><button class="pet-zone" id="petZone" type="button" aria-label="Погладить Мию"><picture><source type="image/webp" srcset="img/face-pajama2-256.webp 256w, img/face-pajama2-512.webp 512w" sizes="220px"><img src="img/face-pajama2.png" alt="" width="512" height="512" loading="lazy" decoding="async"></picture><span class="purr" aria-hidden="true">мрр</span></button><p class="status" role="status">Мурлыканий: <b id="petCount">0</b></p></div>
+  </div>
+</dialog>
+<dialog class="fullscreen" id="d-yarn" aria-labelledby="d-yarn-t">
+  <div class="fs-head"><button class="btn ghost small fs-back" type="button" data-close-dlg><svg class="i" aria-hidden="true"><use href="#i-left"/></svg>Назад</button><h2 id="d-yarn-t">Куча клубков</h2></div>
+  <div class="fs-body">
+    <div class="card tool game"><p>Таскай клубки и подкидывай их. Нажми «Ещё клубок».</p><canvas id="yarn" width="480" height="320" aria-label="Куча клубков на физике"></canvas><div class="row center"><button class="btn" type="button" id="yarnAdd">Ещё клубок</button><button class="btn ghost" type="button" id="yarnShake">Встряхнуть</button></div></div>
+  </div>
+</dialog>
+<dialog class="fullscreen" id="d-hearts" aria-labelledby="d-hearts-t">
+  <div class="fs-head"><button class="btn ghost small fs-back" type="button" data-close-dlg><svg class="i" aria-hidden="true"><use href="#i-left"/></svg>Назад</button><h2 id="d-hearts-t">Лови сердечки</h2></div>
+  <div class="fs-body">
+    <div class="card tool game"><p>Двигай подушку мышкой, пальцем или стрелками. 30 секунд!</p><canvas id="game" width="480" height="320" aria-label="Мини-игра: лови сердечки"></canvas><div class="row center"><button class="btn" type="button" id="gameStart">Начать</button><span id="gameScore" role="status">Очки: 0 · Рекорд: 0</span></div></div>
+  </div>
+</dialog>
+<dialog class="fullscreen" id="d-laser" aria-labelledby="d-laser-t">
+  <div class="fs-head"><button class="btn ghost small fs-back" type="button" data-close-dlg><svg class="i" aria-hidden="true"><use href="#i-left"/></svg>Назад</button><h2 id="d-laser-t">Лазерная указка</h2></div>
+  <div class="fs-body">
+    <div class="card tool game"><p>Води курсором или пальцем — ушки следят за точкой.</p><div class="toy-area" tabindex="0" aria-label="Игровое поле с лазерной точкой. Двигай точку стрелками."><picture><source type="image/webp" srcset="img/face-pillow-256.webp 256w, img/face-pillow-512.webp 512w" sizes="140px"><img src="img/face-pillow.png" alt="" class="toy-face" width="512" height="512" loading="lazy" decoding="async"></picture><span class="ear l"></span><span class="ear r"></span><span class="laser"></span></div></div>
+  </div>
+</dialog>
+<dialog class="fullscreen" id="d-ava" aria-labelledby="d-ava-t">
+  <div class="fs-head"><button class="btn ghost small fs-back" type="button" data-close-dlg><svg class="i" aria-hidden="true"><use href="#i-left"/></svg>Назад</button><h2 id="d-ava-t">Генератор аватарки</h2></div>
+  <div class="fs-body wide">
+    <div class="tool-grid two">
+      <div class="card tool"><canvas id="avaCanvas" width="512" height="512" aria-label="Предпросмотр аватарки"></canvas><p class="note">Перетаскивай фото мышкой или пальцем. Фото обрабатывается только у тебя в браузере.</p></div>
+      <div class="card tool ctrls">
+        <label class="file-btn btn ghost">Загрузить своё фото<input type="file" id="avaFile" accept="image/*" class="sr-only"></label>
+        <label>Масштаб фото <input type="range" id="avaZoom" min="0.5" max="3" step="0.01" value="1"></label>
+        <div class="toggles" role="group" aria-label="Украшения"><button class="chip" type="button" data-ava="ears" aria-pressed="true">Ушки</button><button class="chip" type="button" data-ava="bow" aria-pressed="true">Бантик</button><button class="chip" type="button" data-ava="blush" aria-pressed="false">Румянец</button><button class="chip" type="button" data-ava="frame" aria-pressed="true">Рамка</button></div>
+        <label>Цвет ушек <input type="color" id="avaColor" value="#F5B8D4"></label>
+        <label>Размер ушек <input type="range" id="avaEar" min="0.6" max="1.5" step="0.01" value="1"></label>
+        <div class="row"><button class="btn" type="button" id="avaDl"><svg class="i" aria-hidden="true"><use href="#i-download"/></svg>Скачать аватарку</button><button class="btn ghost" type="button" id="avaBox"><svg class="i" aria-hidden="true"><use href="#i-box"/></svg>В коробку</button></div>
+      </div>
+    </div>
+  </div>
+</dialog>
+<dialog class="fullscreen" id="d-gif" aria-labelledby="d-gif-t">
+  <div class="fs-head"><button class="btn ghost small fs-back" type="button" data-close-dlg><svg class="i" aria-hidden="true"><use href="#i-left"/></svg>Назад</button><h2 id="d-gif-t">Гиф-фабрика</h2></div>
+  <div class="fs-body wide">
+    <div class="tool-grid two">
+      <div class="card tool"><canvas id="gifCanvas" width="320" height="320" aria-label="Анимированный предпросмотр"></canvas></div>
+      <div class="card tool ctrls"><label>Картинка <select id="gifImg"><option value="img/face-pillow-512.webp">Смущашка</option><option value="img/face-pajama2-512.webp">Улыбка</option><option value="img/face-pajama-256.webp">Задумчивость</option></select></label><label>Подпись <input id="gifText" maxlength="30" value="мур~"></label>
+        <label>Стикер <select id="gifStk"><option value="">без стикера</option><option>♡</option><option>✨</option><option>💤</option><option>🎀</option></select></label>
+        <label>Движение <select id="gifAnim"><option value="bounce">прыжки</option><option value="shake">дрожь</option><option value="wiggle">покачивание</option></select></label>
+        <div class="row"><button class="btn" type="button" id="gifRec">Записать видео</button><button class="btn ghost" type="button" id="gifPng">Сохранить кадр</button></div><p class="status" id="gifStatus" role="status"></p></div>
+    </div>
+  </div>
+</dialog>
+<dialog class="fullscreen" id="d-meme" aria-labelledby="d-meme-t">
+  <div class="fs-head"><button class="btn ghost small fs-back" type="button" data-close-dlg><svg class="i" aria-hidden="true"><use href="#i-left"/></svg>Назад</button><h2 id="d-meme-t">Мем-мейкер</h2></div>
+  <div class="fs-body wide">
+    <div class="tool-grid two">
+      <div class="card tool"><canvas id="memeCanvas" width="600" height="600" aria-label="Предпросмотр мема"></canvas></div>
+      <div class="card tool ctrls"><label>Картинка <select id="memeImg"><option value="img/mia-pillow-640.webp">С подушкой</option><option value="img/mia-pajama-pillow-640.webp">В пижаме</option><option value="img/mia-pajama-crop-640.webp">Прячется</option></select></label>
+        <label>Верхний текст <input id="memeTop" maxlength="40" value="Я в пятницу вечером"></label><label>Нижний текст <input id="memeBot" maxlength="40" value="Форт из одеял: готов"></label><button class="btn" type="button" id="memeDl"><svg class="i" aria-hidden="true"><use href="#i-download"/></svg>Скачать мем</button></div>
+    </div>
+  </div>
+</dialog>
+<dialog class="fullscreen" id="d-try" aria-labelledby="d-try-t">
+  <div class="fs-head"><button class="btn ghost small fs-back" type="button" data-close-dlg><svg class="i" aria-hidden="true"><use href="#i-left"/></svg>Назад</button><h2 id="d-try-t">Примерка</h2></div>
+  <div class="fs-body wide">
+    <div class="tool-grid two">
+      <div class="card tool"><div class="tryon-stage"><img id="tryImg" src="img/face-pillow-512.webp" width="512" height="512" alt="Лицо Мии для примерки" loading="lazy">
+        <svg class="acc acc-bow" viewBox="0 0 100 60" aria-hidden="true"><path d="M50 30 L10 8 Q2 30 10 52 Z M50 30 L90 8 Q98 30 90 52 Z" fill="#e0607e"/><circle cx="50" cy="30" r="9" fill="#F5B8D4"/></svg>
+        <svg class="acc acc-scarf" viewBox="0 0 200 40" aria-hidden="true"><rect x="0" y="10" width="200" height="18" rx="9" fill="#b99cff"/><rect x="140" y="20" width="18" height="20" rx="6" fill="#9a7fe6"/></svg>
+        <svg class="acc acc-mask" viewBox="0 0 200 60" aria-hidden="true"><rect x="5" y="8" width="190" height="44" rx="22" fill="#ffc6d6"/><path d="M40 30 q15 12 30 0 M130 30 q15 12 30 0" stroke="#8a2943" stroke-width="5" fill="none" stroke-linecap="round"/></svg>
+        <svg class="acc acc-phones" viewBox="0 0 200 160" aria-hidden="true"><path d="M20 110 Q20 10 100 10 Q180 10 180 110" stroke="#ff8fb0" stroke-width="12" fill="none"/><rect x="2" y="90" width="38" height="60" rx="16" fill="#e0607e"/><rect x="160" y="90" width="38" height="60" rx="16" fill="#e0607e"/></svg></div></div>
+      <div class="card tool ctrls"><label>Лицо <select id="tryFace"><option value="img/face-pillow-512.webp">Смущашка</option><option value="img/face-pajama2-512.webp">Улыбка</option><option value="img/face-pajama-256.webp">Задумчивость</option></select></label>
+        <div class="toggles" role="group" aria-label="Аксессуары"><button class="chip" type="button" aria-pressed="false" data-acc="bow">Бантик</button><button class="chip" type="button" aria-pressed="false" data-acc="scarf">Шарфик</button><button class="chip" type="button" aria-pressed="false" data-acc="mask">Маска для сна</button><button class="chip" type="button" aria-pressed="false" data-acc="phones">Наушники</button></div></div>
+    </div>
+  </div>
+</dialog>
+</main>
+<!--@shell:tabbar-->
+<nav class="rooms" aria-label="Комнаты">
+  <a href="home.html" data-room-link="home"><svg class="i" aria-hidden="true"><use href="#i-home"/></svg><span>Комната</span><i class="dot" data-news-dot hidden></i></a>
+  <a href="diary.html" data-room-link="diary"><svg class="i" aria-hidden="true"><use href="#i-diary"/></svg><span>Дневник</span></a>
+  <a href="album.html" data-room-link="album"><svg class="i" aria-hidden="true"><use href="#i-album"/></svg><span>Альбом</span></a>
+  <a href="play.html" data-room-link="play" aria-current="page"><svg class="i" aria-hidden="true"><use href="#i-play"/></svg><span>Игровая</span></a>
+  <a href="living.html" data-room-link="living"><svg class="i" aria-hidden="true"><use href="#i-living"/></svg><span>Гостиная</span></a>
+</nav>
+<!--/@shell-->
+<!--@shell:switch-->
+<dialog id="switchSheet" class="sheet" aria-labelledby="switchTitle">
+  <form method="dialog" class="sheet__inner">
+    <header class="sheet__head"><h2 id="switchTitle">Выключатель</h2><button class="icon-btn" value="close" aria-label="Закрыть"><svg class="i" aria-hidden="true"><use href="#i-x"/></svg></button></header>
+    <div data-sheet-main>
+      <fieldset class="seg">
+        <legend>Свет</legend>
+        <label><input type="radio" name="light" value="auto"><span>Как за окном</span></label>
+        <label><input type="radio" name="light" value="day"><span><svg class="i" aria-hidden="true"><use href="#i-sun"/></svg>День</span></label>
+        <label><input type="radio" name="light" value="night"><span><svg class="i" aria-hidden="true"><use href="#i-moon"/></svg>Ночь</span></label>
+      </fieldset>
+      <label class="row-sw"><svg class="i" aria-hidden="true"><use href="#i-volume"/></svg><span>Звуки (мур)</span><input type="checkbox" name="sound" role="switch"></label>
+      <label class="row-sw"><svg class="i" aria-hidden="true"><use href="#i-feather"/></svg><span>Ленивая кошка — меньше движения</span><input type="checkbox" name="motion" role="switch"></label>
+      <label class="row-name"><span>Как тебя зовут?</span><input type="text" name="name" maxlength="24" autocomplete="nickname" placeholder="можно без имени"></label>
+      <div class="sheet__links">
+        <button type="button" data-action="install" hidden>Поселить Мию на экран</button>
+        <a href="index.html?again=1" data-no-prerender>Приветствие заново</a>
+        <a href="living.html#about">О доме</a>
+        <button type="button" data-action="reset" class="danger">Забыть всё</button>
+      </div>
+    </div>
+    <div class="sheet__confirm" data-sheet-confirm hidden>
+      <p>Точно всё забыть? Даже кошка помнит, где миска.</p>
+      <p class="note">Коробка, записки, рекорды и настройки в этом браузере исчезнут.</p>
+      <div class="row"><button type="button" class="btn" data-action="reset-yes">Да, забыть</button><button type="button" class="btn ghost" data-action="reset-no">Нет, оставить</button></div>
+    </div>
+  </form>
+</dialog>
+<!--/@shell-->
+<!--@shell:toasts-->
+<div class="toasts" role="status" aria-live="polite"></div>
+<!--/@shell-->
+</body>
+</html>
