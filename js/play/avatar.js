@@ -25,6 +25,9 @@ export default function init() {
   ac.addEventListener('pointermove', e => { if (!drag) return; const k = S / ac.getBoundingClientRect().width; ox = drag.ox + (e.clientX - drag.x) * k; oy = drag.oy + (e.clientY - drag.y) * k; draw(); });
   ac.addEventListener('pointerup', () => drag = null); ac.addEventListener('pointercancel', () => drag = null);
   $('#avaDl').addEventListener('click', () => { dl(ac.toDataURL('image/png'), 'mia-avatarka.png'); toast('Аватарка сохранена ♡'); });
-  // в коробку кладём только отметку (сама картинка может быть с личным фото — её не храним)
-  $('#avaBox').addEventListener('click', () => Box.add({ id: 'avatar-' + Date.now().toString(36), kind: 'avatar', title: 'Аватарка с ушками (сделана в Мастерской)', thumb: '' }, ac));
+  // в коробку — маленькая превьюшка 112 px (живёт только в этом браузере, никуда не отправляется)
+  const thumb = () => { const c = document.createElement('canvas'); c.width = c.height = 112; c.getContext('2d').drawImage(ac, 0, 0, 112, 112);
+    const w = c.toDataURL('image/webp', .8); if (w.startsWith('data:image/webp')) return w;
+    const x = c.getContext('2d'); x.globalCompositeOperation = 'destination-over'; x.fillStyle = '#F7DDE5'; x.fillRect(0, 0, 112, 112); return c.toDataURL('image/jpeg', .8); };
+  $('#avaBox').addEventListener('click', () => Box.add({ id: 'avatar-' + Date.now().toString(36), kind: 'avatar', title: 'Аватарка с ушками (сделана в Мастерской)', thumb: thumb() }, ac));
 }
