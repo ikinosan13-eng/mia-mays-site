@@ -1,8 +1,8 @@
 // «Пока тебя не было»: обновления новее прошлого визита (максимум 3, свежие сверху) или одна строка-заполнитель
-import { MiaStore } from '../core/store.js';
-import { esc, icon, hash, dayKey } from '../core/dom.js';
-import { ago } from './clock.js';
-import { P } from './phrases.js';
+import { MiaStore } from '../core/store.js?v=16';
+import { esc, icon, hash, dayKey } from '../core/dom.js?v=16';
+import { ago } from './clock.js?v=16';
+import { P } from './phrases.js?v=16';
 const ROOM_IC = { diary: 'diary', album: 'album', play: 'play', living: 'living', home: 'home', box: 'box' };
 export function sinceItems(ups, prev) {
   if (!prev) return [];

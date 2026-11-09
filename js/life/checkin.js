@@ -1,7 +1,7 @@
 // чек-ин «А ты как сегодня?»: раз в день, 4 кнопки (aria-pressed), ответ Мии; журнал — последние 30 дней
-import { $$, dayKey } from '../core/dom.js';
-import { MiaStore } from '../core/store.js';
-import { P } from './phrases.js';
+import { $$, dayKey } from '../core/dom.js?v=16';
+import { MiaStore } from '../core/store.js?v=16';
+import { P } from './phrases.js?v=16';
 export const MOODS = { sleepy: '😴', good: '☺️', busy: '🧶', sad: '🌧' };
 export function record(mood, today = dayKey()) {
   if (!MOODS[mood]) return false;

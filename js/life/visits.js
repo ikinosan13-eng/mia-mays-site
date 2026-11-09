@@ -1,7 +1,7 @@
 // recordVisit() — один раз на визит: новый визит = прошло > 30 мин с visits.last или наступила новая дата.
 // Только когда страница реально показана (не prerender). days не убывает при переводе часов назад.
-import { MiaStore } from '../core/store.js';
-import { whenActive, dayKey } from '../core/dom.js';
+import { MiaStore } from '../core/store.js?v=16';
+import { whenActive, dayKey } from '../core/dom.js?v=16';
 const GAP = 30 * 60 * 1000;
 export function recordVisit(now = Date.now()) {
   whenActive(() => MiaStore.update(s => {

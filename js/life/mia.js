@@ -1,11 +1,11 @@
 // Мия в Комнате: позы (data/mia.json → poses), погладить, моргнуть, уснуть от тишины. Только события, без интервалов.
-import { $, reduced, whenActive } from '../core/dom.js';
-import { MiaStore } from '../core/store.js';
-import { Sound } from '../core/sound.js';
-import { toast } from '../core/toast.js';
-import { Box } from '../core/box.js';
-import { data } from './data.js';
-import { P, fill } from './phrases.js';
+import { $, reduced, whenActive } from '../core/dom.js?v=16';
+import { MiaStore } from '../core/store.js?v=16';
+import { Sound } from '../core/sound.js?v=16';
+import { toast } from '../core/toast.js?v=16';
+import { Box } from '../core/box.js?v=16';
+import { data } from './data.js?v=16';
+import { P, fill } from './phrases.js?v=16';
 let cfg = null, fig = null, cur = '', base = '', revert = 0;
 // встроенная карта (совпадает с инлайн-скриптом home.html); data/mia.json может её переопределить
 const DEF = { poseBase: { src: 'img/mia/mia-{name}.a1-512.webp', srcset: 'img/mia/mia-{name}.a1-256.webp 256w, img/mia/mia-{name}.a1-512.webp 512w', w: 512, h: 683 },
@@ -31,7 +31,7 @@ export function setPose(name, ms = 0) {
   cur = name;
   const old = fig.querySelector('.room__mia:not(.out)'), im = new Image();
   im.className = 'room__mia next'; im.dataset.pose = name; im.alt = p.alt || ''; im.width = p.w || 512; im.height = p.h || 683; im.decoding = 'async';
-  if (p.srcset) { im.srcset = p.srcset; im.sizes = '(max-width:1100px) 35vw, 382px'; }
+  if (p.srcset) { im.srcset = p.srcset; im.sizes = '(max-width:759px) 31vw, (max-width:1100px) 30vw, 330px'; }
   im.src = p.src;
   const show = () => { if (im.dataset.pose !== cur || im.classList.contains('out')) { im.remove(); return; } im.classList.add('on');
     const fin = () => { if (!im.isConnected || im.classList.contains('out')) return; im.classList.remove('next', 'on'); fig.querySelectorAll('.room__mia.out').forEach(x => x.remove()); };

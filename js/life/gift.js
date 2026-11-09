@@ -1,8 +1,8 @@
 // подарок дня у порога: раз в календарный день; пропуски не сгорают и не копятся; без таймеров
-import { hash, dayKey } from '../core/dom.js';
-import { MiaStore } from '../core/store.js';
-import { Box } from '../core/box.js';
-import { P } from './phrases.js';
+import { hash, dayKey } from '../core/dom.js?v=16';
+import { MiaStore } from '../core/store.js?v=16';
+import { Box } from '../core/box.js?v=16';
+import { P } from './phrases.js?v=16';
 export const daily = pool => pool.filter(g => g && g.id && g.daily !== false);
 // детерминированно: hash(today + seed) по ещё не собранным; всё собрано → null (фраза gift.allCollected)
 export function pickGift(pool, got = [], today = dayKey(), seed = '') {

@@ -1,6 +1,6 @@
 // часы гостя: части суток, даты, недели, особые дни (всё по местному времени)
-export { daypart, dayKey } from '../core/dom.js';
-export { nextFriday20 } from '../core/countdown.js';
+export { daypart, dayKey } from '../core/dom.js?v=16';
+export { nextFriday20 } from '../core/countdown.js?v=16';
 export const isoWeek = (d = new Date()) => { const t = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate())); const day = t.getUTCDay() || 7; t.setUTCDate(t.getUTCDate() + 4 - day); const y = t.getUTCFullYear(), w = Math.ceil(((t - Date.UTC(y, 0, 1)) / 864e5 + 1) / 7); return `${y}-W${String(w).padStart(2, '0')}`; };
 export const isFridayEvening = (d = new Date()) => d.getDay() === 5 && d.getHours() >= 19;
 const md = d => `${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
