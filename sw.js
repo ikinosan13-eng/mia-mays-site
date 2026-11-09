@@ -1,6 +1,6 @@
 // Дом Мии — service worker (ручной). VERSION = ?v=N в HTML; оба ставит tools/shell.mjs из tools/version.txt.
 // Аварийно: залить tools/sw-kill.js вместо этого файла (снимет SW и кэши у всех гостей).
-const VERSION = 'mia-v15';
+const VERSION = 'mia-v16';
 const SHELL = `${VERSION}-shell`, PAGES = `${VERSION}-pages`, IMG = 'mia-img-v1';
 const PRECACHE = [/*@precache*/
   './',
@@ -14,62 +14,62 @@ const PRECACHE = [/*@precache*/
   './offline.html',
   './404.html',
   './manifest.webmanifest',
-  './css/core.css?v=15',
-  './css/rooms/album.css?v=15',
-  './css/rooms/box.css?v=15',
-  './css/rooms/diary.css?v=15',
-  './css/rooms/home.css?v=15',
-  './css/rooms/intro.css?v=15',
-  './css/rooms/living.css?v=15',
-  './css/rooms/play.css?v=15',
-  './js/app.js?v=15',
-  './js/core/box.js',
-  './js/core/countdown.js',
-  './js/core/dom.js',
-  './js/core/eggs.js',
-  './js/core/fx.js',
-  './js/core/knead.js',
-  './js/core/migrate.js',
-  './js/core/modal.js',
-  './js/core/nav.js',
-  './js/core/prefs.js',
-  './js/core/pwa.js',
-  './js/core/shell.js',
-  './js/core/sound.js',
-  './js/core/store.js',
-  './js/core/switch.js',
-  './js/core/toast.js',
-  './js/life/checkin.js',
-  './js/life/clock.js',
-  './js/life/data.js',
-  './js/life/gift.js',
-  './js/life/greet.js',
-  './js/life/mia.js',
-  './js/life/phrases.js',
-  './js/life/since.js',
-  './js/life/visits.js',
-  './js/play/avatar.js',
-  './js/play/gif.js',
-  './js/play/hearts.js',
-  './js/play/laser.js',
-  './js/play/meme.js',
-  './js/play/pet.js',
-  './js/play/tryon.js',
-  './js/play/yarn.js',
-  './js/rooms/album.js',
-  './js/rooms/box.js',
-  './js/rooms/diary.js',
-  './js/rooms/home.js',
-  './js/rooms/intro.js',
-  './js/rooms/living.js',
-  './js/rooms/lost.js',
-  './js/rooms/play.js',
+  './css/core.css?v=16',
+  './css/rooms/album.css?v=16',
+  './css/rooms/box.css?v=16',
+  './css/rooms/diary.css?v=16',
+  './css/rooms/home.css?v=16',
+  './css/rooms/intro.css?v=16',
+  './css/rooms/living.css?v=16',
+  './css/rooms/play.css?v=16',
+  './js/app.js?v=16',
+  './js/core/box.js?v=16',
+  './js/core/countdown.js?v=16',
+  './js/core/dom.js?v=16',
+  './js/core/eggs.js?v=16',
+  './js/core/fx.js?v=16',
+  './js/core/knead.js?v=16',
+  './js/core/migrate.js?v=16',
+  './js/core/modal.js?v=16',
+  './js/core/nav.js?v=16',
+  './js/core/prefs.js?v=16',
+  './js/core/pwa.js?v=16',
+  './js/core/shell.js?v=16',
+  './js/core/sound.js?v=16',
+  './js/core/store.js?v=16',
+  './js/core/switch.js?v=16',
+  './js/core/toast.js?v=16',
+  './js/life/checkin.js?v=16',
+  './js/life/clock.js?v=16',
+  './js/life/data.js?v=16',
+  './js/life/gift.js?v=16',
+  './js/life/greet.js?v=16',
+  './js/life/mia.js?v=16',
+  './js/life/phrases.js?v=16',
+  './js/life/since.js?v=16',
+  './js/life/visits.js?v=16',
+  './js/play/avatar.js?v=16',
+  './js/play/gif.js?v=16',
+  './js/play/hearts.js?v=16',
+  './js/play/laser.js?v=16',
+  './js/play/meme.js?v=16',
+  './js/play/pet.js?v=16',
+  './js/play/tryon.js?v=16',
+  './js/play/yarn.js?v=16',
+  './js/rooms/album.js?v=16',
+  './js/rooms/box.js?v=16',
+  './js/rooms/diary.js?v=16',
+  './js/rooms/home.js?v=16',
+  './js/rooms/intro.js?v=16',
+  './js/rooms/living.js?v=16',
+  './js/rooms/lost.js?v=16',
+  './js/rooms/play.js?v=16',
   './fonts/caveat.woff2',
   './fonts/nunito.woff2',
-  './data/gifts.json',
-  './data/mia.json',
-  './data/notes.json',
-  './data/updates.json',
+  './data/gifts.json?v=16',
+  './data/mia.json?v=16',
+  './data/notes.json?v=16',
+  './data/updates.json?v=16',
   './img/icons/icon-192.a1.png',
   './img/icons/favicon.a1.svg',
   './img/icons/avatar.a1-64.webp',
@@ -134,7 +134,24 @@ self.addEventListener('fetch', e => {
     return;
   }
 
-  // css/js/шрифты/json/manifest: stale-while-revalidate
+  // js и data/*.json: сеть первой (2 с) → кэш. Страховка к ?v=N: новый HTML никогда не исполняет старые модули
+  if (/\.(?:m?js|json)$/i.test(url.pathname)) {
+    const net = fetch(req).then(res => {
+      if (res.ok && res.type === 'basic') e.waitUntil(put(SHELL, req, res.clone()));
+      return res;
+    });
+    e.waitUntil(net.catch(() => {}));
+    e.respondWith((async () => {
+      try { return await Promise.race([net, wait(2000)]); }
+      catch {
+        const hit = await caches.match(req); if (hit) return hit;
+        try { return await net; } catch { return Response.error(); }
+      }
+    })());
+    return;
+  }
+
+  // css/шрифты/manifest: stale-while-revalidate
   e.respondWith(caches.match(req).then(hit => {
     const net = fetch(req).then(res => {
       if (res.ok && res.type === 'basic') e.waitUntil(put(SHELL, req, res.clone()));
