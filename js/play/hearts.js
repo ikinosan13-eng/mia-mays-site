@@ -1,7 +1,7 @@
-import { $ } from '../core/dom.js';
-import { MiaStore } from '../core/store.js';
-import { toast } from '../core/toast.js';
-import { Sound } from '../core/sound.js';
+import { $ } from '../core/dom.js?v=16';
+import { MiaStore } from '../core/store.js?v=16';
+import { toast } from '../core/toast.js?v=16';
+import { Sound } from '../core/sound.js?v=16';
 export default function init() {
   const cv = $('#game'); if (!cv) return;
   const cx = cv.getContext('2d'); let px = 240, tx = 240, hearts = [], sparks = [], score = 0, best = MiaStore.read('games.heartsBest') || 0, end = 0, run = false, keys = {}, lastF = 0, spawnAcc = 0;

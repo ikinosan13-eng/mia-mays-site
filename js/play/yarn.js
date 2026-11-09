@@ -1,4 +1,4 @@
-import { $ } from '../core/dom.js';
+import { $ } from '../core/dom.js?v=16';
 export default function init() {
   const yc = $('#yarn'); if (!yc) return;
   const yx = yc.getContext('2d'), W = 480, H = 320, cols = ['#F5B8D4', '#e0607e', '#b99cff', '#F2766B', '#ffd98a', '#9fd8c8']; let balls = [], grab = null, last = performance.now(), raf = 0, on = false, calm = 0;

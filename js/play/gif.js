@@ -1,6 +1,6 @@
-import { $, load, dl, reduced, lite } from '../core/dom.js';
-import { toast } from '../core/toast.js';
-import { knead } from '../core/knead.js';
+import { $, load, dl, reduced, lite } from '../core/dom.js?v=16';
+import { toast } from '../core/toast.js?v=16';
+import { knead } from '../core/knead.js?v=16';
 export default function init() {
   const gc = $('#gifCanvas'); if (!gc) return;
   const gx = gc.getContext('2d'); let gImg, t0 = performance.now(), on = false, raf = 0;

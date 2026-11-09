@@ -1,7 +1,7 @@
-import { $ } from '../core/dom.js';
-import { MiaStore } from '../core/store.js';
-import { toast } from '../core/toast.js';
-import { Sound } from '../core/sound.js';
+import { $ } from '../core/dom.js?v=16';
+import { MiaStore } from '../core/store.js?v=16';
+import { toast } from '../core/toast.js?v=16';
+import { Sound } from '../core/sound.js?v=16';
 export default function init() {
   const pet = $('#petZone'); if (!pet) return;
   const cnt = $('#petCount'); let n = MiaStore.read('games.purrs') || 0, acc = 0, lastP = null; cnt.textContent = n;

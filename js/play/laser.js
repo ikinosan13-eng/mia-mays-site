@@ -1,4 +1,4 @@
-import { $, $$ } from '../core/dom.js';
+import { $, $$ } from '../core/dom.js?v=16';
 export default function init() {
   const area = $('.toy-area'); if (!area) return;
   const laser = $('.laser', area), [el, er] = $$('.ear', area); let lp = { x: .5, y: .3 };

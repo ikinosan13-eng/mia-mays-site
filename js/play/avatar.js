@@ -1,6 +1,6 @@
-import { $, $$, load, dl } from '../core/dom.js';
-import { toast } from '../core/toast.js';
-import { Box } from '../core/box.js';
+import { $, $$, load, dl } from '../core/dom.js?v=16';
+import { toast } from '../core/toast.js?v=16';
+import { Box } from '../core/box.js?v=16';
 export default function init() {
   const ac = $('#avaCanvas'); if (!ac) return;
   const ax = ac.getContext('2d'), S = 512; let img = null, ox = 0, oy = 0, drag = null; const opt = { ears: true, bow: true, blush: false, frame: true };

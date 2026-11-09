@@ -1,5 +1,5 @@
-import { $, load, dl } from '../core/dom.js';
-import { toast } from '../core/toast.js';
+import { $, load, dl } from '../core/dom.js?v=16';
+import { toast } from '../core/toast.js?v=16';
 export default function init() {
   const mc = $('#memeCanvas'); if (!mc) return; const mx = mc.getContext('2d');
   async function meme() { const i = await load($('#memeImg').value); if (!i) return; const s = Math.max(600 / i.width, 600 / i.height);

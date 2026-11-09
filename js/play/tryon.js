@@ -1,4 +1,4 @@
-import { $, $$ } from '../core/dom.js';
+import { $, $$ } from '../core/dom.js?v=16';
 export default function init() {
   const f = $('#tryFace'); if (!f) return;
   f.addEventListener('change', e => { $('#tryImg').src = e.target.value; });
