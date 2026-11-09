@@ -2,7 +2,6 @@
 'use strict';
 const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
 const lite = reduce || matchMedia('(max-width:700px)').matches || !!(navigator.connection && navigator.connection.saveData) || (navigator.deviceMemory && navigator.deviceMemory <= 4);
 if (lite) document.documentElement.classList.add('lite');
 const store = { get: k => { try { return localStorage.getItem(k); } catch { return null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch {} } };
@@ -27,21 +26,22 @@ const Sound = (() => { let ctx = null, on = store.get('mia-sound') === 'on', las
   if (btn) btn.addEventListener('click', () => { on = !on; store.set('mia-sound', on ? 'on' : 'off'); ui(); if (on) { ensure(); meow(); } toast(on ? 'Звуки включены 🔊' : 'Звуки выключены 🔇'); });
   const unlock = () => { if (on) ensure(); removeEventListener('pointerdown', unlock); removeEventListener('keydown', unlock); };
   addEventListener('pointerdown', unlock); addEventListener('keydown', unlock); ui(); return { tone, meow }; })();
-document.addEventListener('pointerover', e => { const t = e.target.closest && e.target.closest('.btn,.chip,.inline-nav a,.room-door,.g,.sticker'); if (t && !t.contains(e.relatedTarget)) Sound.tone(1100 + Math.random() * 200, .06); });
+document.addEventListener('pointerover', e => { if (e.pointerType !== 'mouse') return; const t = e.target.closest && e.target.closest('.btn,.chip,.inline-nav a,.room-door,.g,.sticker'); if (t && !t.contains(e.relatedTarget)) Sound.tone(1100 + Math.random() * 200, .06); });
 document.addEventListener('click', e => { const t = e.target.closest && e.target.closest('.btn,.chip,.icon-btn'); if (!t) return; Sound.tone(700, .1, 'triangle');
   if (!reduce) { t.classList.remove('pop'); void t.offsetWidth; t.classList.add('pop'); } });
 document.addEventListener('animationend', e => e.target.classList && e.target.classList.remove('pop'));
 
 // лампа — ночной режим
 const lamp = $('#lampToggle');
-const setNight = n => { document.body.classList.toggle('night', n); if (lamp) { lamp.setAttribute('aria-pressed', n); lamp.setAttribute('aria-label', n ? 'Лампа: включить дневной свет' : 'Лампа: включить ночной режим'); } };
+const themeMeta = $('meta[name=theme-color]');
+const setNight = n => { document.body.classList.toggle('night', n); if (themeMeta) themeMeta.content = n ? '#1E1A2C' : '#FBF6EF'; if (lamp) { lamp.setAttribute('aria-pressed', n); lamp.setAttribute('aria-label', n ? 'Лампа: включить дневной свет' : 'Лампа: включить ночной режим'); } };
 setNight(store.get('mia-night') === '1');
 if (lamp) lamp.addEventListener('click', () => { const n = !document.body.classList.contains('night'); setNight(n); store.set('mia-night', n ? '1' : '0'); Sound.tone(n ? 440 : 880, .2); toast(n ? 'Лампа погашена — спокойной ночи 🌙' : 'Доброе утро ☀️'); });
 
 // полноэкранное меню (<dialog>, раскрытие кругом)
 const menuDlg = $('#menuDialog'), menuBtn = $('#menuBtn');
 if (menuDlg && menuBtn && menuDlg.showModal) {
-  const close = () => { if (!menuDlg.open) return; if (reduce) return menuDlg.close(); menuDlg.classList.add('closing'); setTimeout(() => { menuDlg.classList.remove('closing'); menuDlg.close(); }, 600); };
+  const close = () => { if (!menuDlg.open) return; if (reduce) return menuDlg.close(); menuDlg.classList.add('closing'); setTimeout(() => { menuDlg.classList.remove('closing'); menuDlg.close(); }, 200); };
   menuBtn.addEventListener('click', () => { menuDlg.showModal(); menuBtn.setAttribute('aria-expanded', 'true'); });
   menuDlg.addEventListener('close', () => { menuBtn.setAttribute('aria-expanded', 'false'); menuBtn.focus(); });
   menuDlg.addEventListener('cancel', e => { e.preventDefault(); close(); });
@@ -49,64 +49,26 @@ if (menuDlg && menuBtn && menuDlg.showModal) {
   $$('.big-nav a', menuDlg).forEach(a => a.addEventListener('click', () => menuDlg.close()));
 } else if (menuBtn) menuBtn.addEventListener('click', () => { location.href = 'home.html'; });
 
-// разбивка заголовков по буквам
-$$('.split').forEach(el => { const txt = el.textContent.trim(); el.setAttribute('aria-label', txt); el.textContent = ''; let i = 0;
-  txt.split(' ').forEach((w, wi, arr) => { const ws = document.createElement('span'); ws.className = 'w'; ws.setAttribute('aria-hidden', 'true');
-    [...w].forEach(c => { const s = document.createElement('span'); s.className = 'ch'; s.style.setProperty('--i', i++); s.textContent = c; ws.append(s); }); el.append(ws); if (wi < arr.length - 1) el.append(' '); });
-  requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add('go'))); });
 
 // появление при прокрутке
 $$('.rooms,.stickers,.comic,.gallery,.shop,.wallpapers,.about-grid,.diary,.mood-cards,.comics-grid,.projects-grid,.cart-items,.comic-teaser,.project-card').forEach(g => [...g.children].forEach((c, i) => { c.style.setProperty('--d', (i % 6) * .08 + 's'); c.classList.add('reveal'); }));
 $$('.sec>h2').forEach(h => h.classList.add('reveal'));
 const io = 'IntersectionObserver' in window ? new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12, rootMargin: '0px 0px -30px' }) : null;
 $$('.reveal').forEach(el => reduce || !io ? el.classList.add('in') : io.observe(el));
-$$('.gallery>*').forEach(el => el.classList.add('zoom-in'));
-$$('.timeline li,.tl li').forEach((el, i) => { el.classList.add('reveal', 'tl-reveal', i % 2 ? 'from-right' : 'from-left'); reduce || !io ? el.classList.add('in') : io.observe(el); });
 // страховка: через 3 с всё, что ещё скрыто, показываем
 setTimeout(() => $$('.reveal:not(.in)').forEach(el => { const r = el.getBoundingClientRect(); if (r.top < innerHeight * 1.5) el.classList.add('in'); }), 3000);
 setTimeout(() => document.documentElement.classList.add('reveal-done'), 8000);
-// мягкий параллакс фона
-const drift = $('.drift');
-if (drift && !reduce && !lite) { const ls = $$('i', drift); let ticking = false;
-  addEventListener('scroll', () => { if (ticking) return; ticking = true; requestAnimationFrame(() => { const y = scrollY; ls.forEach((l, i) => l.style.transform = `translate3d(0,${-y * (.04 + i * .05)}px,0)`); ticking = false; }); }, { passive: true }); }
-// переходы между страницами: Cross-doc View Transitions (CSS) или лёгкий curtain
+
+// View Transitions: только для лайтбокса (между страницами — CSS @view-transition, без JS-шторки)
 const canVT = !reduce && !lite && typeof document.startViewTransition === 'function';
-const crossDocVT = canVT && CSS.supports('view-transition-name', 'none');
-document.addEventListener('click', e => { const a = e.target.closest('a[href]'); if (!a || e.defaultPrevented || reduce) return;
-  if (e.button || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey || a.target || a.hasAttribute('download')) return;
-  const u = new URL(a.href, location.href); if (u.origin !== location.origin || !/\.html$|\/$/.test(u.pathname)) return;
-  if (u.pathname === location.pathname && u.hash) return;
-  if (a.id === 'enterHouse') return; // свой houses-переход
-  // если браузер сам анимирует MPA — не мешаем
-  if (crossDocVT) return;
-  e.preventDefault();
-  document.body.classList.add('leaving');
-  setTimeout(() => { location.href = u.href; }, 280); });
-addEventListener('pageshow', e => { if (e.persisted) document.body.classList.remove('leaving'); });
+// фоновая вкладка: CSS-анимации на паузу
+const syncHidden = () => document.documentElement.classList.toggle('tab-hidden', document.hidden);
+document.addEventListener('visibilitychange', syncHidden); syncHidden();
 
-// счётчики
-const counters = $$('[data-count]');
-if (counters.length) { const run = el => { const to = +el.dataset.count; if (reduce) { el.textContent = to; return; } const t0 = performance.now(), d = 1600;
-    (function f(t) { const k = Math.min(1, (t - t0) / d), e = 1 - Math.pow(1 - k, 3); el.textContent = Math.round(to * e); if (k < 1) requestAnimationFrame(f); })(t0); };
-  if (io) { const co = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { run(e.target); co.unobserve(e.target); } }), { threshold: .5 }); counters.forEach(c => co.observe(c)); } else counters.forEach(run); }
-
-// наклон карточек за курсором
-if (fine && !reduce) $$('.tilt').forEach(el => {
-  el.addEventListener('pointermove', e => { const r = el.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
-    el.style.setProperty('--ty', (x * 14).toFixed(2) + 'deg'); el.style.setProperty('--tx', (-y * 14).toFixed(2) + 'deg'); });
-  el.addEventListener('pointerleave', () => { el.style.setProperty('--tx', '0deg'); el.style.setProperty('--ty', '0deg'); }); });
-
-// курсор-лапка (только мышь)
-const paw = $('.paw-cursor');
-if (paw && fine && !reduce) { document.body.classList.add('paw'); paw.style.opacity = 0; let x = -100, y = -100, cx = x, cy = y, raf = 0;
-  addEventListener('pointermove', e => { if (e.pointerType !== 'mouse') return; if (paw.style.opacity === '0') { paw.style.opacity = 1; cx = e.clientX; cy = e.clientY; } x = e.clientX; y = e.clientY; if (!raf) raf = requestAnimationFrame(step); }, { passive: true });
-  addEventListener('pointerdown', () => paw.classList.add('down')); addEventListener('pointerup', () => paw.classList.remove('down'));
-  document.addEventListener('mouseleave', () => { paw.style.opacity = 0; }); document.addEventListener('mouseenter', () => { paw.style.opacity = 1; });
-  function step() { raf = 0; if (document.hidden) return; cx += (x - cx) * .35; cy += (y - cy) * .35; paw.style.transform = `translate3d(${cx - 15}px,${cy - 15}px,0) rotate(${(x - cx) * .5}deg)`; if (Math.abs(x - cx) + Math.abs(y - cy) > .5) raf = requestAnimationFrame(step); } }
 
 // сердечки-взрыв (физика)
 const fx = []; let fxRaf = 0, fxLast = 0;
-function burst(x, y, n = 9) { if (reduce) return; for (let i = 0; i < n; i++) { const el = document.createElement('span'); el.className = 'pop-heart'; el.textContent = '♥'; el.setAttribute('aria-hidden', 'true'); document.body.append(el);
+function burst(x, y, n = 5) { if (reduce) return; for (let i = 0; i < n; i++) { const el = document.createElement('span'); el.className = 'pop-heart'; el.textContent = '♥'; el.setAttribute('aria-hidden', 'true'); document.body.append(el);
     const a = -Math.PI / 2 + (Math.random() - .5) * 1.8, v = 220 + Math.random() * 200; fx.push({ el, x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v, life: 1.2, r: 0, vr: (Math.random() - .5) * 400 }); }
   if (!fxRaf) { fxLast = performance.now(); fxRaf = requestAnimationFrame(fxStep); } }
 function fxStep(t) { const dt = Math.min(.05, (t - fxLast) / 1000); fxLast = t;
@@ -114,16 +76,6 @@ function fxStep(t) { const dt = Math.min(.05, (t - fxLast) / 1000); fxLast = t;
     p.el.style.transform = `translate3d(${p.x}px,${p.y}px,0) rotate(${p.r}deg)`; p.el.style.opacity = Math.max(0, p.life); if (p.life <= 0) { p.el.remove(); fx.splice(i, 1); } }
   fxRaf = fx.length ? requestAnimationFrame(fxStep) : 0; }
 
-// фоновые сердечки
-const petals = $('.petals');
-if (petals && !reduce && !lite) { const ps = []; let lastT = performance.now(), acc = 0;
-  const spawn = () => { const el = document.createElement('span'); el.className = 'petal'; el.textContent = Math.random() < .5 ? '♡' : '❀'; el.style.fontSize = 12 + Math.random() * 14 + 'px'; petals.append(el);
-    ps.push({ el, x: Math.random() * innerWidth, y: -30, vy: 10 + Math.random() * 20, ph: Math.random() * 6.28, sw: 15 + Math.random() * 25, rot: 0, vr: (Math.random() - .5) * 90 }); };
-  (function step(t) { const dt = Math.min(.05, (t - lastT) / 1000); lastT = t;
-    if (!document.hidden) { acc += dt; if (acc > 1.1 && ps.length < 12) { acc = 0; spawn(); } const wind = Math.sin(t / 4000) * 12;
-      for (let i = ps.length - 1; i >= 0; i--) { const p = ps[i]; p.vy = Math.min(p.vy + 18 * dt, 70); p.y += p.vy * dt; p.ph += dt * 1.6; p.x += wind * dt; p.rot += p.vr * dt;
-        p.el.style.transform = `translate3d(${Math.min(innerWidth - 30, Math.max(0, p.x + Math.sin(p.ph) * p.sw))}px,${p.y}px,0) rotate(${p.rot}deg)`; if (p.y > innerHeight + 40) { p.el.remove(); ps.splice(i, 1); } } }
-    requestAnimationFrame(step); })(lastT); }
 
 // модалки
 const Modal = (() => { let cur = null, back = null;
@@ -149,7 +101,7 @@ if (cd) { const cdSr = $('#countdownSr');
     const l = document.createElement('small'); l.textContent = lab; w.append(l); cd.append(w); });
   const setDigit = (el, ch) => { if (el.dataset.v === ch) return; el.dataset.v = ch; if (reduce) { el.innerHTML = `<span>${ch}</span>`; return; }
     const old = el.lastElementChild; old.className = 'old'; const n = document.createElement('span'); n.className = 'new'; n.textContent = ch; el.append(n); setTimeout(() => old.remove(), 460); };
-  let lastMin = -1; const tick = () => { const s = Math.max(0, (target - new Date()) / 1000 | 0); const v = { d: s / 86400 | 0, h: s % 86400 / 3600 | 0, m: s % 3600 / 60 | 0, s: s % 60 };
+  let lastMin = -1; const tick = () => { if (document.hidden) return; const s = Math.max(0, (target - new Date()) / 1000 | 0); const v = { d: s / 86400 | 0, h: s % 86400 / 3600 | 0, m: s % 3600 / 60 | 0, s: s % 60 };
     units.forEach(([u]) => String(Math.min(99, v[u])).padStart(2, '0').split('').forEach((c, i) => setDigit(cells[u][i], c)));
     if (cdSr && v.m !== lastMin) { lastMin = v.m; cdSr.textContent = `До Уютной ночи: ${v.d} дн. ${v.h} ч. ${v.m} мин.`; } }; tick(); setInterval(tick, 1000); }
 
@@ -157,15 +109,15 @@ if (cd) { const cdSr = $('#countdownSr');
 const speechText = $('#speechText');
 if (speechText) {
   const lines = ['Ой… привет! Ты меня нашёл(ла). Я MIA.', 'Я кошкодевочка-домоседка. Ушки настоящие — ну, почти. ♡', 'Мой дом маленький: окно на звёзды, гирлянда и гора подушек.', 'Я люблю чай с мёдом, дождь за окном и форты из одеял.', 'Каждую пятницу у нас Уютная ночь. Приходи!', 'Ну что… заходи в дом? Я поставлю чайник.'];
-  const pic = $('#introPortrait'), dots = $('#speechDots'), log = $('#speechLog'), next = $('#speechNext'), all = $('#speechAll'); let li = 0, timer = 0, typing = false;
+  const pic = $('#introPortrait'), dots = $('#speechDots'), log = $('#speechLog'), next = $('#speechNext'), all = $('#speechAll'); let li = 0, timer = 0, typing = false; const caret = $('.caret');
   lines.forEach(() => dots.append(document.createElement('i')));
   const react = cls => { if (!pic || reduce) return; pic.classList.remove(cls); void pic.offsetWidth; pic.classList.add(cls); setTimeout(() => pic.classList.remove(cls), 900); };
   function say(i) { clearTimeout(timer); li = i; const txt = lines[i]; [...dots.children].forEach((d, k) => d.classList.toggle('on', k === i));
     const it = document.createElement('li'); it.textContent = txt; log.append(it);
     react(i % 2 ? 'spark' : 'bounce'); if (reduce) { speechText.textContent = txt; schedule(); return; }
-    typing = true; let c = 0; speechText.textContent = '';
+    typing = true; let c = 0; speechText.textContent = ''; caret && (caret.hidden = false);
     (function type() { speechText.textContent = txt.slice(0, ++c); if (c % 3 === 0) Sound.tone(900 + Math.random() * 300, .03, 'sine', .015); if (c % 14 === 0) react('talk');
-      if (c < txt.length) timer = setTimeout(type, 38); else { typing = false; schedule(); } })(); }
+      if (c < txt.length) timer = setTimeout(type, 38); else { typing = false; caret && (caret.hidden = true); schedule(); } })(); }
   function schedule() { if (li < lines.length - 1) timer = setTimeout(() => say(li + 1), 2200); else next.textContent = 'Сначала'; }
   next.addEventListener('click', () => { if (typing) { clearTimeout(timer); typing = false; speechText.textContent = lines[li]; schedule(); return; } say(li < lines.length - 1 ? li + 1 : 0); if (li === 0) next.textContent = 'Дальше'; });
   all.addEventListener('click', () => { clearTimeout(timer); typing = false; speechText.textContent = lines.join(' '); li = lines.length - 1; [...dots.children].forEach(d => d.classList.add('on')); next.textContent = 'Сначала'; });
@@ -189,26 +141,15 @@ if (speechText) {
 }
 
 // ===== главная: сцена-порог =====
-const stars = $('.stars'); if (stars) for (let i = 0; i < (lite ? 8 : 18); i++) { const s = document.createElement('i'); s.style.cssText = `left:${Math.random() * 100}%;top:${Math.random() * 100}%;--tw:${2 + Math.random() * 3}s;--dl:${-Math.random() * 3}s`; stars.append(s); }
-const bulbs = $('.bulbs'); if (bulbs) for (let i = 0; i < (lite ? 6 : 10); i++) { const b = document.createElement('i'), x = i / 13; b.style.cssText = `left:${x * 100}%;top:${20 + Math.sin(x * Math.PI * 1.6) * 40 + 20}%;--dl:${-i * .3}s`; bulbs.append(b); }
-const th = $('#threshold'), scene = $('#scene'), card = $('#doorCard');
-if (th && scene) { const layers = $$('.layer', scene); let mx = 0, my = 0, cx = 0, cy = 0, visible = true, raf = 0;
-  const setPtr = (x, y) => { const r = th.getBoundingClientRect(); mx = (x - r.left) / r.width - .5; my = (y - r.top) / r.height - .5; kick(); };
-  th.addEventListener('pointermove', e => setPtr(e.clientX, e.clientY), { passive: true }); th.addEventListener('pointerdown', e => setPtr(e.clientX, e.clientY), { passive: true });
-  th.addEventListener('pointerleave', () => { mx = my = 0; kick(); });
+const stars = $('.stars'); if (stars) for (let i = 0; i < 12; i++) { const s = document.createElement('i'); s.style.cssText = `left:${(Math.random() * 100).toFixed(1)}%;top:${(Math.random() * 100).toFixed(1)}%`; stars.append(s); }
+const th = $('#threshold'), card = $('#doorCard');
+// дверь приоткрывается при прокрутке: только scroll + кэш высоты (без чтения layout в rAF и без matchMedia на кадр)
+if (th) { let h = th.offsetHeight || 1, raf = 0, visible = true, lastP = -1;
+  if ('ResizeObserver' in window) new ResizeObserver(([e]) => { h = e.contentRect.height || 1; kick(); }).observe(th);
   if ('IntersectionObserver' in window) new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible) kick(); }).observe(th);
-  addEventListener('scroll', kick, { passive: true }); addEventListener('resize', kick);
   function kick() { if (!raf && visible) raf = requestAnimationFrame(step); }
-  function step() { raf = 0; const k = reduce ? 1 : .12; cx += (mx - cx) * k; cy += (my - cy) * k;
-    const prog = Math.min(1, Math.max(0, scrollY / (th.offsetHeight * .8))); th.style.setProperty('--p', prog.toFixed(3));
-    const narrow = matchMedia('(max-width:800px)').matches;
-    if (!reduce && !narrow) layers.forEach(l => { const d = +l.dataset.depth; l.style.transform = `translate3d(${(-cx * 40 * d).toFixed(1)}px,${(-cy * 30 * d + scrollY * d * .25).toFixed(1)}px,0) scale(${1 + prog * d * .25})`; });
-    else if (narrow) layers.forEach(l => { l.style.transform = ''; });
-    if (card && !reduce && !narrow) { card.style.setProperty('--rx', (cy * -12).toFixed(2) + 'deg'); card.style.setProperty('--ry', (cx * 16).toFixed(2) + 'deg'); }
-    else if (card && narrow) { card.style.setProperty('--rx', '0deg'); card.style.setProperty('--ry', '0deg'); }
-    if (card) { card.style.setProperty('--gx', (50 + cx * 60) + '%'); card.style.setProperty('--gy', (38 + cy * 40) + '%'); }
-    if (Math.abs(mx - cx) + Math.abs(my - cy) > .002 && !reduce) kick(); }
-  step();
+  function step() { raf = 0; const p = reduce ? 0 : Math.min(1, Math.max(0, scrollY / (h * .8))); const v = Math.round(p * 1000) / 1000; if (v !== lastP) { lastP = v; th.style.setProperty('--p', v); } }
+  addEventListener('scroll', kick, { passive: true }); step();
   if (card) card.addEventListener('click', e => { card.classList.remove('perk'); void card.offsetWidth; card.classList.add('perk'); Sound.meow(); burst(e.clientX, e.clientY); }); }
 const stack = $('.stack');
 if (stack) { const flip = () => { const top = stack.lastElementChild; stack.prepend(top); Sound.tone(800, .08); }; stack.addEventListener('click', flip);
@@ -223,7 +164,8 @@ if (moods.length) { const set = b => { moods.forEach(m => m.setAttribute('aria-p
 const lb = $('#lb');
 if (lb) { const lbImg = $('img', lb), cap = $('#lbCap'), items = $$('.g'); let list = items, gi = 0;
   const BLANK = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
-  const show = i => { gi = (i + list.length) % list.length; const im = $('img', list[gi]); lbImg.removeAttribute('width'); lbImg.removeAttribute('height'); lbImg.src = im.src; lbImg.alt = im.alt || ''; if (cap) cap.textContent = ($('.g-cap', list[gi]) || {}).textContent || ''; };
+  const big = im => { const src = im.parentElement && im.parentElement.tagName === 'PICTURE' && $('source', im.parentElement); if (!src) return im.currentSrc || im.src; const c = src.srcset.split(',').map(x => x.trim().split(' ')[0]); return c[c.length - 1]; };
+  const show = i => { gi = (i + list.length) % list.length; const im = $('img', list[gi]); lbImg.removeAttribute('width'); lbImg.removeAttribute('height'); lbImg.src = big(im); lbImg.alt = im.alt || ''; if (cap) cap.textContent = ($('.g-cap', list[gi]) || {}).textContent || ''; };
   const clearLb = () => { if (!lbImg) return; lbImg.src = BLANK; lbImg.alt = ''; lbImg.width = 1; lbImg.height = 1; if (cap) cap.textContent = ''; };
   const openLb = (b) => { list = items.filter(x => !x.classList.contains('hide')); show(list.indexOf(b));
     const run = () => Modal.open(lb, b);
@@ -255,7 +197,7 @@ if (tabs.length) { const activate = (t, focus) => { tabs.forEach(x => { const on
 // генератор аватарки
 const ac = $('#avaCanvas');
 if (ac) { const ax = ac.getContext('2d'), S = 512; let img = null, ox = 0, oy = 0, drag = null; const opt = { ears: true, bow: true, blush: false, frame: true };
-  load('img/face-pajama2.png').then(i => { img = i; draw(); });
+  load('img/face-pajama2-512.webp').then(i => { img = i; draw(); });
   const zoom = $('#avaZoom'), col = $('#avaColor'), earS = $('#avaEar');
   function ear(x, y, s, flip) { ax.save(); ax.translate(x, y); ax.scale(flip ? -s : s, s); ax.fillStyle = col.value; ax.strokeStyle = '#2A2230'; ax.lineWidth = 6;
     ax.beginPath(); ax.moveTo(-50, 40); ax.quadraticCurveTo(-40, -70, 10, -95); ax.quadraticCurveTo(40, -30, 50, 40); ax.closePath(); ax.fill(); ax.stroke();
@@ -279,19 +221,21 @@ if (ac) { const ax = ac.getContext('2d'), S = 512; let img = null, ox = 0, oy = 
 
 // гиф-фабрика
 const gc = $('#gifCanvas');
-if (gc) { const gx = gc.getContext('2d'); let gImg, t0 = performance.now(); const gSet = async () => { gImg = await load($('#gifImg').value); }; $('#gifImg').addEventListener('change', gSet); gSet();
+if (gc) { const gx = gc.getContext('2d'); let gImg, t0 = performance.now(); const gSet = async () => { gImg = await load($('#gifImg').value); if (typeof gKick === 'function') gKick(); }; $('#gifImg').addEventListener('change', gSet); gSet();
   function gDraw(t) { const k = (t - t0) / 1000, a = $('#gifAnim').value; gx.fillStyle = '#fbd9e7'; gx.fillRect(0, 0, 320, 320);
     let dx = 0, dy = 0, r = 0; if (a === 'bounce') dy = -Math.abs(Math.sin(k * 5)) * 24; else if (a === 'shake') dx = Math.sin(k * 40) * 6; else r = Math.sin(k * 6) * .12;
     if (gImg) { gx.save(); gx.translate(160 + dx, 165 + dy); gx.rotate(r); gx.beginPath(); gx.arc(0, 0, 115, 0, 7); gx.clip(); gx.drawImage(gImg, -120, -120, 240, 240); gx.restore(); }
     const s = $('#gifStk').value; if (s) { gx.font = '48px serif'; gx.textAlign = 'start'; gx.fillText(s, 250, 70 + Math.sin(k * 4) * 6); }
-    gx.font = 'bold 32px Fredoka, Nunito, sans-serif'; gx.textAlign = 'center'; gx.lineWidth = 6; gx.strokeStyle = '#fff'; gx.fillStyle = '#e0607e';
+    gx.font = 'bold 32px Nunito, sans-serif'; gx.textAlign = 'center'; gx.lineWidth = 6; gx.strokeStyle = '#fff'; gx.fillStyle = '#e0607e';
     const txt = $('#gifText').value; gx.strokeText(txt, 160, 305, 300); gx.fillText(txt, 160, 305, 300); }
   let gifOn = false;
   const gifPanel = gc.closest('.panel,.tab-panel,section') || gc.parentElement;
   const ioG = 'IntersectionObserver' in window ? new IntersectionObserver(([e]) => { gifOn = e.isIntersecting && !document.hidden; }, { threshold: .05 }) : null;
   if (ioG) ioG.observe(gifPanel); else gifOn = true;
-  addEventListener('visibilitychange', () => {});
-  (function loop(t) { if (gifOn && !document.hidden && !gc.closest('[hidden]')) gDraw(reduce || lite ? t0 : t); requestAnimationFrame(loop); })(t0);
+  let gRaf = 0; const gKick = () => { if (!gRaf && gifOn && !document.hidden && !gc.closest('[hidden]')) gRaf = requestAnimationFrame(loop); };
+  function loop(t) { gRaf = 0; if (!gifOn || document.hidden || gc.closest('[hidden]')) return; gDraw(reduce || lite ? t0 : t); if (!(reduce || lite)) gKick(); }
+  if (ioG) new IntersectionObserver(([e]) => { if (e.isIntersecting) setTimeout(gKick, 0); }, { threshold: .05 }).observe(gifPanel);
+  addEventListener('visibilitychange', gKick); addEventListener('tabchange', () => setTimeout(gKick, 30)); ['#gifImg', '#gifText', '#gifStk', '#gifAnim'].forEach(q => $(q).addEventListener('input', () => setTimeout(gKick, 30))); gKick();
   $('#gifPng').addEventListener('click', () => { dl(gc.toDataURL('image/png'), 'mia-kadr.png'); toast('Кадр сохранён'); });
   $('#gifRec').addEventListener('click', () => { const st = $('#gifStatus');
     if (!window.MediaRecorder || !gc.captureStream) { st.textContent = 'Запись не поддерживается — сохранила кадр.'; return dl(gc.toDataURL(), 'mia-kadr.png'); }
@@ -304,7 +248,7 @@ const mc = $('#memeCanvas');
 if (mc) { const mx = mc.getContext('2d');
   async function meme() { const i = await load($('#memeImg').value); if (!i) return; const s = Math.max(600 / i.width, 600 / i.height);
     mx.drawImage(i, (600 - i.width * s) / 2, (600 - i.height * s) / 2, i.width * s, i.height * s);
-    mx.font = 'bold 44px Fredoka, Nunito, Impact, sans-serif'; mx.textAlign = 'center'; mx.lineWidth = 8; mx.strokeStyle = '#2A2230'; mx.fillStyle = '#fff';
+    mx.font = 'bold 44px Nunito, Impact, sans-serif'; mx.textAlign = 'center'; mx.lineWidth = 8; mx.strokeStyle = '#2A2230'; mx.fillStyle = '#fff';
     [[$('#memeTop').value, 60], [$('#memeBot').value, 575]].forEach(([t, y]) => { t = t.toUpperCase(); mx.strokeText(t, 300, y, 570); mx.fillText(t, 300, y, 570); }); }
   ['#memeImg', '#memeTop', '#memeBot'].forEach(s => $(s).addEventListener('input', meme)); meme(); document.fonts && document.fonts.ready.then(meme);
   $('#memeDl').addEventListener('click', () => { dl(mc.toDataURL('image/png'), 'mia-mem.png'); toast('Мем сохранён 😸'); }); }
@@ -375,8 +319,8 @@ if (cv) { const cx = cv.getContext('2d'); let px = 240, tx = 240, hearts = [], s
       cx.font = h.s + 'px serif'; cx.fillStyle = '#e0607e'; cx.fillText('♥', hx, h.y); return h.y < 340; });
     sparks = sparks.filter(p => { p.vy += 300 * dt; p.x += p.vx * dt; p.y += p.vy * dt; p.life -= dt; cx.globalAlpha = Math.max(0, p.life / .6); cx.fillStyle = '#F5B8D4'; cx.font = '12px serif'; cx.fillText('✦', p.x, p.y); cx.globalAlpha = 1; return p.life > 0; });
     cx.fillStyle = '#fff'; cx.strokeStyle = '#e0607e'; cx.lineWidth = 3; cx.beginPath(); cx.roundRect ? cx.roundRect(px - 40, 290, 80, 22, 11) : cx.rect(px - 40, 290, 80, 22); cx.fill(); cx.stroke();
-    const left = Math.max(0, Math.ceil((end - t) / 1000)); cx.fillStyle = '#7a2e4f'; cx.font = 'bold 18px Fredoka, Nunito, sans-serif'; cx.fillText(left + ' с', 445, 24);
-    if (t >= end) { run = false; if (score > best) { best = score; store.set('mia-best', best); toast('Новый рекорд! ♡'); } upd(); cx.font = 'bold 30px Fredoka, Nunito, sans-serif'; cx.fillText('Уютно! ♡ ' + score, 240, 160); return; }
+    const left = Math.max(0, Math.ceil((end - t) / 1000)); cx.fillStyle = '#7a2e4f'; cx.font = 'bold 18px Nunito, sans-serif'; cx.fillText(left + ' с', 445, 24);
+    if (t >= end) { run = false; if (score > best) { best = score; store.set('mia-best', best); toast('Новый рекорд! ♡'); } upd(); cx.font = 'bold 30px Nunito, sans-serif'; cx.fillText('Уютно! ♡ ' + score, 240, 160); return; }
     requestAnimationFrame(frame); }
   $('#gameStart').addEventListener('click', () => { score = 0; hearts = []; sparks = []; upd(); run = true; lastF = performance.now(); end = lastF + 30000; requestAnimationFrame(frame); }); }
 
@@ -391,27 +335,19 @@ if (wall) { const KEY = 'mia-wall'; const getW = () => { try { return JSON.parse
     if (placeholder) { wall.textContent = ''; placeholder = false; } const li = liFor(w, l.length); li.classList.add('new'); wall.prepend(li); while (wall.children.length > 30) wall.lastElementChild.remove(); Sound.tone(880, .14, 'triangle'); toast('Записка приколота ♡'); });
   render(); }
 
-// ===== LUXE: бархатный блик подвала за курсором =====
-(() => { const f = document.querySelector('footer'); if (!f || reduce) return;
-  f.addEventListener('pointermove', e => { const r = f.getBoundingClientRect(); f.style.setProperty('--mx', (e.clientX - r.left) + 'px'); f.style.setProperty('--my', (e.clientY - r.top) + 'px'); }, { passive: true }); })();
 
-// люстра: без курсорного push (дорого)
 // котёнок в коробке: выглядывает в своём ритме, моргает нерегулярно, 3 клика — выпрыгивает
 (() => { const k = $('#kitBox'); if (!k) return; let clicks = 0;
   const blink = () => { k.classList.remove('blink'); void k.offsetWidth; k.classList.add('blink'); };
   if (reduce) { k.classList.add('peek'); } else {
-    const peek = () => { k.classList.add('peek'); setTimeout(blink, 900 + Math.random() * 900); setTimeout(() => { if (!k.matches(':hover')) k.classList.remove('peek'); setTimeout(peek, 3000 + Math.random() * 6000); }, 2600 + Math.random() * 2600); };
+    const peek = () => { if (document.hidden) return setTimeout(peek, 4000); k.classList.add('peek'); setTimeout(blink, 900 + Math.random() * 900); setTimeout(() => { if (!k.matches(':hover')) k.classList.remove('peek'); setTimeout(peek, 3000 + Math.random() * 6000); }, 2600 + Math.random() * 2600); };
     setTimeout(peek, 1500 + Math.random() * 2000);
-    (function bl() { setTimeout(() => { if (k.classList.contains('peek')) blink(); bl(); }, 1800 + Math.random() * 3500); })(); }
+    (function bl() { setTimeout(() => { if (!document.hidden && k.classList.contains('peek')) blink(); bl(); }, 1800 + Math.random() * 3500); })(); }
   k.addEventListener('click', e => { clicks++; blink(); Sound.meow();
     if (clicks % 3 === 0) { k.classList.add('out'); const r = k.getBoundingClientRect(); burst(r.left + r.width / 2, r.top + 20, 14); toast('Мяу! Ты нашёл(ла) котёнка в коробке ♡'); setTimeout(() => k.classList.remove('out'), 1200); } }); })();
 // нажатие: волна; магнитные крупные кнопки; свет за курсором на карточках
 document.addEventListener('pointerdown', e => { const b = e.target.closest('.btn,.chip'); if (!b || reduce) return; const r = b.getBoundingClientRect(), s = document.createElement('span');
   s.className = 'ripple'; s.setAttribute('aria-hidden', 'true'); s.style.setProperty('--rx', (e.clientX - r.left) + 'px'); s.style.setProperty('--ry', (e.clientY - r.top) + 'px'); b.append(s); setTimeout(() => s.remove(), 650); });
-/* магнит и spotlight убраны ради FPS; остался CSS :hover */
-// пылинки в окне
-(() => { const w = $('.window'); if (!w || true) return; // пылинки отключены ради FPS const m = document.createElement('span'); m.className = 'motes'; m.setAttribute('aria-hidden', 'true');
-  for (let i = 0; i < 14; i++) { const d = document.createElement('i'); d.style.cssText = `left:${10 + Math.random() * 70}%;top:${30 + Math.random() * 60}%;--t:${6 + Math.random() * 7}s;--dl:${-Math.random() * 10}s;--dx:${(Math.random() * 40 - 20).toFixed(0)}px`; m.append(d); } w.append(m); })();
 // пасхалка: набери «мяу» (или meow) — дождь из лапок
 (() => { let buf = ''; addEventListener('keydown', e => { if (e.target.closest('input,textarea,select,[contenteditable]') || e.key.length !== 1) return; buf = (buf + e.key.toLowerCase()).slice(-4);
   if (/мяу$|meow$/.test(buf)) { buf = ''; Sound.meow(); toast('Мяу-мяу! Лапки сыплются с неба ♡'); if (reduce) return;
@@ -501,22 +437,4 @@ const Cart = (() => {
 // shop-soon without data-cart-add still opens modal (back-compat)
 $$('.shop-soon:not([data-cart-add])').forEach(b => b.addEventListener('click', () => Modal.open($('#shopModal'), b)));
 
-// ===== гирлянды по бокам (только главная, вне .threshold) =====
-(() => {
-  const rails = $$('[data-garland]');
-  if (!rails.length) return;
-  const n = lite ? 10 : 16;
-  rails.forEach(box => {
-    box.textContent = '';
-    for (let i = 0; i < n; i++) {
-      const b = document.createElement('i');
-      const y = ((i + .5) / n) * 100;
-      const x = 50 + Math.sin(i * .9) * 18;
-      b.style.cssText = `left:${x}%;top:${y}%;--dl:${(-i * .35).toFixed(2)}s`;
-      box.append(b);
-    }
-  });
-})();
-
-// @@LUXE-END
 })();

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ikinosan13-eng.github.io/mia-mays-site/sitemap.xml
