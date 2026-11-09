@@ -21,15 +21,15 @@ d.dataset.daypart=dp;d.dataset.light=l;d.classList.toggle('night',n);d.classList
 if(p.motion==='reduce'||matchMedia('(prefers-reduced-motion: reduce)').matches)d.dataset.motion='reduce';
 document.querySelectorAll('meta[name=theme-color]').forEach(m=>m.content=n?'#1E1A2C':'#FBF6EF')}catch(e){}})()</script>
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="icon" href="icons/favicon.svg" type="image/svg+xml"><link rel="icon" href="icons/favicon-32.png" sizes="32x32">
-<link rel="apple-touch-icon" href="icons/apple-touch-180.png">
+<link rel="icon" href="img/icons/favicon.a1.svg" type="image/svg+xml"><link rel="icon" href="img/icons/favicon-32.a1.png" sizes="32x32">
+<link rel="apple-touch-icon" href="img/icons/apple-touch-180.a1.png">
 <meta name="apple-mobile-web-app-title" content="Дом Мии"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="preload" href="fonts/nunito.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="css/core.css?v=14">
+<link rel="stylesheet" href="css/core.css?v=15">
 <script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/mia-mays-site/*.html"},{"not":{"selector_matches":"[data-no-prerender],[download]"}}]},"eagerness":"moderate"}]}</script>
-<script type="module" src="js/app.js?v=14"></script>
+<script type="module" src="js/app.js?v=15"></script>
 <!--/@shell-->
-<link rel="stylesheet" href="css/rooms/album.css?v=14">
+<link rel="stylesheet" href="css/rooms/album.css?v=15">
 <link rel="preload" as="image" type="image/webp" media="(max-width:520px)" imagesrcset="img/mia-pillow-sq-480.webp 480w, img/mia-pillow-sq-720.webp 720w" imagesizes="92vw" fetchpriority="high">
 <link rel="preload" as="image" type="image/webp" media="(min-width:521px)" imagesrcset="img/mia-pillow-320.webp 320w, img/mia-pillow-480.webp 480w, img/mia-pillow-640.webp 640w, img/mia-pillow-937.webp 937w" imagesizes="(max-width:700px) 92vw, (max-width:1100px) 45vw, 340px" fetchpriority="high"></head>
 <body data-room="album">
@@ -51,6 +51,15 @@ document.querySelectorAll('meta[name=theme-color]').forEach(m=>m.content=n?'#1E1
 <symbol id="i-meme" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 8h8M8 12h5"/></symbol>
 <symbol id="i-shirt" viewBox="0 0 24 24"><path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/></symbol>
 <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+<symbol id="i-cup" viewBox="0 0 24 24"><path d="M10 2v2M14 2v2M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1"/><path d="M6 2v2"/></symbol>
+<symbol id="i-star" viewBox="0 0 24 24"><path d="M11.5 2.3a.5.5 0 0 1 1 0l2.3 4.7a2 2 0 0 0 1.5 1.1l5.2.8a.5.5 0 0 1 .3.9l-3.8 3.7a2 2 0 0 0-.6 1.8l.9 5.2a.5.5 0 0 1-.8.6l-4.6-2.5a2 2 0 0 0-1.9 0L5 21.1a.5.5 0 0 1-.8-.6l.9-5.2a2 2 0 0 0-.6-1.8L.7 9.8a.5.5 0 0 1 .3-.9l5.2-.8a2 2 0 0 0 1.5-1.1z"/></symbol>
+<symbol id="i-flower" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 16.5A4.5 4.5 0 1 1 7.5 12 4.5 4.5 0 1 1 12 7.5a4.5 4.5 0 1 1 4.5 4.5 4.5 4.5 0 1 1-4.5 4.5M12 7.5V9M7.5 12H9M16.5 12H15M12 16.5V15"/></symbol>
+<symbol id="i-cookie" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5"/><path d="M8.5 8.5v.01M16 15.5v.01M12 12v.01M11 17v.01M7 14v.01"/></symbol>
+<symbol id="i-bell" viewBox="0 0 24 24"><path d="M10.3 21a1.9 1.9 0 0 0 3.4 0"/><path d="M3.3 15.3A1 1 0 0 0 4 17h16a1 1 0 0 0 .7-1.7C19.4 14 18 12.5 18 8A6 6 0 0 0 6 8c0 4.5-1.4 6-2.7 7.3"/></symbol>
+<symbol id="i-mail" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
+<symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M9.9 15.5A2 2 0 0 0 8.5 14.1L2.4 12.5a.5.5 0 0 1 0-1l6.1-1.6a2 2 0 0 0 1.4-1.4l1.6-6.1a.5.5 0 0 1 1 0l1.6 6.1a2 2 0 0 0 1.4 1.4l6.1 1.6a.5.5 0 0 1 0 1l-6.1 1.6a2 2 0 0 0-1.4 1.4l-1.6 6.1a.5.5 0 0 1-1 0z"/></symbol>
+<symbol id="i-gift" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/></symbol>
+<symbol id="i-upload" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m17 8-5-5-5 5"/><path d="M12 3v12"/></symbol>
 <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
 <symbol id="i-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
 <symbol id="i-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
@@ -69,8 +78,8 @@ document.querySelectorAll('meta[name=theme-color]').forEach(m=>m.content=n?'#1E1
 <!--@shell:head-->
 <header class="app-head">
   <a class="mia-chip" href="home.html">
-    <img src="img/avatar-64.webp" width="32" height="32" alt="" decoding="async">
-    <span class="mia-chip__txt"><b>Мия</b><span data-mia-status>дома</span></span><span class="sr-only"> — в Комнату</span>
+    <img src="img/icons/avatar.a1-64.webp" srcset="img/icons/avatar.a1-64.webp 1x, img/icons/avatar.a1-128.webp 2x" width="32" height="32" alt="" decoding="async"><svg class="i chip-bell" aria-hidden="true" data-news-bell hidden><use href="#i-bell"/></svg>
+    <span class="mia-chip__txt"><b>Мия</b><span data-mia-status>дома</span></span><span class="sr-only" data-news-sr hidden> · есть новое</span><span class="sr-only"> — в Комнату</span>
   </a>
   <div class="app-head__tools">
     <a class="icon-btn" href="box.html" data-box-link aria-label="Коробка"><svg class="i" aria-hidden="true"><use href="#i-box"/></svg><span class="badge" data-box-badge hidden>0</span></a>
@@ -101,32 +110,47 @@ document.querySelectorAll('meta[name=theme-color]').forEach(m=>m.content=n?'#1E1
   </div>
 </section>
 <section class="sec alt" id="stickers" aria-labelledby="stTitle">
-  <h2 id="stTitle">Стикеры</h2>
-  <p class="empty-state">Картинки для чатов. Бесплатно и навсегда.</p>
+  <h2 id="stTitle">Прозрачные стикеры для чатов</h2>
+  <p class="empty-state">PNG 512×512 с прозрачным фоном — подходят для Telegram и любых чатов. Бесплатно и навсегда.</p>
   <div class="stickers">
-  <figure class="sticker" id="st-1" data-box-item data-id="st-1" data-title="Стикер · дуется" data-kind="sticker" data-href="img/face-pillow.png" data-thumb="img/face-pillow-256.webp">
-    <button class="g" type="button" aria-label="Рассмотреть стикер: дуется"><picture><source type="image/webp" srcset="img/face-pillow-256.webp 256w, img/face-pillow-512.webp 512w" sizes="130px"><img src="img/face-pillow.png" alt="Мия надула щёки" width="512" height="512" loading="lazy" decoding="async"></picture></button>
-    <figcaption><b class="g-cap">дуется</b>
-      <span class="frame-act"><a class="icon-btn" href="img/face-pillow.png" download="mia-stiker-1.png" aria-label="Скачать стикер «дуется»"><svg class="i" aria-hidden="true"><use href="#i-download"/></svg></a><button class="icon-btn" type="button" data-box-add aria-pressed="false" aria-label="Стикер «дуется» в коробку"><svg class="i" aria-hidden="true"><use href="#i-box"/></svg></button></span></figcaption>
+  <figure class="sticker" id="st-hi" data-box-item data-id="st-hi" data-title="Стикер · привет" data-kind="sticker" data-href="img/stickers/mia-sticker-hi.a1.png" data-thumb="img/stickers/mia-sticker-hi.a1-256.webp">
+    <button class="g" type="button" aria-label="Рассмотреть стикер: привет"><picture><source type="image/webp" srcset="img/stickers/mia-sticker-hi.a1-256.webp 256w" sizes="130px"><img src="img/stickers/mia-sticker-hi.a1.png" alt="Мия машет рукой: привет" width="512" height="512" loading="lazy" decoding="async"></picture></button>
+    <figcaption><b class="g-cap">привет</b>
+      <span class="frame-act"><a class="icon-btn" href="img/stickers/mia-sticker-hi.a1.png" download="mia-stiker-hi.png" aria-label="Скачать стикер «привет»"><svg class="i" aria-hidden="true"><use href="#i-download"/></svg></a><button class="icon-btn" type="button" data-box-add aria-pressed="false" aria-label="Стикер «привет» в коробку"><svg class="i" aria-hidden="true"><use href="#i-box"/></svg></button></span></figcaption>
   </figure>
-  <figure class="sticker" id="st-2" data-box-item data-id="st-2" data-title="Стикер · улыбка" data-kind="sticker" data-href="img/face-pajama2.png" data-thumb="img/face-pajama2-256.webp">
-    <button class="g" type="button" aria-label="Рассмотреть стикер: улыбка"><picture><source type="image/webp" srcset="img/face-pajama2-256.webp 256w, img/face-pajama2-512.webp 512w" sizes="130px"><img src="img/face-pajama2.png" alt="Мия мягко улыбается" width="512" height="512" loading="lazy" decoding="async"></picture></button>
-    <figcaption><b class="g-cap">улыбка</b>
-      <span class="frame-act"><a class="icon-btn" href="img/face-pajama2.png" download="mia-stiker-2.png" aria-label="Скачать стикер «улыбка»"><svg class="i" aria-hidden="true"><use href="#i-download"/></svg></a><button class="icon-btn" type="button" data-box-add aria-pressed="false" aria-label="Стикер «улыбка» в коробку"><svg class="i" aria-hidden="true"><use href="#i-box"/></svg></button></span></figcaption>
+  <figure class="sticker" id="st-sleepy" data-box-item data-id="st-sleepy" data-title="Стикер · сплю" data-kind="sticker" data-href="img/stickers/mia-sticker-sleepy.a1.png" data-thumb="img/stickers/mia-sticker-sleepy.a1-256.webp">
+    <button class="g" type="button" aria-label="Рассмотреть стикер: сплю"><picture><source type="image/webp" srcset="img/stickers/mia-sticker-sleepy.a1-256.webp 256w" sizes="130px"><img src="img/stickers/mia-sticker-sleepy.a1.png" alt="Мия сонно обнимает подушку: спокойной ночи" width="512" height="512" loading="lazy" decoding="async"></picture></button>
+    <figcaption><b class="g-cap">сплю</b>
+      <span class="frame-act"><a class="icon-btn" href="img/stickers/mia-sticker-sleepy.a1.png" download="mia-stiker-sleepy.png" aria-label="Скачать стикер «сплю»"><svg class="i" aria-hidden="true"><use href="#i-download"/></svg></a><button class="icon-btn" type="button" data-box-add aria-pressed="false" aria-label="Стикер «сплю» в коробку"><svg class="i" aria-hidden="true"><use href="#i-box"/></svg></button></span></figcaption>
   </figure>
-  <figure class="sticker" id="st-3" data-box-item data-id="st-3" data-title="Стикер · думает" data-kind="sticker" data-href="img/face-pajama.png" data-thumb="img/face-pajama-256.webp">
-    <button class="g" type="button" aria-label="Рассмотреть стикер: думает"><picture><source type="image/webp" srcset="img/face-pajama-256.webp 256w" sizes="130px"><img src="img/face-pajama.png" alt="Мия в пижаме задумалась" width="256" height="256" loading="lazy" decoding="async"></picture></button>
-    <figcaption><b class="g-cap">думает</b>
-      <span class="frame-act"><a class="icon-btn" href="img/face-pajama.png" download="mia-stiker-3.png" aria-label="Скачать стикер «думает»"><svg class="i" aria-hidden="true"><use href="#i-download"/></svg></a><button class="icon-btn" type="button" data-box-add aria-pressed="false" aria-label="Стикер «думает» в коробку"><svg class="i" aria-hidden="true"><use href="#i-box"/></svg></button></span></figcaption>
+  <figure class="sticker" id="st-love" data-box-item data-id="st-love" data-title="Стикер · люблю" data-kind="sticker" data-href="img/stickers/mia-sticker-love.a1.png" data-thumb="img/stickers/mia-sticker-love.a1-256.webp">
+    <button class="g" type="button" aria-label="Рассмотреть стикер: люблю"><picture><source type="image/webp" srcset="img/stickers/mia-sticker-love.a1-256.webp 256w" sizes="130px"><img src="img/stickers/mia-sticker-love.a1.png" alt="Мия держит сердечко" width="512" height="512" loading="lazy" decoding="async"></picture></button>
+    <figcaption><b class="g-cap">люблю</b>
+      <span class="frame-act"><a class="icon-btn" href="img/stickers/mia-sticker-love.a1.png" download="mia-stiker-love.png" aria-label="Скачать стикер «люблю»"><svg class="i" aria-hidden="true"><use href="#i-download"/></svg></a><button class="icon-btn" type="button" data-box-add aria-pressed="false" aria-label="Стикер «люблю» в коробку"><svg class="i" aria-hidden="true"><use href="#i-box"/></svg></button></span></figcaption>
+  </figure>
+  <figure class="sticker" id="st-shy" data-box-item data-id="st-shy" data-title="Стикер · смущаюсь" data-kind="sticker" data-href="img/stickers/mia-sticker-shy.a1.png" data-thumb="img/stickers/mia-sticker-shy.a1-256.webp">
+    <button class="g" type="button" aria-label="Рассмотреть стикер: смущаюсь"><picture><source type="image/webp" srcset="img/stickers/mia-sticker-shy.a1-256.webp 256w" sizes="130px"><img src="img/stickers/mia-sticker-shy.a1.png" alt="Мия смущённо прячет щёчки в ладошках" width="512" height="512" loading="lazy" decoding="async"></picture></button>
+    <figcaption><b class="g-cap">смущаюсь</b>
+      <span class="frame-act"><a class="icon-btn" href="img/stickers/mia-sticker-shy.a1.png" download="mia-stiker-shy.png" aria-label="Скачать стикер «смущаюсь»"><svg class="i" aria-hidden="true"><use href="#i-download"/></svg></a><button class="icon-btn" type="button" data-box-add aria-pressed="false" aria-label="Стикер «смущаюсь» в коробку"><svg class="i" aria-hidden="true"><use href="#i-box"/></svg></button></span></figcaption>
+  </figure>
+  <figure class="sticker" id="st-ok" data-box-item data-id="st-ok" data-title="Стикер · класс" data-kind="sticker" data-href="img/stickers/mia-sticker-ok.a1.png" data-thumb="img/stickers/mia-sticker-ok.a1-256.webp">
+    <button class="g" type="button" aria-label="Рассмотреть стикер: класс"><picture><source type="image/webp" srcset="img/stickers/mia-sticker-ok.a1-256.webp 256w" sizes="130px"><img src="img/stickers/mia-sticker-ok.a1.png" alt="Мия показывает палец вверх" width="512" height="512" loading="lazy" decoding="async"></picture></button>
+    <figcaption><b class="g-cap">класс</b>
+      <span class="frame-act"><a class="icon-btn" href="img/stickers/mia-sticker-ok.a1.png" download="mia-stiker-ok.png" aria-label="Скачать стикер «класс»"><svg class="i" aria-hidden="true"><use href="#i-download"/></svg></a><button class="icon-btn" type="button" data-box-add aria-pressed="false" aria-label="Стикер «класс» в коробку"><svg class="i" aria-hidden="true"><use href="#i-box"/></svg></button></span></figcaption>
+  </figure>
+  <figure class="sticker" id="st-box" data-box-item data-id="st-box" data-title="Стикер · сюрприз" data-kind="sticker" data-href="img/stickers/mia-sticker-box.a1.png" data-thumb="img/stickers/mia-sticker-box.a1-256.webp">
+    <button class="g" type="button" aria-label="Рассмотреть стикер: сюрприз"><picture><source type="image/webp" srcset="img/stickers/mia-sticker-box.a1-256.webp 256w" sizes="130px"><img src="img/stickers/mia-sticker-box.a1.png" alt="Мия выглядывает из коробки с бантом" width="512" height="512" loading="lazy" decoding="async"></picture></button>
+    <figcaption><b class="g-cap">сюрприз</b>
+      <span class="frame-act"><a class="icon-btn" href="img/stickers/mia-sticker-box.a1.png" download="mia-stiker-box.png" aria-label="Скачать стикер «сюрприз»"><svg class="i" aria-hidden="true"><use href="#i-download"/></svg></a><button class="icon-btn" type="button" data-box-add aria-pressed="false" aria-label="Стикер «сюрприз» в коробку"><svg class="i" aria-hidden="true"><use href="#i-box"/></svg></button></span></figcaption>
   </figure>
   </div>
 </section>
 <section class="sec lavka" id="lavka" aria-labelledby="lavkaTitle" data-box-item data-id="lavka-news" data-title="Лавка: сказать, когда откроется" data-kind="lavka">
   <h2 id="lavkaTitle">Лавка (скоро)</h2>
   <p class="say center">Это я ещё шью ♡</p>
-  <ul class="lavka-shelf"><li class="lavka-item"><span class="lavka-ph" aria-hidden="true"></span><b>Плюшевая Мия</b><small>мягкая, размером с подушку</small></li><li class="lavka-item"><span class="lavka-ph" aria-hidden="true"></span><b>Худи с ушками</b><small>капюшон с ушками и карман-лапка</small></li><li class="lavka-item"><span class="lavka-ph" aria-hidden="true"></span><b>Значок «Пижама»</b><small>маленький, на рюкзак</small></li></ul>
+  <ul class="lavka-shelf"><li class="lavka-item"><picture><source type="image/webp" srcset="img/lavka/lavka-plush.a1-480.webp 480w, img/lavka/lavka-plush.a1-900.webp 900w" sizes="(max-width:520px) 80vw, 220px"><img src="img/lavka/lavka-plush.a1-480.webp" alt="Плюшевая Мия в розовом худи — макет" width="480" height="480" loading="lazy" decoding="async"></picture><b>Плюшевая Мия</b><small>мягкая, размером с подушку</small><span class="soon">скоро</span></li><li class="lavka-item"><picture><source type="image/webp" srcset="img/lavka/lavka-hoodie.a1-480.webp 480w, img/lavka/lavka-hoodie.a1-900.webp 900w" sizes="(max-width:520px) 80vw, 220px"><img src="img/lavka/lavka-hoodie.a1-480.webp" alt="Розовое худи с кошачьими ушками на капюшоне — макет" width="480" height="480" loading="lazy" decoding="async"></picture><b>Худи с ушками</b><small>капюшон с ушками и вышитой мордочкой</small><span class="soon">скоро</span></li><li class="lavka-item"><picture><source type="image/webp" srcset="img/lavka/lavka-pin.a1-480.webp 480w, img/lavka/lavka-pin.a1-900.webp 900w" sizes="(max-width:520px) 80vw, 220px"><img src="img/lavka/lavka-pin.a1-480.webp" alt="Круглый эмалевый значок с портретом Мии — макет" width="480" height="480" loading="lazy" decoding="async"></picture><b>Значок «Мия»</b><small>эмалевый, на рюкзак</small><span class="soon">скоро</span></li></ul>
   <p class="center"><button class="btn ghost" type="button" data-box-add aria-pressed="false">Скажи, когда будет</button></p>
-  <p class="note center">Ничего не продаётся: это тихая полка будущих вещей.</p>
+  <p class="note center">Ничего не продаётся: это макеты — тихая полка будущих вещей.</p>
 </section>
 <div class="lightbox modal" id="lb" role="dialog" aria-modal="true" aria-label="Просмотр кадра" hidden><div class="modal-box lb-box"><button class="lb-close icon-btn" type="button" data-close aria-label="Закрыть"><svg class="i" aria-hidden="true"><use href="#i-x"/></svg></button><button class="lb-nav prev icon-btn" type="button" aria-label="Предыдущий кадр"><svg class="i" aria-hidden="true"><use href="#i-left"/></svg></button><figure><img id="lbImg" alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="1" height="1"><figcaption id="lbCap"></figcaption></figure><button class="lb-nav next icon-btn" type="button" aria-label="Следующий кадр"><svg class="i" aria-hidden="true"><use href="#i-right"/></svg></button></div></div>
 </main>
@@ -142,7 +166,7 @@ document.querySelectorAll('meta[name=theme-color]').forEach(m=>m.content=n?'#1E1
 <!--@shell:switch-->
 <dialog id="switchSheet" class="sheet" aria-labelledby="switchTitle">
   <form method="dialog" class="sheet__inner">
-    <header class="sheet__head"><h2 id="switchTitle">Выключатель</h2><button class="icon-btn" value="close" aria-label="Закрыть"><svg class="i" aria-hidden="true"><use href="#i-x"/></svg></button></header>
+    <header class="sheet__head"><h2 id="switchTitle"><img class="sheet-ic" src="img/items/item-switch.a1-128.webp" width="40" height="40" alt="" loading="lazy" decoding="async">Выключатель</h2><button class="icon-btn" value="close" aria-label="Закрыть"><svg class="i" aria-hidden="true"><use href="#i-x"/></svg></button></header>
     <div data-sheet-main>
       <fieldset class="seg">
         <legend>Свет</legend>
@@ -156,10 +180,16 @@ document.querySelectorAll('meta[name=theme-color]').forEach(m=>m.content=n?'#1E1
       <div class="sheet__links">
         <button type="button" data-action="install" hidden>Поселить Мию на экран</button>
         <button type="button" data-action="export">Сохранить ключ от дома (файл)</button>
+        <button type="button" data-action="import">Открыть ключ от дома (файл)</button><input type="file" accept="application/json,.json" data-import hidden tabindex="-1" aria-hidden="true">
         <a href="index.html?again=1" data-no-prerender>Приветствие заново</a>
         <a href="living.html#about">О доме</a>
         <button type="button" data-action="reset" class="danger">Забыть всё</button>
       </div>
+    </div>
+    <div class="sheet__confirm" data-sheet-import hidden>
+      <p>Заменить всё в этом браузере?</p>
+      <p class="note">Коробка, записки, рекорды и настройки станут такими, как в ключе. То, что есть сейчас, исчезнет.</p>
+      <div class="row"><button type="button" class="btn" data-action="import-yes">Да, заменить</button><button type="button" class="btn ghost" data-action="import-no">Нет, оставить</button></div>
     </div>
     <div class="sheet__confirm" data-sheet-confirm hidden>
       <p>Точно всё забыть? Даже кошка помнит, где миска.</p>

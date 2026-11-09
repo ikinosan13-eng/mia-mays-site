@@ -1,6 +1,6 @@
 // Дом Мии — service worker (ручной). VERSION = ?v=N в HTML; оба ставит tools/shell.mjs из tools/version.txt.
 // Аварийно: залить tools/sw-kill.js вместо этого файла (снимет SW и кэши у всех гостей).
-const VERSION = 'mia-v14';
+const VERSION = 'mia-v15';
 const SHELL = `${VERSION}-shell`, PAGES = `${VERSION}-pages`, IMG = 'mia-img-v1';
 const PRECACHE = [/*@precache*/
   './',
@@ -14,20 +14,21 @@ const PRECACHE = [/*@precache*/
   './offline.html',
   './404.html',
   './manifest.webmanifest',
-  './css/core.css?v=14',
-  './css/rooms/album.css?v=14',
-  './css/rooms/box.css?v=14',
-  './css/rooms/diary.css?v=14',
-  './css/rooms/home.css?v=14',
-  './css/rooms/intro.css?v=14',
-  './css/rooms/living.css?v=14',
-  './css/rooms/play.css?v=14',
-  './js/app.js?v=14',
+  './css/core.css?v=15',
+  './css/rooms/album.css?v=15',
+  './css/rooms/box.css?v=15',
+  './css/rooms/diary.css?v=15',
+  './css/rooms/home.css?v=15',
+  './css/rooms/intro.css?v=15',
+  './css/rooms/living.css?v=15',
+  './css/rooms/play.css?v=15',
+  './js/app.js?v=15',
   './js/core/box.js',
   './js/core/countdown.js',
   './js/core/dom.js',
   './js/core/eggs.js',
   './js/core/fx.js',
+  './js/core/knead.js',
   './js/core/migrate.js',
   './js/core/modal.js',
   './js/core/nav.js',
@@ -38,6 +39,14 @@ const PRECACHE = [/*@precache*/
   './js/core/store.js',
   './js/core/switch.js',
   './js/core/toast.js',
+  './js/life/checkin.js',
+  './js/life/clock.js',
+  './js/life/data.js',
+  './js/life/gift.js',
+  './js/life/greet.js',
+  './js/life/mia.js',
+  './js/life/phrases.js',
+  './js/life/since.js',
   './js/life/visits.js',
   './js/play/avatar.js',
   './js/play/gif.js',
@@ -53,12 +62,18 @@ const PRECACHE = [/*@precache*/
   './js/rooms/home.js',
   './js/rooms/intro.js',
   './js/rooms/living.js',
+  './js/rooms/lost.js',
   './js/rooms/play.js',
   './fonts/caveat.woff2',
   './fonts/nunito.woff2',
-  './icons/icon-192.png',
-  './icons/favicon.svg',
-  './img/avatar-64.webp'
+  './data/gifts.json',
+  './data/mia.json',
+  './data/notes.json',
+  './data/updates.json',
+  './img/icons/icon-192.a1.png',
+  './img/icons/favicon.a1.svg',
+  './img/icons/avatar.a1-64.webp',
+  './img/icons/avatar.a1-128.webp'
 ];
 const IMG_MAX = 80;
 let off = false; // ?nosw=1: гость попросил выключить офлайн — больше ничего не перехватываем и не кэшируем
