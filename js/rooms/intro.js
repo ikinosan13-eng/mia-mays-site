@@ -1,7 +1,7 @@
 // Прихожая (только первый визит): 3 реплики, «Пропустить», имя, «Войти» → ключик в Коробку → Комната
-import { $, $$ } from '../core/dom.js';
-import { MiaStore } from '../core/store.js';
-import { Sound } from '../core/sound.js';
+import { $, $$ } from '../core/dom.js?v=16';
+import { MiaStore } from '../core/store.js?v=16';
+import { Sound } from '../core/sound.js?v=16';
 const LINES = ['Ой… привет! Это мой дом. Я Мия — кошкодевочка-домоседка.', 'Тут маленькая комната, окно на звёзды и гора подушек. А по пятницам — Уютная ночь.', 'Заходи? Я поставлю чайник ♡'];
 export default function init() {
   const line = $('#hallLine'), next = $('#hallNext'), skip = $('#hallSkip'), form = $('#hallForm'), ctrl = $('#hallCtrl'), dots = $$('.hall-dots i'), name = $('#hallName');

@@ -1,6 +1,6 @@
 // Игровая: сегмент «Поиграть | Мастерская», игры открываются во весь экран (<dialog class="fullscreen">)
-import { $, $$ } from '../core/dom.js';
-import { MiaStore } from '../core/store.js';
+import { $, $$ } from '../core/dom.js?v=16';
+import { MiaStore } from '../core/store.js?v=16';
 const MOD = { 'd-pet': 'pet', 'd-yarn': 'yarn', 'd-hearts': 'hearts', 'd-laser': 'laser', 'd-ava': 'avatar', 'd-gif': 'gif', 'd-meme': 'meme', 'd-try': 'tryon' };
 const HASH = { games: 'play', ava: 'workshop', make: 'workshop', meme: 'workshop', try: 'workshop', workshop: 'workshop', pet: 'play', hearts: 'play', laser: 'play' };
 export default function init() {
@@ -26,7 +26,7 @@ export default function init() {
     const d = document.getElementById(b.dataset.open); if (!d) return;
     if (d.showModal) d.showModal(); else d.setAttribute('open', '');
     document.documentElement.classList.add('fs-open');
-    if (!ready.has(d.id)) { ready.add(d.id); import(`../play/${MOD[d.id]}.js`).then(m => m.default()).catch(e => console.error(e)); }
+    if (!ready.has(d.id)) { ready.add(d.id); import(`../play/${MOD[d.id]}.js?v=16`).then(m => m.default()).catch(e => console.error(e)); }
     d.addEventListener('close', () => { document.documentElement.classList.remove('fs-open'); b.focus(); }, { once: true });
   }));
   $$('[data-close-dlg]').forEach(b => b.addEventListener('click', () => b.closest('dialog').close()));

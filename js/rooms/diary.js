@@ -1,5 +1,5 @@
 // Дневник: относительные даты записей, полоски характера при раскрытии
-import { $$ } from '../core/dom.js';
+import { $$ } from '../core/dom.js?v=16';
 export default function init() {
   const rtf = 'Intl' in window && Intl.RelativeTimeFormat ? new Intl.RelativeTimeFormat('ru', { numeric: 'auto' }) : null;
   const today = new Date(); today.setHours(0, 0, 0, 0);

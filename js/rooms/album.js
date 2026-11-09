@@ -1,7 +1,7 @@
 // Альбом: лайтбокс (клавиатура ←/→/Esc, свайп), тост для обоев
-import { $, $$ } from '../core/dom.js';
-import { Modal } from '../core/modal.js';
-import { toast } from '../core/toast.js';
+import { $, $$ } from '../core/dom.js?v=16';
+import { Modal } from '../core/modal.js?v=16';
+import { toast } from '../core/toast.js?v=16';
 export default function init() {
   const lb = $('#lb'); if (!lb) return;
   const img = $('#lbImg'), cap = $('#lbCap'), items = $$('.g');

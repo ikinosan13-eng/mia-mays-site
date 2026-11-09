@@ -1,30 +1,29 @@
-// Комната — живой экран: приветствие по приоритету, подарок у порога, чек-ин, «пока тебя не было», погладить/моргнуть, ночная звезда
-import { $, whenActive, daypart, dayKey, hash, reduced, icon, esc } from '../core/dom.js';
-import { MiaStore } from '../core/store.js';
-import { countdown } from '../core/countdown.js';
-import { toast } from '../core/toast.js';
-import { Sound } from '../core/sound.js';
-import { Box } from '../core/box.js';
-import { P } from '../life/phrases.js';
-import { greeting, greetGroup } from '../life/greet.js';
-import { isSpecial } from '../life/clock.js';
-import { data } from '../life/data.js';
-import { claimGift } from '../life/gift.js';
-import { renderSince } from '../life/since.js';
-import { initCheckin } from '../life/checkin.js';
-import { initMia, pet, blink, setPose, poseFor } from '../life/mia.js';
+// Комната — живой экран: комната → пузырь → чек-ин → пятница. Приветствие по приоритету, подарок у порога, «пока тебя не было», погладить/моргнуть, ночная звезда
+import { $, whenActive, daypart, dayKey, hash, reduced, icon, esc } from '../core/dom.js?v=16';
+import { MiaStore } from '../core/store.js?v=16';
+import { countdown } from '../core/countdown.js?v=16';
+import { toast } from '../core/toast.js?v=16';
+import { Sound } from '../core/sound.js?v=16';
+import { Box } from '../core/box.js?v=16';
+import { P } from '../life/phrases.js?v=16';
+import { greeting, greetGroup } from '../life/greet.js?v=16';
+import { isSpecial } from '../life/clock.js?v=16';
+import { data } from '../life/data.js?v=16';
+import { claimGift } from '../life/gift.js?v=16';
+import { renderSince } from '../life/since.js?v=16';
+import { initCheckin } from '../life/checkin.js?v=16';
+import { initMia, pet, blink, setPose, poseFor } from '../life/mia.js?v=16';
 const KICK = { morning: 'Утро в комнате', day: 'День в комнате', evening: 'Вечер в комнате', night: 'Ночь в комнате' };
 
 export default function init() {
   const dp = daypart(), first = new URLSearchParams(location.search).has('first');
   const kick = $('[data-now-kicker]'); if (kick) kick.textContent = KICK[dp];
-  const today = $('[data-today]'); if (today) today.textContent = P.today[hash(dayKey() + (MiaStore.read('guest.seed') || '')) % P.today.length];
   countdown($('#countdown'), $('#countdownSr'));
-  whenActive(() => { greet(first); gift(); since(); });
+  whenActive(() => { greet(first); gift(); since(); tour(); });
   initCheckin($('#checkin'));
   initMia($('#nowPic'));
   document.addEventListener('click', e => { const a = e.target.closest('[data-act]'); if (!a) return; a.dataset.act === 'pet' ? pet() : blink(); });
-  star(); kitten(); room();
+  star(); room();
   if (first) whenActive(() => {
     const tabs = $('.rooms'); if (tabs && !reduced()) setTimeout(() => tabs.classList.add('pulse'), 600);
     tabs && tabs.addEventListener('animationend', () => tabs.classList.remove('pulse'), { once: true });
@@ -32,17 +31,33 @@ export default function init() {
     history.replaceState(null, '', location.pathname + location.hash);
   });
 }
-// пузырь: один раз за визит (повторный заход в Комнату в том же визите — без пузыря), закрывается тапом
+const hinted = k => (MiaStore.read('seen.hints') || []).includes(k);
+const markHint = k => MiaStore.update(s => { if (!s.seen.hints.includes(k)) s.seen.hints.push(k); });
+// тач: подписи предметов один раз за всё время на 2.5 с (или до первого касания), дальше — только медовые точки
+function tour() {
+  const R = $('#room'); if (!R || hinted('roomTour') || !matchMedia('(hover:none)').matches) return;
+  markHint('roomTour'); R.classList.add('tour');
+  const end = () => R.classList.remove('tour');
+  setTimeout(end, 2500); R.addEventListener('pointerdown', end, { once: true });
+}
+// пузырь: один раз за визит (повторный заход в том же визите — без пузыря); ✕ закрывает, тап по реплике — «А ещё сегодня я…»
 function greet(first) {
   const bub = $('#bubble'), out = $('[data-greet]'); if (!bub || !out) return;
   const close = () => { document.documentElement.classList.add('greeted'); };
-  bub.addEventListener('click', close);
+  let more = false;
+  bub.addEventListener('click', e => {
+    if (e.target.closest('.bubble-x') || more) return close();
+    more = true; out.textContent = `А ещё сегодня я ${P.today[hash(dayKey() + (MiaStore.read('guest.seed') || '')) % P.today.length]}`;
+  });
   if (document.documentElement.classList.contains('greeted') && !first) return;
   const s = MiaStore.get(), g = greeting({ now: new Date(), first, s });
-  out.textContent = g.text;
+  const hint = !s.games.purrs && !s.seen.hints.includes('pet'); // «Почеши мне ушко ♡» — один раз за всё время
+  const say = t => { out.textContent = t; if (hint && !more) { const h = document.createElement('small'); h.textContent = P['hint.pet'][0]; out.append(h); } };
+  say(g.text);
+  if (hint) markHint('pet');
   MiaStore.update(st => { st.seen.greetVisit = st.visits.count; st.seen.recent = [...(st.seen.recent || []).filter(k => k !== g.key), g.key].slice(-5); });
   // день рождения Мии (data/mia.json) важнее всего, кроме первого входа
-  data('mia').then(m => { if (!first && isSpecial(new Date(), m) === 'birthday' && g.group !== 'special.birthday') out.textContent = greeting({ now: new Date(), s, mia: m }).text; });
+  data('mia').then(m => { if (!first && !more && isSpecial(new Date(), m) === 'birthday' && g.group !== 'special.birthday') say(greeting({ now: new Date(), s, mia: m }).text); });
 }
 // подарок у порога: свёрток → карточка; сувенир сам ложится в Коробку
 function gift() {
@@ -60,19 +75,13 @@ function gift() {
     Sound.meow(); setPose(poseFor('gift'), 2600);
     if (dlg.showModal) dlg.showModal(); else toast(r.line);
   }));
-  dlg.addEventListener('close', () => { if (door.isConnected) ($('[data-act=pet]') || document.body).focus(); });
+  dlg.addEventListener('close', () => { const m = $('#main'); m && m.focus({ preventScroll: true }); });
 }
 function since() { data('updates').then(ups => renderSince($('#since'), Array.isArray(ups) ? ups : [], MiaStore.get())); }
-// комната: ночной слой грузится только когда нужен (кроссфейд opacity 420 мс); лампа и выключатель на картинке
+// комната: картинка выбрана по времени суток (инлайн-скрипт), лампа меняет только свет (класс .night → затемнение в CSS)
 function room() {
   const R = $('#room'); if (!R) return;
-  const day = $('.room__day', R), night = $('.room__night', R), d = document.documentElement;
-  const ensure = (img, cb) => { if (img.srcset) return cb(); img.addEventListener('load', cb, { once: true }); img.srcset = img.dataset.srcset; };
-  const sync = () => {
-    if (d.classList.contains('night')) ensure(night, () => night.classList.add('ok'));
-    else if (!day.srcset) { night.classList.add('hold'); ensure(day, () => night.classList.remove('hold')); }
-  };
-  new MutationObserver(sync).observe(d, { attributes: true, attributeFilter: ['class'] });
+  const d = document.documentElement;
   R.addEventListener('click', e => {
     const b = e.target.closest('[data-room-act]'); if (!b) return;
     if (b.dataset.roomAct === 'switch') { $('[data-switch-open]')?.click(); return; }
@@ -92,13 +101,5 @@ function star() {
     if (dlg.returnValue === 'save' && v) { Box.add({ id: 'wish-' + Date.now().toString(36), kind: 'wish', title: v, icon: 'star', silent: true }); toast('Спрятала желание в коробку. Никому не скажу ♡'); }
     b.focus();
   });
-}
-// котёнок в коробке: выглядывает по наведению/фокусу и один раз после входа; 3 нажатия — выпрыгивает
-function kitten() {
-  const kb = $('#kitBox'); if (!kb) return; let clicks = 0;
-  const bl = () => { kb.classList.remove('blink'); void kb.offsetWidth; kb.classList.add('blink'); };
-  whenActive(() => { if (reduced()) { kb.classList.add('peek'); return; } setTimeout(() => { kb.classList.add('peek'); setTimeout(bl, 900); setTimeout(() => kb.classList.remove('peek'), 3200); }, 1800); });
-  kb.addEventListener('click', () => { clicks++; bl(); Sound.meow();
-    if (clicks % 3 === 0) { kb.classList.add('out'); toast('Мяу! В коробке нашёлся котёнок ♡'); setTimeout(() => kb.classList.remove('out'), 1200); } });
 }
 export { greetGroup };

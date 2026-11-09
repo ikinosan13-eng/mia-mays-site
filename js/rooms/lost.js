@@ -1,6 +1,6 @@
 // 404: Мия ловит лазерную точку за курсором; 3 раза → «Нашла! Пойдём домой». Только transform, только на событиях, rAF-троттлинг
-import { $ } from '../core/dom.js';
-import { Sound } from '../core/sound.js';
+import { $ } from '../core/dom.js?v=16';
+import { Sound } from '../core/sound.js?v=16';
 export default function init() {
   const box = $('#lost'), dot = $('.laser404'), cat = $('#lost picture'), say = $('#lostSay'); if (!box || !dot || !cat) return;
   let x = 0, y = 0, raf = 0, wait = 0, caught = 0, done = false;

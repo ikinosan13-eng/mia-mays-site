@@ -1,12 +1,13 @@
-// Коробка: сохранённое, пятница, рекорды, Лавка
-import { $, esc, icon } from '../core/dom.js';
-import { MiaStore } from '../core/store.js';
-import { Box } from '../core/box.js';
-import { toast } from '../core/toast.js';
-import { data } from '../life/data.js';
-import { collected } from '../life/gift.js';
-import { isoWeek, pl } from '../life/clock.js';
-import { MOODS } from '../life/checkin.js';
+// Коробка: сохранённое первым, дни (свёрнуты), пятница, рекорды одной строкой, Лавка, сувениры; котёнок в коробке — пасхалка
+import { $, esc, icon, reduced, whenActive } from '../core/dom.js?v=16';
+import { Sound } from '../core/sound.js?v=16';
+import { MiaStore } from '../core/store.js?v=16';
+import { Box } from '../core/box.js?v=16';
+import { toast } from '../core/toast.js?v=16';
+import { data } from '../life/data.js?v=16';
+import { collected } from '../life/gift.js?v=16';
+import { isoWeek, pl } from '../life/clock.js?v=16';
+import { MOODS } from '../life/checkin.js?v=16';
 const MOOD_W = { sleepy: 'сонно', good: 'хорошо', busy: 'суетно', sad: 'грустно' };
 const KIND = { wallpaper: 'обои', sticker: 'стикер', souvenir: 'сувенир', note: 'записка', wish: 'желание', lavka: 'Лавка · скоро', avatar: 'аватарка' };
 export default function init() {
@@ -22,20 +23,22 @@ export default function init() {
     const empty = !(all.length || s.rsvp || s.games.heartsBest || s.games.purrs); $('#boxEmpty').hidden = !empty; $('#saved').hidden = empty;
     const r = s.rsvp, rb = $('#boxRsvp');
     if (r && r.name) rb.innerHTML = `<p><b>${esc(r.name)}</b> — в списке на Уютную ночь. Принесёшь: <b>${esc(r.bring || 'хорошее настроение')}</b>.</p><a class="btn small ghost" href="living.html#rsvp">Изменить</a>`;
-    $('#statBest').textContent = s.games.heartsBest || 0; $('#statPurrs').textContent = s.games.purrs || 0; $('#statBox').textContent = all.length;
-    const sb = $('#statBlinks'); if (sb) sb.textContent = s.games.blinks || 0;
+    const g = s.games, st = [[g.purrs, 'мурлыкание', 'мурлыкания', 'мурлыканий'], [g.blinks, 'моргание', 'моргания', 'морганий'], [all.length, 'вещь', 'вещи', 'вещей'], [g.heartsBest, 'сердечко в рекорде', 'сердечка в рекорде', 'сердечек в рекорде']]
+      .filter(([n]) => n > 0).map(([n, a, b, c]) => `${n} ${pl(n, a, b, c)}`);
+    $('#statsLine').textContent = st.length ? st.join(' · ') : 'Пока без рекордов. Погладь Мию в Комнате ♡';
     days(s); souv(s);
   };
   // «Дни у Мии» и неделя из 7 лапок (пн–вс, текущая ISO-неделя), под лапкой — настроение из чек-ина
   const days = s => {
     const n = Math.max(1, s.visits.days || 0), el = $('[data-days]'); if (el) el.textContent = `Ты заглядываешь к Мие уже ${n} ${pl(n, 'день', 'дня', 'дней')} ♡`;
+    const dn = $('[data-days-n]'); if (dn) dn.textContent = `${n} ${pl(n, 'день', 'дня', 'дней')}`;
     const now = new Date(), wd = (now.getDay() + 6) % 7, wk = new Set(s.visits.week || []), log = Object.fromEntries((s.checkin.log || []).map(x => [x.day, x.mood]));
     document.querySelectorAll('[data-wd]').forEach(li => {
       const i = +li.dataset.wd, d = new Date(now.getFullYear(), now.getMonth(), now.getDate() - wd + i);
       const k = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`, on = wk.has(k) && isoWeek(d) === isoWeek(now), m = log[k];
       li.classList.toggle('on', on); li.classList.toggle('today', i === wd);
       li.querySelector('.mood').textContent = m ? MOODS[m] : '';
-      li.querySelector('[data-wd-sr]').textContent = `: ${on ? 'заглядывали' : 'нет'}${m ? `, ${MOOD_W[m]}` : ''}`;
+      li.querySelector('[data-wd-sr]').textContent = ` ${on ? 'была встреча' : 'нет встречи'}${m ? ` · ${MOOD_W[m]}` : ''}`;
     });
   };
   // коллекция сувениров: собранные — с названием, остальные — силуэты без названий
@@ -48,6 +51,7 @@ export default function init() {
     g.innerHTML = pool.map(it => got.has(it.id) ? `<li class="got" title="${esc(it.title)}">${pic(it)}<span>${esc(it.title)}</span></li>` : `<li class="sil">${pic(it)}<span class="sr-only">ещё не найден</span></li>`).join('');
   };
   data('gifts').then(p => { pool = Array.isArray(p) ? p : []; souv(MiaStore.get()); });
+  kitten();
   render(); MiaStore.on('box', render); MiaStore.on('rsvp', render); MiaStore.on('games', render); MiaStore.on('gifts', render);
   // удаление: фокус уходит на соседнюю строку (или заголовок), в тосте — «Вернуть»
   document.addEventListener('click', e => {
@@ -63,4 +67,12 @@ export default function init() {
   const dlg = $('#boxConfirm');
   $('#boxClear').addEventListener('click', () => { if (dlg && dlg.showModal) dlg.showModal(); });
   dlg?.addEventListener('close', () => { if (dlg.returnValue === 'yes') { Box.clear(); toast('Коробка пустая. Но всё ещё уютная'); $('#savedTitle').focus(); } else $('#boxClear').focus(); });
+}
+// котёнок в коробке: выглядывает по наведению/фокусу и один раз после входа; 3 нажатия — выпрыгивает
+function kitten() {
+  const kb = $('#kitBox'); if (!kb) return; let clicks = 0;
+  const bl = () => { kb.classList.remove('blink'); void kb.offsetWidth; kb.classList.add('blink'); };
+  whenActive(() => { if (reduced()) { kb.classList.add('peek'); return; } setTimeout(() => { kb.classList.add('peek'); setTimeout(bl, 900); setTimeout(() => kb.classList.remove('peek'), 3200); }, 1800); });
+  kb.addEventListener('click', () => { clicks++; bl(); Sound.meow();
+    if (clicks % 3 === 0) { kb.classList.add('out'); toast('Мяу! В коробке нашёлся котёнок ♡'); setTimeout(() => kb.classList.remove('out'), 1200); } });
 }

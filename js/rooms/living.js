@@ -1,13 +1,13 @@
 // Гостиная: отсчёт до пятницы, «Я приду», стена записок
-import { $, $$ } from '../core/dom.js';
-import { MiaStore } from '../core/store.js';
-import { countdown } from '../core/countdown.js';
-import { toast } from '../core/toast.js';
-import { Sound } from '../core/sound.js';
-import { burst } from '../core/fx.js';
-import { isoWeek } from '../life/clock.js';
-import { data } from '../life/data.js';
-import { esc } from '../core/dom.js';
+import { $, $$ } from '../core/dom.js?v=16';
+import { MiaStore } from '../core/store.js?v=16';
+import { countdown } from '../core/countdown.js?v=16';
+import { toast } from '../core/toast.js?v=16';
+import { Sound } from '../core/sound.js?v=16';
+import { burst } from '../core/fx.js?v=16';
+import { isoWeek } from '../life/clock.js?v=16';
+import { data } from '../life/data.js?v=16';
+import { esc } from '../core/dom.js?v=16';
 const HASH = { friday: 'friday', rsvp: 'friday', countdown: 'friday', wall: 'wall', info: 'info', rules: 'info', about: 'info' };
 // полки «Пятница · Стена · О доме» (как в Игровой); без JS видны все разделы подряд
 function shelves() {
