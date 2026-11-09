@@ -14,7 +14,7 @@ export function initShell() {
   };
   badge(); MiaStore.on('box', badge);
   const st = $('[data-mia-status]'), chip = $('.mia-chip');
-  const status = () => { const s = miaStatus(); if (st) st.textContent = s; if (chip) chip.setAttribute('aria-label', `Мия: ${s}. В Комнату`); };
+  const status = () => { const s = miaStatus(); if (st) st.textContent = s; };
   status();
   document.addEventListener('visibilitychange', () => { if (!document.hidden) status(); });
   // «К содержимому» переводит фокус в main

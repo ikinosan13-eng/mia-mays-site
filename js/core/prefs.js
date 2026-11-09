@@ -1,13 +1,14 @@
 import { MiaStore } from './store.js';
 import { daypart } from './dom.js';
 const d = document.documentElement;
-const mq = matchMedia('(prefers-reduced-motion: reduce)');
+const mq = matchMedia('(prefers-reduced-motion: reduce)'), dark = matchMedia('(prefers-color-scheme: dark)');
 export { daypart };
 export function applyPrefs() {
   const p = MiaStore.read('prefs') || {};
   const dp = daypart();
   const light = p.light || 'auto';
-  const night = light === 'night' || (light !== 'day' && dp === 'night');
+  // «Как за окном»: ночь по часам или если система в тёмной теме
+  const night = light === 'night' || (light !== 'day' && (dp === 'night' || dark.matches));
   d.dataset.daypart = dp; d.dataset.light = light;
   d.classList.toggle('night', night);
   if (p.motion === 'reduce' || mq.matches) d.dataset.motion = 'reduce'; else delete d.dataset.motion;
@@ -18,7 +19,7 @@ export function applyPrefs() {
 }
 applyPrefs();
 MiaStore.on('prefs', applyPrefs);
-mq.addEventListener?.('change', applyPrefs);
+mq.addEventListener?.('change', applyPrefs); dark.addEventListener?.('change', applyPrefs);
 let hiddenAt = 0;
 document.addEventListener('visibilitychange', () => {
   d.classList.toggle('tab-hidden', document.hidden);

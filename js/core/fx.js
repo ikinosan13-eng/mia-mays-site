@@ -1,4 +1,4 @@
-// событийные эффекты: сердечки, волна на кнопке, «поп». Ничего не крутится само.
+// событийные эффекты: сердечки (только запись на Уютную ночь) и «поп». Ничего не крутится само.
 import { reduced } from './dom.js';
 const fx = []; let raf = 0, lastT = 0;
 export function burst(x, y, n = 5) {
@@ -13,5 +13,3 @@ function step(t) { const dt = Math.min(.05, (t - lastT) / 1000); lastT = t;
   raf = fx.length ? requestAnimationFrame(step) : 0; }
 export function pop(el) { if (!el || reduced()) return; el.classList.remove('pop'); void el.offsetWidth; el.classList.add('pop'); }
 document.addEventListener('animationend', e => e.target.classList && e.target.classList.remove('pop'));
-document.addEventListener('pointerdown', e => { const b = e.target.closest && e.target.closest('.btn,.chip'); if (!b || reduced()) return; const r = b.getBoundingClientRect(), s = document.createElement('span');
-  s.className = 'ripple'; s.setAttribute('aria-hidden', 'true'); s.style.setProperty('--rx', (e.clientX - r.left) + 'px'); s.style.setProperty('--ry', (e.clientY - r.top) + 'px'); b.append(s); setTimeout(() => s.remove(), 650); });

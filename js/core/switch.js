@@ -1,6 +1,6 @@
 // лист «Выключатель»: свет, звук, меньше движения, имя, ссылки, «Забыть всё»
 import { MiaStore } from './store.js';
-import { $, whenActive } from './dom.js';
+import { $, whenActive, dayKey } from './dom.js';
 import { toast } from './toast.js';
 import { Sound } from './sound.js';
 export function initSwitch() {
@@ -32,7 +32,16 @@ export function initSwitch() {
     const a = e.target.closest('[data-action]'); if (!a) return;
     if (a.dataset.action === 'reset') { main.hidden = true; conf.hidden = false; $('[data-action=reset-no]', conf).focus(); }
     if (a.dataset.action === 'reset-no') { fill(); $('[data-action=reset]', dlg).focus(); }
+    if (a.dataset.action === 'export') exportKey();
     if (a.dataset.action === 'reset-yes') { MiaStore.reset(); location.href = 'index.html'; }
   });
+  // «ключ от дома»: всё состояние mia:v1 в JSON-файл (импорт — фаза 3)
+  const exportKey = () => {
+    const data = { ...MiaStore.get(), exportedAt: new Date().toISOString() };
+    const url = URL.createObjectURL(new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' }));
+    const a = document.createElement('a'); a.href = url; a.download = `mia-key-${dayKey()}.json`; document.body.append(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 4000);
+    toast('Ключ от дома сохранён. Береги его ♡');
+  };
   whenActive(() => { if (MiaStore.memoryOnly && !MiaStore.memWarned) { MiaStore.memWarned = true; toast('Мия не может ничего запомнить в этом режиме браузера'); } });
 }

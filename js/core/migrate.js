@@ -22,14 +22,16 @@ export function migrateLegacy(s) {
   s.guest.enteredAt = s.guest.enteredAt || now;
   const cart = json(raw('mia-cart-v1'));
   if (Array.isArray(cart)) {
-    const seen = new Set();
+    const seen = new Set(), wants = [];
     for (const it of cart) {
       if (!it || !it.id || seen.has(it.id)) continue; seen.add(it.id);
       const c = CATALOG[it.id] || {};
+      if (it.type === 'interest' || /^soon-/.test(it.id)) { wants.push(String(it.title || it.id).replace(/^soon-/, '')); continue; } // старые «скоро» → одна запись Лавки
       const kind = it.type === 'interest' ? 'lavka' : (c.kind || (/^wp-/.test(it.id) ? 'wallpaper' : /^st-/.test(it.id) ? 'sticker' : 'souvenir'));
       const href = it.href ? (ASSET_RENAMES[it.href] || it.href) : (c.href || '');
       s.box.push({ id: String(it.id), kind, title: String(it.title || c.title || 'Без названия').slice(0, 80), href: kind === 'lavka' ? '' : href, thumb: c.thumb || '', at: now });
     }
+    if (wants.length) s.box.push({ id: 'lavka-news', kind: 'lavka', title: `Лавка: сказать, когда откроется · ${wants.join(', ')}`.slice(0, 80), href: '', thumb: '', at: now });
     s.box = s.box.slice(0, 60);
   }
   const night = raw('mia-night');

@@ -1,6 +1,6 @@
 // Коробка: всё, что гость «утащил» (обои, стикеры, сувениры, интерес к Лавке). ≤ 60, уникально по id.
 import { MiaStore } from './store.js';
-import { $, reduced } from './dom.js';
+import { $, reduced, icon } from './dom.js';
 import { toast } from './toast.js';
 import { Sound } from './sound.js';
 const KINDS = ['wallpaper', 'sticker', 'souvenir', 'note', 'wish', 'lavka', 'avatar'];
@@ -39,5 +39,18 @@ document.addEventListener('click', e => {
   const d = w.dataset;
   if (Box.add({ id: d.id, title: d.title, kind: d.kind, href: d.href, thumb: d.thumb }, w)) btn.setAttribute('aria-pressed', 'true');
 });
-export const syncBoxButtons = () => document.querySelectorAll('[data-box-item]').forEach(w => { const b = w.querySelector('[data-box-add]'); if (b) b.setAttribute('aria-pressed', String(Box.has(w.dataset.id))); });
+// состояние видно и словами: «В коробку» → «В коробке ✓» (для иконок — галочка и aria-label)
+export const syncBoxButtons = () => document.querySelectorAll('[data-box-item]').forEach(w => {
+  const b = w.querySelector('[data-box-add]'); if (!b) return;
+  const on = Box.has(w.dataset.id); if (b.getAttribute('aria-pressed') === String(on) && b.dataset.synced) return;
+  b.setAttribute('aria-pressed', String(on)); b.dataset.synced = '1';
+  if (b.classList.contains('icon-btn')) {
+    b.dataset.label ||= b.getAttribute('aria-label') || '';
+    b.setAttribute('aria-label', on ? b.dataset.label.replace(/в коробку$/, 'уже в коробке') : b.dataset.label);
+    const u = b.querySelector('use'); if (u) u.setAttribute('href', on ? '#i-check' : '#i-box');
+  } else {
+    b.dataset.off ||= b.textContent.trim();
+    b.innerHTML = on ? `${icon('check')}${w.dataset.kind === 'lavka' ? 'Запомнила' : 'В коробке'}` : (b.dataset.off === 'В коробку' ? icon('box') : '') + b.dataset.off;
+  }
+});
 MiaStore.on('box', syncBoxButtons);
