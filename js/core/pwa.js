@@ -14,9 +14,10 @@ function register() {
   // ?nosw=1 — аварийно для одного гостя: снять SW и кэши Мии
   if (/[?&]nosw=1/.test(location.search)) {
     sw.controller?.postMessage('OFF');
+    // второй проход: запросы, начатые до OFF (данные после idle), могли успеть положить что-то в кэш
+    const sweep = () => caches.keys().then(ks => Promise.all(ks.filter(k => k.startsWith('mia-')).map(k => caches.delete(k))));
     sw.getRegistrations().then(rs => Promise.all(rs.map(r => r.unregister())))
-      .then(() => caches.keys()).then(ks => Promise.all(ks.filter(k => k.startsWith('mia-')).map(k => caches.delete(k))))
-      .then(() => toast('Мия убрала офлайн-кэш. Дом теперь работает только по сети'));
+      .then(sweep).then(() => { setTimeout(sweep, 500); toast('Мия убрала офлайн-кэш. Дом теперь работает только по сети'); });
     return;
   }
   const hadController = !!sw.controller;
@@ -53,7 +54,7 @@ function card(kind) {
   const main = $('main'); if (!main) return null;
   const ios = kind === 'ios', el = document.createElement('section');
   el.className = 'sec install-card'; el.id = 'installCard'; el.setAttribute('aria-labelledby', 'installTitle');
-  el.innerHTML = `<div class="card install-card__in"><img src="icons/icon-192.png" alt="" width="56" height="56">
+  el.innerHTML = `<div class="card install-card__in"><img src="img/icons/icon-192.a1.png" alt="" width="56" height="56">
     <div class="install-card__txt"><h2 id="installTitle">Поселить Мию на экран</h2>
     <p>${ios ? `Нажми «Поделиться» <span class="ios-share">${icon('share')}<span class="sr-only">(значок со стрелкой вверх)</span></span>, потом «На экран „Домой“».` : 'Будет мурчать у тебя на телефоне, даже без интернета'}</p>
     <div class="row">${ios ? '<button type="button" class="btn small" data-inst="ok">Понятно</button>' : '<button type="button" class="btn small" data-inst="go">Поселить</button><button type="button" class="btn small ghost" data-inst="later">Не сейчас</button>'}</div></div></div>`;

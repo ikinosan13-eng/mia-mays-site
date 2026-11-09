@@ -10,7 +10,7 @@ export const Box = {
   add(item, from) {
     if (!item || !item.id) return false;
     if (Box.has(item.id)) { toast('Уже в коробке ♡'); return false; }
-    const it = { id: String(item.id), kind: KINDS.includes(item.kind) ? item.kind : 'souvenir', title: String(item.title || 'Без названия').slice(0, 80), href: item.href || '', thumb: item.thumb || '', at: Date.now() };
+    const it = { id: String(item.id), kind: KINDS.includes(item.kind) ? item.kind : 'souvenir', title: String(item.title || 'Без названия').slice(0, 80), href: item.href || '', thumb: item.thumb || '', icon: /^[a-z-]{2,16}$/.test(item.icon || '') ? item.icon : '', at: Date.now() };
     MiaStore.update(s => { s.box = [it, ...s.box.filter(x => x.id !== it.id)].slice(0, 60); });
     fly(from); Sound.meow();
     if (!item.silent) toast(it.kind === 'lavka' ? 'Записала! Скажу, когда дошью ♡' : 'Утащила в коробку ♡');

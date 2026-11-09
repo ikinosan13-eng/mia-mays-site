@@ -13,7 +13,7 @@ export const defaults = () => ({
   wall: [],
   visits: { count: 0, days: 0, first: null, last: null, prev: null, lastDay: null, week: [] },
   gifts: { lastDay: null, got: [] },
-  seen: { updates: 0, hints: [] },
+  seen: { updates: 0, hints: [], recent: [], greetVisit: 0 },
   pwa: { installed: false, promptDismissedAt: null, iosHintShown: 0 }
 });
 const isObj = x => x && typeof x === 'object' && !Array.isArray(x);
@@ -55,6 +55,17 @@ export const MiaStore = {
     if (ls) { try { [KEY, KEY + ':broken', ...LEGACY].forEach(k => ls.removeItem(k)); } catch {} }
     try { sessionStorage.removeItem('mia-intro'); } catch {}
     const before = state; state = defaults(); emit(before, state);
+  },
+  // «ключ от дома»: полная замена состояния из файла. Проверка v===1, типы веток как в defaults; иначе — false и ничего не меняем
+  replace(obj) {
+    if (!isObj(obj) || obj.v !== 1) return false;
+    const d = defaults(), clean = {};
+    for (const k of Object.keys(d)) { if (!(k in obj)) continue; const a = d[k], b = obj[k];
+      if (Array.isArray(a) ? Array.isArray(b) : isObj(a) ? isObj(b) : (a === null || b === null || typeof a === typeof b)) clean[k] = b; }
+    if (!isObj(clean.guest) || !Array.isArray(clean.box || [])) return false;
+    const next = merge(d, clone(clean));
+    next.box = next.box.filter(x => isObj(x) && x.id).slice(0, 60); next.guest.name = String(next.guest.name || '').slice(0, 24);
+    const before = state; state = next; dirty = true; flush(); emit(before, state); return true;
   },
   get memoryOnly() { return mem; },
   get memWarned() { return memWarned; }, set memWarned(v) { memWarned = v; }
