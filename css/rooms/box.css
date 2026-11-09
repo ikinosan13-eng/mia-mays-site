@@ -16,12 +16,14 @@ main{--col:720px}
 .box-row .icon-btn{color:var(--berry)}
 .box-card{max-width:var(--col);margin:auto;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
 .box-card p{margin:0}
+.stats-line{max-width:var(--col);margin:0 auto;text-align:center;font-weight:700;color:var(--ink)}
 .stats{list-style:none;padding:0;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:var(--s4);max-width:var(--col)}
 .stats li{display:grid;justify-items:center;gap:4px;text-align:center;color:var(--berry)}
 .stats b{font-size:var(--fs4);color:var(--ink);line-height:1}
 .stats span{font-size:var(--fs-1);color:var(--muted);font-weight:700}
 @media (max-width:520px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
-.days-card{max-width:var(--col);margin:auto;display:grid;gap:12px;justify-items:center;text-align:center}
+.days-det{max-width:var(--col);margin:auto}.days-det summary h2{margin:0;font-size:var(--fs2)}.days-det summary .note{margin:0 0 0 auto}
+.days-card{margin:12px auto 0;display:grid;gap:12px;justify-items:center;text-align:center}
 .days-card p{margin:0}
 .paws{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;width:100%;max-width:440px}
 .paws li{display:grid;justify-items:center;gap:2px;font-size:var(--fs-1);font-weight:700;color:var(--muted)}
@@ -37,6 +39,24 @@ main{--col:720px}
 .souv-grid img{width:48px;height:48px;object-fit:contain}
 .souv-grid .sil img{filter:brightness(0);opacity:.14}
 .night .souv-grid .sil img{filter:brightness(0) invert(1);opacity:.16}
+/* котёнок в коробке (пасхалка, только по событию) */
+.box-head{position:relative;padding-right:calc(var(--pad) + 100px)}
+.kit-box{position:absolute;right:var(--pad);bottom:0;width:92px;height:84px;border:0;background:none;padding:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.kit-box .box{position:absolute;left:0;right:0;bottom:0;height:46px;border-radius:6px 6px 10px 10px;background:var(--kit-box);box-shadow:inset 0 -6px 10px rgb(0 0 0 / .08),var(--sh-1);z-index:2}
+.kit-box .box::before{content:"";position:absolute;left:-6px;right:-6px;top:-6px;height:10px;border-radius:4px;background:var(--kit-lid);box-shadow:0 2px 0 var(--kit-edge)}
+.kit-box .box b::after{content:"с любовью"}
+.kit-box .box b{position:absolute;inset:auto 0 9px;font:600 1rem/1 var(--fv);color:var(--kit-ink)}
+.kit{position:absolute;left:50%;bottom:30px;width:58px;height:44px;margin-left:-29px;border-radius:50% 50% 40% 40%;background:var(--kit-fur);transform:translateY(26px);transition:transform var(--t-slow) var(--spring);z-index:1}
+.kit .kear{position:absolute;top:-10px;width:18px;height:20px;background:var(--kit-fur);clip-path:polygon(50% 0,100% 100%,0 100%)}
+.kit .kear.l{left:4px;transform:rotate(-14deg)}.kit .kear.r{right:4px;transform:rotate(14deg)}
+.kit .kear::after{content:"";position:absolute;inset:6px 5px 0;background:var(--kit-ear);clip-path:inherit}
+.kit .keye{position:absolute;top:16px;width:7px;height:9px;border-radius:50%;background:var(--kit-eye);transform-origin:50% 60%}
+.kit .keye.l{left:15px}.kit .keye.r{right:15px}
+.kit .knose{position:absolute;left:50%;top:27px;width:6px;height:4px;margin-left:-3px;border-radius:0 0 50% 50%;background:var(--kit-nose)}
+.kit-box.peek .kit,.kit-box:hover .kit,.kit-box:focus-visible .kit{transform:translateY(0)}
+.kit-box.blink .keye{animation:kBlink .18s}
+.kit-box.out .kit{transform:translateY(-14px) rotate(-6deg)}
+@keyframes kBlink{50%{transform:scaleY(.1)}}
 }
 
 @layer rooms{.empty-mia{width:180px;height:auto}.night .empty-mia{filter:brightness(.85) saturate(.9)}}

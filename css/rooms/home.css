@@ -1,58 +1,77 @@
 @layer rooms{
 .now-hero{max-width:1100px;margin:auto;padding:clamp(12px,2.5vw,28px) var(--pad) 8px}
-.now-text{max-width:640px;margin:16px auto 0;text-align:center}
-.now-text h1{font-size:clamp(1.9rem,4.5vw,2.8rem);margin-bottom:12px}
-.now-bubble{position:relative;background:var(--surface);border-radius:var(--r-l);padding:16px 20px;font:600 clamp(1.5rem,3vw,1.9rem)/1.2 var(--fv);color:var(--ink);box-shadow:var(--sh-1);margin:0 auto 12px;max-width:30ch}
+.room-wrap{position:relative}
+/* пузырь Мии: на мобиле сразу под комнатой, на ≥760 — поверх комнаты справа от Мии */
+.now-bubble{position:relative;background:var(--surface);border-radius:var(--r-l);padding:14px 18px;font:600 clamp(1.4rem,3vw,1.75rem)/1.2 var(--fv);color:var(--ink);box-shadow:var(--sh-1);margin:16px auto 0;max-width:30ch;cursor:pointer}
 .now-bubble::before{content:"";position:absolute;left:50%;top:-12px;transform:translateX(-50%);border:9px solid transparent;border-bottom:14px solid var(--surface);border-top:0}
-/* фаза 4: иллюстрированная комната, Мия сверху, кликабельные предметы */
+.now-bubble small{display:block;margin-top:6px;font:700 var(--fs-1)/1.3 var(--ff);color:var(--berry)}
+@media (min-width:760px){
+  .now-bubble{position:absolute;z-index:5;right:2.5%;bottom:5%;margin:0;width:min(34%,340px);max-width:none;font-size:clamp(1.15rem,1.9vw,1.5rem);box-shadow:var(--sh-2)}
+  .now-bubble::before{left:-13px;top:28px;transform:none;border:9px solid transparent;border-right:14px solid var(--surface);border-left:0}
+}
+/* фаза 4: иллюстрированная комната; картинка — по времени суток, лампа меняет только свет */
 .room{position:relative;aspect-ratio:16/10;border-radius:var(--r-l);overflow:hidden;background:var(--blush);box-shadow:var(--sh-2);isolation:isolate}
 .room>img,.room noscript img.room__day{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.room__night{opacity:0;transition:opacity .42s ease}
-.night .room__night.ok,.room__night.hold.ok{opacity:1}
-.room__stage{position:absolute;left:30.6%;top:12%;width:34.7%;height:74%;z-index:1;touch-action:pan-y;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
-.room__mia{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;-webkit-user-drag:none;transition:opacity .22s,transform var(--t-base);cursor:grab}
+.room__night{opacity:0}
+[data-daypart=evening] .room__night{opacity:.55}
+[data-daypart=evening] .room.fri .room__night{opacity:.75}
+[data-daypart=night] .room__night{opacity:1}
+/* ночь, лампа выключена: та же ночная комната + затемнение (без фильтров, один слой) */
+.room::after{content:"";position:absolute;inset:0;z-index:2;background:#0d0b16;opacity:0;pointer-events:none;transition:opacity .42s ease}
+[data-daypart=night].night .room::after{opacity:.35}
+.room__stage{position:absolute;left:33%;top:24%;width:30%;height:64%;z-index:2;touch-action:pan-y;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+.room__mia{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;-webkit-user-drag:none;transition:opacity .22s;cursor:grab}
 .room__mia.next{opacity:0}.room__mia.next.on{opacity:1}
-.night .room__mia{filter:brightness(.8) saturate(.9)}
-.room__stage.blinking .room__mia{transform:scaleY(.985)}
+:root:not([data-daypart=night]).night .room__mia{filter:brightness(.8) saturate(.9)}
+/* поза без кадра «моргнуть»: короткое мягкое затухание вместо сплющивания */
+.room__stage.blinking .room__mia{opacity:.85}
 .room__stage.sleepy .room__mia{opacity:.9}
-.hot{position:absolute;left:var(--x);top:var(--y);width:var(--w);height:var(--h);z-index:2;border:0;padding:0;background:none;border-radius:12px;color:var(--ink);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.hot{position:absolute;left:var(--x);top:var(--y);width:var(--w);height:var(--h);z-index:3;border:0;padding:0;background:none;border-radius:12px;color:var(--ink);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.hot--polaroid{z-index:1} /* голова Мии (сцена, z 2) важнее полароидов: тап по ушкам — погладить */
 .hot::before{content:"";position:absolute;inset:min(0px,calc((100% - 44px) / 2))}
 .hot:hover{background:rgb(255 253 250 / .14)}
 .hot:focus-visible{outline:3px solid var(--berry);outline-offset:2px;box-shadow:0 0 0 6px rgb(255 253 250 / .7)}
 .hot span{position:absolute;left:50%;bottom:6px;translate:-50% 0;white-space:nowrap;background:var(--surface);color:var(--ink);font:800 .75rem/1 var(--ff);padding:5px 9px;border-radius:var(--r-pill);box-shadow:var(--sh-1);opacity:0;transition:opacity var(--t-base);pointer-events:none}
 .hot:hover span,.hot:focus-visible span{opacity:1}
-@media (hover:none){.hot span{opacity:.92;font-size:.6875rem;padding:4px 7px;bottom:3px}}
+/* тач: подписи скрыты; медовые точки-маркеры; подписи — 2.5 с при первом визите (.tour) и при касании */
+@media (hover:none){
+  .hot span{font-size:.6875rem;padding:4px 7px;bottom:3px}
+  .hot::after{content:"";position:absolute;left:50%;top:50%;width:8px;height:8px;margin:-4px 0 0 -4px;border-radius:50%;background:var(--honey);opacity:.8;box-shadow:0 0 0 2px rgb(255 253 250 / .55);pointer-events:none;transition:opacity var(--t-base)}
+  .room.tour .hot span,.hot:active span,.hot:focus-visible span{opacity:.92}
+  .room.tour .hot::after{opacity:0}
+}
 .hot--polaroid span{bottom:auto;top:2px}
 .hot--box span{bottom:auto;top:-2px}
 .hot--switch span,.hot--box span,.hot--window span{left:auto;right:2px;translate:none}
 .hot--shelf span{left:2px;translate:none}
-.gd-s{display:none}
-@media (max-width:759px){.gift-door{left:8px;bottom:8px;min-height:40px;padding:6px 12px 6px 8px}.gd-l{display:none}.gd-s{display:inline}}
-@media (max-width:759px){.hot--switch{display:none}.room{border-radius:var(--r-m)}}
-.now-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s4);max-width:980px;margin:0 auto;padding:var(--s5) var(--pad) 0}
-.now-today{position:relative;min-height:170px;padding-right:120px}
-.now-today .say{margin:0}
-.now-friday{text-align:center;display:grid;gap:8px;justify-items:center}
+@media (max-width:759px){
+  .hot--switch{display:none}
+  .now-hero{padding-top:0}
+  .room{margin-inline:calc(-1 * var(--pad));border-radius:0;box-shadow:none}
+}
+.now-friday{max-width:calc(980px - 2 * var(--pad));width:calc(100% - 2 * var(--pad));box-sizing:border-box;margin:var(--s4) auto 0;text-align:center;display:grid;gap:8px;justify-items:center}
 .now-friday .kicker{margin:0}
 .now-friday .note{margin:0}
 .live-note{display:none}
 [data-friday][data-live] .live-note{display:block}
 [data-friday][data-live] .countdown{display:none}
-/* фаза 3: пузырь закрывается тапом, один раз за визит */
+/* фаза 3: пузырь один раз за визит; ✕ закрывает, тап по пузырю — вторая реплика */
 .now-bubble p{margin:0;padding-right:28px;min-height:2.4em}
 .bubble-x{position:absolute;top:6px;right:6px;width:36px;height:36px;border:0;border-radius:50%;background:none;color:var(--muted-strong);display:grid;place-items:center;cursor:pointer}
 .bubble-x .i{width:18px;height:18px}
 .greeted .now-bubble{display:none}
-.mia-acts{display:flex;flex-wrap:wrap;gap:8px}
-.mia-hint{margin:8px 0 0;font-size:var(--fs-1)}
+/* погладить/моргнуть кнопками — только для клавиатуры и скринридера (жесты — на самой Мие) */
+.mia-acts{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:12px}
+.mia-acts.sr-focus:not(:focus-within){position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;margin:-1px;padding:0;border:0}
 /* портрет: жесты (погладить/моргнуть), позы-слои, сердечко */
 .pet-heart{position:absolute;left:50%;top:18%;margin-left:-14px;color:var(--berry);pointer-events:none}
 .pet-heart .i{width:28px;height:28px;fill:currentColor}
-.gift-door{position:absolute;left:12px;bottom:12px;z-index:3;display:flex;align-items:center;gap:8px;min-height:44px;max-width:calc(100% + 12px);padding:8px 14px 8px 10px;border:0;border-radius:var(--r-pill);background:var(--honey);color:#3B2A33;font:800 var(--fs-1)/1.2 var(--ff);box-shadow:var(--sh-2);cursor:pointer;text-align:left}
+.gift-door{position:absolute;left:12px;bottom:12px;z-index:4;display:flex;align-items:center;gap:8px;min-height:44px;max-width:calc(100% + 12px);padding:8px 14px 8px 10px;border:0;border-radius:var(--r-pill);background:var(--honey);color:#3B2A33;font:800 var(--fs-1)/1.2 var(--ff);box-shadow:var(--sh-2);cursor:pointer;text-align:left}
 .gift-door .i{flex:none;width:22px;height:22px}
 .gift-door:hover{transform:translateY(-2px)}
-.night-star{display:none;position:absolute;left:calc(90.5% - 22px);top:calc(9% - 22px);z-index:3;width:44px;height:44px;border:0;border-radius:50%;background:none;color:var(--honey);cursor:pointer}
-.night .night-star{display:grid;place-items:center}
+@media (max-width:759px){.gift-door{left:8px;top:8px;bottom:auto;width:44px;height:44px;min-height:44px;padding:0;justify-content:center;border-radius:50%}.gift-door .gd-l{display:none}}
+.night-star{display:none;position:absolute;left:calc(86% - 22px);top:calc(18% - 22px);z-index:4;width:44px;height:44px;border:0;border-radius:50%;background:none;color:var(--honey);cursor:pointer}
+[data-daypart=night] .night-star{display:grid;place-items:center}
 .night-star .i{width:22px;height:22px;fill:currentColor}
 /* чек-ин */
 .checkin{max-width:calc(980px - 2 * var(--pad));margin:var(--s4) auto 0;width:calc(100% - 2 * var(--pad));box-sizing:border-box;display:grid;gap:8px}
@@ -85,25 +104,4 @@
 .gift-ic .i{width:48px;height:48px}
 .gift-ic img{width:96px;height:96px;object-fit:contain}
 .wish-l{width:100%}.wish-l input{width:100%;box-sizing:border-box}
-@media (max-width:759px){
-  .mia-acts{justify-content:center}
-  .now-cards{grid-template-columns:1fr}
-}
-/* котёнок в коробке (пасхалка, только по событию) */
-.kit-box{position:absolute;right:12px;bottom:12px;width:92px;height:84px;border:0;background:none;padding:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
-.kit-box .box{position:absolute;left:0;right:0;bottom:0;height:46px;border-radius:6px 6px 10px 10px;background:var(--kit-box);box-shadow:inset 0 -6px 10px rgb(0 0 0 / .08),var(--sh-1);z-index:2}
-.kit-box .box::before{content:"";position:absolute;left:-6px;right:-6px;top:-6px;height:10px;border-radius:4px;background:var(--kit-lid);box-shadow:0 2px 0 var(--kit-edge)}
-.kit-box .box b::after{content:"с любовью"}
-.kit-box .box b{position:absolute;inset:auto 0 9px;font:600 1rem/1 var(--fv);color:var(--kit-ink)}
-.kit{position:absolute;left:50%;bottom:30px;width:58px;height:44px;margin-left:-29px;border-radius:50% 50% 40% 40%;background:var(--kit-fur);transform:translateY(26px);transition:transform var(--t-slow) var(--spring);z-index:1}
-.kit .kear{position:absolute;top:-10px;width:18px;height:20px;background:var(--kit-fur);clip-path:polygon(50% 0,100% 100%,0 100%)}
-.kit .kear.l{left:4px;transform:rotate(-14deg)}.kit .kear.r{right:4px;transform:rotate(14deg)}
-.kit .kear::after{content:"";position:absolute;inset:6px 5px 0;background:var(--kit-ear);clip-path:inherit}
-.kit .keye{position:absolute;top:16px;width:7px;height:9px;border-radius:50%;background:var(--kit-eye);transform-origin:50% 60%}
-.kit .keye.l{left:15px}.kit .keye.r{right:15px}
-.kit .knose{position:absolute;left:50%;top:27px;width:6px;height:4px;margin-left:-3px;border-radius:0 0 50% 50%;background:var(--kit-nose)}
-.kit-box.peek .kit,.kit-box:hover .kit,.kit-box:focus-visible .kit{transform:translateY(0)}
-.kit-box.blink .keye{animation:kBlink .18s}
-.kit-box.out .kit{transform:translateY(-14px) rotate(-6deg)}
-@keyframes kBlink{50%{transform:scaleY(.1)}}
 }
