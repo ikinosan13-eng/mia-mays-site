@@ -25,11 +25,11 @@ document.querySelectorAll('meta[name=theme-color]').forEach(m=>m.content=n?'#1E1
 <link rel="apple-touch-icon" href="img/icons/apple-touch-180.a1.png">
 <meta name="apple-mobile-web-app-title" content="Дом Мии"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="preload" href="fonts/nunito.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="css/core.css?v=15">
+<link rel="stylesheet" href="css/core.css?v=16">
 <script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/mia-mays-site/*.html"},{"not":{"selector_matches":"[data-no-prerender],[download]"}}]},"eagerness":"moderate"}]}</script>
-<script type="module" src="js/app.js?v=15"></script>
+<script type="module" src="js/app.js?v=16"></script>
 <!--/@shell-->
-<link rel="stylesheet" href="css/rooms/box.css?v=15">
+<link rel="stylesheet" href="css/rooms/box.css?v=16">
 </head>
 <body data-room="box">
 <a class="skip" href="#main">К содержимому</a>
@@ -87,15 +87,7 @@ document.querySelectorAll('meta[name=theme-color]').forEach(m=>m.content=n?'#1E1
 </header>
 <!--/@shell-->
 <main id="main" tabindex="-1">
-<header class="room-head"><h1>Коробка</h1><p class="lead">Всё твоё в этом доме. Хранится только в этом браузере.</p></header>
-<section class="sec days" aria-labelledby="daysT">
-  <h2 id="daysT">Дни у Мии</h2>
-  <div class="card days-card">
-    <p class="say" data-days>Ты заглядываешь к Мие уже 1 день ♡</p>
-    <ol class="paws" aria-label="Твоя неделя"><li data-wd="0"><svg class="i" aria-hidden="true"><use href="#i-paw"/></svg><span class="wd">Пн</span><span class="mood" aria-hidden="true"></span><span class="sr-only" data-wd-sr>: нет</span></li><li data-wd="1"><svg class="i" aria-hidden="true"><use href="#i-paw"/></svg><span class="wd">Вт</span><span class="mood" aria-hidden="true"></span><span class="sr-only" data-wd-sr>: нет</span></li><li data-wd="2"><svg class="i" aria-hidden="true"><use href="#i-paw"/></svg><span class="wd">Ср</span><span class="mood" aria-hidden="true"></span><span class="sr-only" data-wd-sr>: нет</span></li><li data-wd="3"><svg class="i" aria-hidden="true"><use href="#i-paw"/></svg><span class="wd">Чт</span><span class="mood" aria-hidden="true"></span><span class="sr-only" data-wd-sr>: нет</span></li><li data-wd="4"><svg class="i" aria-hidden="true"><use href="#i-paw"/></svg><span class="wd">Пт</span><span class="mood" aria-hidden="true"></span><span class="sr-only" data-wd-sr>: нет</span></li><li data-wd="5"><svg class="i" aria-hidden="true"><use href="#i-paw"/></svg><span class="wd">Сб</span><span class="mood" aria-hidden="true"></span><span class="sr-only" data-wd-sr>: нет</span></li><li data-wd="6"><svg class="i" aria-hidden="true"><use href="#i-paw"/></svg><span class="wd">Вс</span><span class="mood" aria-hidden="true"></span><span class="sr-only" data-wd-sr>: нет</span></li></ol>
-    <p class="note">Неделя начинается заново каждый понедельник. Ничего не сгорает.</p>
-  </div>
-</section>
+<header class="room-head box-head"><h1>Коробка</h1><p class="lead">Всё твоё в этом доме. Хранится только в этом браузере.</p><button class="kit-box" id="kitBox" type="button" aria-label="Котёнок в коробке"><span class="kit" aria-hidden="true"><i class="kear l"></i><i class="kear r"></i><i class="keye l"></i><i class="keye r"></i><i class="knose"></i></span><span class="box" aria-hidden="true"><b></b></span></button></header>
 <section class="sec box-empty" id="boxEmpty" hidden>
   <div class="card cart-empty"><img class="empty-mia" src="img/mia/mia-box.a1-256.webp" srcset="img/mia/mia-box.a1-256.webp 256w, img/mia/mia-box.a1-512.webp 512w" sizes="180px" width="256" height="341" alt="Мия выглядывает из коробки" decoding="async"><p class="say">Тут пока пусто. Но коробка — уже счастье, спроси любого кота. Если влезла — значит моя</p><a class="btn" href="album.html">В Альбом</a></div>
 </section>
@@ -105,13 +97,21 @@ document.querySelectorAll('meta[name=theme-color]').forEach(m=>m.content=n?'#1E1
   <p class="center" id="boxClearWrap"><button class="btn ghost small" type="button" id="boxClear"><svg class="i" aria-hidden="true"><use href="#i-trash"/></svg>Очистить коробку</button></p>
 </section>
 <script>(function(){var e=1;try{var s=JSON.parse(localStorage.getItem("mia:v1")||"null");if(s){var g=s.games||{};e=!((s.box&&s.box.length)||s.rsvp||g.heartsBest||g.purrs)}else{var c=JSON.parse(localStorage.getItem("mia-cart-v1")||"[]");if(c&&c.length)e=0}}catch(x){e=0}document.getElementById("boxEmpty").hidden=!e;document.getElementById("saved").hidden=!!e})()</script>
+<section class="sec days" aria-labelledby="daysT">
+  <details class="card days-det"><summary><h2 id="daysT">Дни у Мии</h2><span class="note" data-days-n></span></summary>
+  <div class="days-card">
+    <p class="say" data-days>Ты заглядываешь к Мие уже 1 день ♡</p>
+    <ol class="paws" aria-label="Твоя неделя"><li data-wd="0"><svg class="i" aria-hidden="true"><use href="#i-paw"/></svg><span class="wd">Пн</span><span class="mood" aria-hidden="true"></span><span class="sr-only" data-wd-sr> нет встречи</span></li><li data-wd="1"><svg class="i" aria-hidden="true"><use href="#i-paw"/></svg><span class="wd">Вт</span><span class="mood" aria-hidden="true"></span><span class="sr-only" data-wd-sr> нет встречи</span></li><li data-wd="2"><svg class="i" aria-hidden="true"><use href="#i-paw"/></svg><span class="wd">Ср</span><span class="mood" aria-hidden="true"></span><span class="sr-only" data-wd-sr> нет встречи</span></li><li data-wd="3"><svg class="i" aria-hidden="true"><use href="#i-paw"/></svg><span class="wd">Чт</span><span class="mood" aria-hidden="true"></span><span class="sr-only" data-wd-sr> нет встречи</span></li><li data-wd="4"><svg class="i" aria-hidden="true"><use href="#i-paw"/></svg><span class="wd">Пт</span><span class="mood" aria-hidden="true"></span><span class="sr-only" data-wd-sr> нет встречи</span></li><li data-wd="5"><svg class="i" aria-hidden="true"><use href="#i-paw"/></svg><span class="wd">Сб</span><span class="mood" aria-hidden="true"></span><span class="sr-only" data-wd-sr> нет встречи</span></li><li data-wd="6"><svg class="i" aria-hidden="true"><use href="#i-paw"/></svg><span class="wd">Вс</span><span class="mood" aria-hidden="true"></span><span class="sr-only" data-wd-sr> нет встречи</span></li></ol>
+    <p class="note">Неделя начинается заново каждый понедельник. Ничего не сгорает.</p>
+  </div></details>
+</section>
 <section class="sec alt" aria-labelledby="myFriday">
   <h2 id="myFriday">Моя пятница</h2>
   <div class="card box-card" id="boxRsvp"><p class="note">Ещё нет записи на Уютную ночь.</p><a class="btn small" href="living.html#rsvp">Записаться</a></div>
 </section>
-<section class="sec" aria-labelledby="myRecords">
+<section class="sec" aria-labelledby="myRecords" id="recs">
   <h2 id="myRecords">Мои рекорды</h2>
-  <ul class="stats"><li class="card"><svg class="i" aria-hidden="true"><use href="#i-heart"/></svg><b id="statBest">0</b><span>рекорд в сердечках</span></li><li class="card"><svg class="i" aria-hidden="true"><use href="#i-paw"/></svg><b id="statPurrs">0</b><span>намурлыкано</span></li><li class="card"><svg class="i" aria-hidden="true"><use href="#i-cat"/></svg><b id="statBlinks">0</b><span>моргнули друг другу</span></li><li class="card"><svg class="i" aria-hidden="true"><use href="#i-box"/></svg><b id="statBox">0</b><span>вещей в коробке</span></li></ul>
+  <p class="stats-line" id="statsLine">Пока без рекордов. Погладь Мию в Комнате ♡</p>
 </section>
 <section class="sec alt" aria-labelledby="myLavka">
   <h2 id="myLavka">Лавка</h2>

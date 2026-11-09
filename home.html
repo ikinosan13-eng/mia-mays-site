@@ -9,6 +9,7 @@
 <meta property="og:title" content="Комната · Дом Мии"><meta property="og:description" content="Комната Мии сейчас: приветствие, что она делает сегодня и сколько осталось до Уютной ночи.">
 <meta property="og:url" content="https://ikinosan13-eng.github.io/mia-mays-site/home.html"><meta property="og:image" content="https://ikinosan13-eng.github.io/mia-mays-site/img/og-cover.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
+<script>(()=>{const h=new Date().getHours(),n=h>=22||h<6?'night':'day',l=document.createElement('link');l.rel='preload';l.as='image';l.type='image/webp';l.fetchPriority='high';l.setAttribute('imagesrcset',[480,900,1600].map(w=>`img/room/room-${n}.a1-${w}.webp ${w}w`).join(', '));l.setAttribute('imagesizes','(max-width:1100px) 100vw, 1100px');document.head.append(l)})()</script>
 <!--@shell:boot-->
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#FBF6EF" media="(prefers-color-scheme: light)">
@@ -25,12 +26,11 @@ document.querySelectorAll('meta[name=theme-color]').forEach(m=>m.content=n?'#1E1
 <link rel="apple-touch-icon" href="img/icons/apple-touch-180.a1.png">
 <meta name="apple-mobile-web-app-title" content="Дом Мии"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="preload" href="fonts/nunito.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="css/core.css?v=15">
+<link rel="stylesheet" href="css/core.css?v=16">
 <script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/mia-mays-site/*.html"},{"not":{"selector_matches":"[data-no-prerender],[download]"}}]},"eagerness":"moderate"}]}</script>
-<script type="module" src="js/app.js?v=15"></script>
+<script type="module" src="js/app.js?v=16"></script>
 <!--/@shell-->
-<link rel="stylesheet" href="css/rooms/home.css?v=15">
-<script>(()=>{const n=document.documentElement.classList.contains('night')?'night':'day',l=document.createElement('link');l.rel='preload';l.as='image';l.type='image/webp';l.fetchPriority='high';l.setAttribute('imagesrcset',[480,900,1600].map(w=>`img/room/room-${n}.a1-${w}.webp ${w}w`).join(', '));l.setAttribute('imagesizes','(max-width:1100px) 100vw, 1100px');document.head.append(l)})()</script>
+<link rel="stylesheet" href="css/rooms/home.css?v=16">
 </head>
 <body data-room="home">
 <a class="skip" href="#main">К содержимому</a>
@@ -89,35 +89,35 @@ document.querySelectorAll('meta[name=theme-color]').forEach(m=>m.content=n?'#1E1
 <!--/@shell-->
 <main id="main" tabindex="-1">
 <section class="now-hero" aria-labelledby="nowTitle">
+  <h1 class="sr-only" id="nowTitle">Комната Мии</h1>
+  <p class="sr-only" data-now-kicker>Сейчас в комнате</p>
+  <div class="room-wrap">
   <div class="room" id="room">
     <noscript><img class="room__day" src="img/room/room-day.a1-900.webp" srcset="img/room/room-day.a1-480.webp 480w, img/room/room-day.a1-900.webp 900w, img/room/room-day.a1-1600.webp 1600w" sizes="(max-width:1100px) 100vw, 1100px" width="1600" height="1000" alt=""><img class="room__mia" src="img/mia/mia-wave.a1-512.webp" width="512" height="683" alt="Мия машет рукой"></noscript>
     <div class="room__stage" id="nowPic"></div>
     <a class="hot hot--shelf" href="diary.html" style="--x:0.5%;--y:3%;--w:12.5%;--h:74%"><span>Дневник</span></a>
     <a class="hot hot--board" href="play.html" style="--x:14.5%;--y:13%;--w:13%;--h:28%"><span>Игровая</span></a>
-    <a class="hot hot--polaroid" href="album.html" style="--x:32.5%;--y:11%;--w:25.5%;--h:9%"><span>Альбом</span></a>
+    <a class="hot hot--polaroid" href="album.html" style="--x:32.5%;--y:11%;--w:25.5%;--h:24%"><span>Альбом</span></a>
     <a class="hot hot--window" href="living.html" style="--x:79.5%;--y:0%;--w:16.5%;--h:51%"><span>Гостиная</span></a>
     <a class="hot hot--box" href="box.html" style="--x:85.5%;--y:71%;--w:14%;--h:22%"><span>Коробка</span></a>
-    <button class="hot hot--lamp" type="button" data-room-act="lamp" style="--x:60%;--y:43%;--w:14%;--h:27%"><span>Лампа</span></button>
+    <button class="hot hot--lamp" type="button" data-room-act="lamp" style="--x:63%;--y:43%;--w:12%;--h:27%"><span>Лампа</span></button>
     <button class="hot hot--switch" type="button" data-room-act="switch" style="--x:96.2%;--y:31.5%;--w:3.3%;--h:9.5%"><span>Выключатель</span></button>
-    <button class="gift-door" id="giftDoor" type="button" aria-label="Подарок: Мия что-то оставила для тебя" hidden><svg class="i" aria-hidden="true"><use href="#i-gift"/></svg><span class="gd-l">Мия что-то оставила для тебя</span><span class="gd-s">Подарок</span></button>
+    <button class="gift-door" id="giftDoor" type="button" aria-label="Подарок: Мия что-то оставила для тебя" hidden><svg class="i" aria-hidden="true"><use href="#i-gift"/></svg><span class="gd-l" aria-hidden="true">Мия что-то оставила для тебя</span></button>
     <button class="night-star" id="nightStar" type="button" aria-label="Звёздочка за окном"><svg class="i" aria-hidden="true"><use href="#i-star"/></svg></button>
   </div>
-  <script>(()=>{const R=document.getElementById('room'),d=document.documentElement,dp=d.dataset.daypart||'day',n=d.classList.contains('night'),S=(m,w)=>w.map(x=>`img/room/room-${m}.a1-${x}.webp ${x}w`).join(', '),W=[480,900,1600],Z='(max-width:1100px) 100vw, 1100px';
-R.insertAdjacentHTML('afterbegin',`<img class="room__day" alt="" width="1600" height="1000" sizes="${Z}" ${n?`data-srcset="${S('day',W)}"`:`srcset="${S('day',W)}" fetchpriority="high"`} decoding="async"><img class="room__night${n?' ok':''}" alt="" width="1600" height="1000" sizes="${Z}" ${n?`srcset="${S('night',W)}" fetchpriority="high"`:`data-srcset="${S('night',W)}"`} decoding="async">`);
+  <script>(()=>{const R=document.getElementById('room'),d=document.documentElement,dp=d.dataset.daypart||'day',n=d.classList.contains('night'),t=new Date(),S=m=>[480,900,1600].map(x=>`img/room/room-${m}.a1-${x}.webp ${x}w`).join(', '),Z='(max-width:1100px) 100vw, 1100px',I=(m,p)=>`<img class="room__${m}" alt="" width="1600" height="1000" sizes="${Z}" srcset="${S(m)}" fetchpriority="${p}" decoding="async">`;
+if(dp==='evening'&&t.getDay()===5&&t.getHours()>=20)R.classList.add('fri');
+R.insertAdjacentHTML('afterbegin',(dp==='night'?'':I('day','high'))+(dp==='night'?I('night','high'):dp==='evening'?I('night','low'):''));
 const M={morning:['sleepy','Мия потягивается и зевает'],day:['wave','Мия машет рукой'],evening:['tea','Мия пьёт чай'],night:['sleep','Мия спит в обнимку с подушкой'],lampOn:['shy','Мия смущается']},k=n?'night':dp==='night'?'lampOn':dp,p=M[k];
-document.getElementById('nowPic').innerHTML=`<img class="room__mia" data-pose="${p[0]}" srcset="img/mia/mia-${p[0]}.a1-256.webp 256w, img/mia/mia-${p[0]}.a1-512.webp 512w" sizes="(max-width:1100px) 35vw, 382px" src="img/mia/mia-${p[0]}.a1-512.webp" width="512" height="683" alt="${p[1]}" decoding="async">`})()</script>
+document.getElementById('nowPic').innerHTML=`<img class="room__mia" data-pose="${p[0]}" srcset="img/mia/mia-${p[0]}.a1-256.webp 256w, img/mia/mia-${p[0]}.a1-512.webp 512w" sizes="(max-width:759px) 31vw, (max-width:1100px) 30vw, 330px" src="img/mia/mia-${p[0]}.a1-512.webp" width="512" height="683" alt="${p[1]}" decoding="async">`})()</script>
   <script>(()=>{try{const s=JSON.parse(localStorage.getItem('mia:v1')||'null'),d=new Date(),k=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'),v=(s&&s.visits)||{};
 if(!s||!s.gifts||s.gifts.lastDay!==k)document.getElementById('giftDoor').hidden=false;
 if(!/[?&]first/.test(location.search)&&s&&s.seen&&s.seen.greetVisit&&s.seen.greetVisit===v.count&&v.last&&Date.now()-v.last<18e5&&v.lastDay===k)document.documentElement.classList.add('greeted')}catch(e){}})()</script>
-  <div class="now-text">
-    <p class="kicker" data-now-kicker>Сейчас в комнате</p>
-    <h1 id="nowTitle">Комната Мии</h1>
-    <div class="now-bubble" id="bubble"><p data-greet>Привет! Заходи, чайник ещё тёплый</p><button class="bubble-x" type="button" aria-label="Закрыть реплику Мии"><svg class="i" aria-hidden="true"><use href="#i-x"/></svg></button></div>
-    <div class="mia-acts" role="group" aria-label="С Мией">
-      <button class="btn small ghost" type="button" data-act="pet"><svg class="i" aria-hidden="true"><use href="#i-paw"/></svg>Погладить</button>
-      <button class="btn small ghost" type="button" data-act="blink"><svg class="i" aria-hidden="true"><use href="#i-cat"/></svg>Моргнуть Мие</button>
-    </div>
-    <p class="note mia-hint">Можно и прямо на Мие: тап — погладить, удержать — медленно моргнуть.</p>
+  <div class="now-bubble" id="bubble"><p data-greet>Привет! Заходи, чайник ещё тёплый</p><button class="bubble-x" type="button" aria-label="Закрыть реплику Мии"><svg class="i" aria-hidden="true"><use href="#i-x"/></svg></button></div>
+  </div>
+  <div class="mia-acts sr-focus" role="group" aria-label="С Мией">
+    <button class="btn small ghost" type="button" data-act="pet"><svg class="i" aria-hidden="true"><use href="#i-paw"/></svg>Погладить</button>
+    <button class="btn small ghost" type="button" data-act="blink"><svg class="i" aria-hidden="true"><use href="#i-cat"/></svg>Моргнуть Мие</button>
   </div>
 </section>
 <section class="checkin card" id="checkin" aria-labelledby="ciT" data-state="ask">
@@ -131,18 +131,11 @@ if(!/[?&]first/.test(location.search)&&s&&s.seen&&s.seen.greetVisit&&s.seen.gree
   <p class="say ci-reply" data-ci-reply aria-live="polite">♡ Я помню, как у тебя сегодня. Я рядом ♡</p>
 </section>
 <script>(()=>{try{const s=JSON.parse(localStorage.getItem('mia:v1')||'null'),d=new Date(),k=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');if(s&&s.checkin&&s.checkin.last===k)document.getElementById('checkin').dataset.state='done'}catch(e){}})()</script>
-<section class="now-cards" aria-label="Сегодня">
-  <article class="card now-today">
-    <p class="kicker">Сегодня Мия…</p>
-    <p class="say" data-today>нашла под кроватью потерянный клубок</p>
-    <button class="kit-box" id="kitBox" type="button" aria-label="Котёнок в коробке"><span class="kit" aria-hidden="true"><i class="kear l"></i><i class="kear r"></i><i class="keye l"></i><i class="keye r"></i><i class="knose"></i></span><span class="box" aria-hidden="true"><b></b></span></button>
-  </article>
-  <article class="card now-friday" data-friday>
-    <p class="kicker">До Уютной ночи</p>
-    <div class="countdown" id="countdown" aria-hidden="true"></div><p class="sr-only" id="countdownSr" aria-live="polite"></p>
-    <p class="note live-note">Каждую пятницу в 20:00: пледы, чай и форт из одеял.</p>
-    <a class="btn small" href="living.html#friday">В Гостиную</a>
-  </article>
+<section class="card now-friday" data-friday aria-labelledby="friT">
+  <h2 class="kicker" id="friT">До Уютной ночи</h2>
+  <div class="countdown" id="countdown" aria-hidden="true"></div><p class="sr-only" id="countdownSr" aria-live="polite"></p>
+  <p class="note live-note">Каждую пятницу в 20:00: пледы, чай и форт из одеял.</p>
+  <a class="btn small" href="living.html#friday">В Гостиную</a>
 </section>
 <section class="since card" id="since" aria-labelledby="sinceT" hidden>
   <h2 id="sinceT">Пока тебя не было</h2>
