@@ -44,3 +44,11 @@ html:not(.js) .seg-wrap{display:none}
 @keyframes pin{0%{opacity:0;transform:translateY(-24px) scale(.7) rotate(-10deg)}60%{opacity:1;transform:scale(1.04)}100%{transform:rotate(var(--t))}}
 .rules-list{margin:0;display:grid;gap:10px;padding-left:1.4em;font-size:var(--fs2);font-weight:700}
 }
+@layer rooms{
+.about-logo{display:inline-flex;align-items:center;gap:10px;min-height:44px;border:0;background:none;padding:4px 10px 4px 4px;border-radius:var(--r-pill);font:800 var(--fs0)/1 var(--ff);letter-spacing:.12em;color:var(--berry);cursor:pointer;margin:0 0 12px}
+.logo-ic{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:var(--blush)}
+.credits{margin:var(--s4) 0}
+.credits h3{margin:0 0 6px}
+.credits ul{margin:0;padding-left:1.2em;display:grid;gap:4px}
+.notes-show h3{text-align:center}
+}

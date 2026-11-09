@@ -1,11 +1,34 @@
 @layer rooms{
-.now-hero{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(20px,4vw,56px);align-items:center;max-width:980px;margin:auto;padding:clamp(20px,4vw,48px) var(--pad) 8px}
-.now-pic{margin:0;justify-self:center;width:min(100%,360px);position:relative}
-.now-pic img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:50% 30%;border-radius:200px 200px var(--r-l) var(--r-l);box-shadow:0 0 0 6px var(--surface),0 0 0 10px var(--blush),var(--sh-2);background:var(--blush)}
-.night .now-pic img{filter:brightness(.86) saturate(.9)}
+.now-hero{max-width:1100px;margin:auto;padding:clamp(12px,2.5vw,28px) var(--pad) 8px}
+.now-text{max-width:640px;margin:16px auto 0;text-align:center}
 .now-text h1{font-size:clamp(1.9rem,4.5vw,2.8rem);margin-bottom:12px}
-.now-bubble{position:relative;background:var(--surface);border-radius:var(--r-l);padding:16px 20px;font:600 clamp(1.5rem,3vw,1.9rem)/1.2 var(--fv);color:var(--ink);box-shadow:var(--sh-1);margin:0 0 12px;max-width:30ch}
-.now-bubble::before{content:"";position:absolute;left:-12px;top:22px;border:9px solid transparent;border-right:14px solid var(--surface);border-left:0}
+.now-bubble{position:relative;background:var(--surface);border-radius:var(--r-l);padding:16px 20px;font:600 clamp(1.5rem,3vw,1.9rem)/1.2 var(--fv);color:var(--ink);box-shadow:var(--sh-1);margin:0 auto 12px;max-width:30ch}
+.now-bubble::before{content:"";position:absolute;left:50%;top:-12px;transform:translateX(-50%);border:9px solid transparent;border-bottom:14px solid var(--surface);border-top:0}
+/* фаза 4: иллюстрированная комната, Мия сверху, кликабельные предметы */
+.room{position:relative;aspect-ratio:16/10;border-radius:var(--r-l);overflow:hidden;background:var(--blush);box-shadow:var(--sh-2);isolation:isolate}
+.room>img,.room noscript img.room__day{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.room__night{opacity:0;transition:opacity .42s ease}
+.night .room__night.ok,.room__night.hold.ok{opacity:1}
+.room__stage{position:absolute;left:30.6%;top:12%;width:34.7%;height:74%;z-index:1;touch-action:pan-y;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+.room__mia{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;-webkit-user-drag:none;transition:opacity .22s,transform var(--t-base);cursor:grab}
+.room__mia.next{opacity:0}.room__mia.next.on{opacity:1}
+.night .room__mia{filter:brightness(.8) saturate(.9)}
+.room__stage.blinking .room__mia{transform:scaleY(.985)}
+.room__stage.sleepy .room__mia{opacity:.9}
+.hot{position:absolute;left:var(--x);top:var(--y);width:var(--w);height:var(--h);z-index:2;border:0;padding:0;background:none;border-radius:12px;color:var(--ink);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.hot::before{content:"";position:absolute;inset:min(0px,calc((100% - 44px) / 2))}
+.hot:hover{background:rgb(255 253 250 / .14)}
+.hot:focus-visible{outline:3px solid var(--berry);outline-offset:2px;box-shadow:0 0 0 6px rgb(255 253 250 / .7)}
+.hot span{position:absolute;left:50%;bottom:6px;translate:-50% 0;white-space:nowrap;background:var(--surface);color:var(--ink);font:800 .75rem/1 var(--ff);padding:5px 9px;border-radius:var(--r-pill);box-shadow:var(--sh-1);opacity:0;transition:opacity var(--t-base);pointer-events:none}
+.hot:hover span,.hot:focus-visible span{opacity:1}
+@media (hover:none){.hot span{opacity:.92;font-size:.6875rem;padding:4px 7px;bottom:3px}}
+.hot--polaroid span{bottom:auto;top:2px}
+.hot--box span{bottom:auto;top:-2px}
+.hot--switch span,.hot--box span,.hot--window span{left:auto;right:2px;translate:none}
+.hot--shelf span{left:2px;translate:none}
+.gd-s{display:none}
+@media (max-width:759px){.gift-door{left:8px;bottom:8px;min-height:40px;padding:6px 12px 6px 8px}.gd-l{display:none}.gd-s{display:inline}}
+@media (max-width:759px){.hot--switch{display:none}.room{border-radius:var(--r-m)}}
 .now-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s4);max-width:980px;margin:0 auto;padding:var(--s5) var(--pad) 0}
 .now-today{position:relative;min-height:170px;padding-right:120px}
 .now-today .say{margin:0}
@@ -15,11 +38,55 @@
 .live-note{display:none}
 [data-friday][data-live] .live-note{display:block}
 [data-friday][data-live] .countdown{display:none}
+/* фаза 3: пузырь закрывается тапом, один раз за визит */
+.now-bubble p{margin:0;padding-right:28px;min-height:2.4em}
+.bubble-x{position:absolute;top:6px;right:6px;width:36px;height:36px;border:0;border-radius:50%;background:none;color:var(--muted-strong);display:grid;place-items:center;cursor:pointer}
+.bubble-x .i{width:18px;height:18px}
+.greeted .now-bubble{display:none}
+.mia-acts{display:flex;flex-wrap:wrap;gap:8px}
+.mia-hint{margin:8px 0 0;font-size:var(--fs-1)}
+/* портрет: жесты (погладить/моргнуть), позы-слои, сердечко */
+.pet-heart{position:absolute;left:50%;top:18%;margin-left:-14px;color:var(--berry);pointer-events:none}
+.pet-heart .i{width:28px;height:28px;fill:currentColor}
+.gift-door{position:absolute;left:12px;bottom:12px;z-index:3;display:flex;align-items:center;gap:8px;min-height:44px;max-width:calc(100% + 12px);padding:8px 14px 8px 10px;border:0;border-radius:var(--r-pill);background:var(--honey);color:#3B2A33;font:800 var(--fs-1)/1.2 var(--ff);box-shadow:var(--sh-2);cursor:pointer;text-align:left}
+.gift-door .i{flex:none;width:22px;height:22px}
+.gift-door:hover{transform:translateY(-2px)}
+.night-star{display:none;position:absolute;left:calc(90.5% - 22px);top:calc(9% - 22px);z-index:3;width:44px;height:44px;border:0;border-radius:50%;background:none;color:var(--honey);cursor:pointer}
+.night .night-star{display:grid;place-items:center}
+.night-star .i{width:22px;height:22px;fill:currentColor}
+/* чек-ин */
+.checkin{max-width:calc(980px - 2 * var(--pad));margin:var(--s4) auto 0;width:calc(100% - 2 * var(--pad));box-sizing:border-box;display:grid;gap:8px}
+.checkin .kicker{margin:0;font-size:var(--fs0)}
+.ci-btns{display:flex;flex-wrap:wrap;gap:8px}
+.ci-reply{margin:0;display:none}
+.checkin[data-state=done] .ci-ask{display:none}
+.checkin[data-state=done] .ci-reply{display:block}
+/* пока тебя не было */
+.since{max-width:calc(980px - 2 * var(--pad));margin:var(--s4) auto 0;width:calc(100% - 2 * var(--pad));box-sizing:border-box}
+.since h2{font-size:var(--fs2);margin:0 0 8px}
+.since ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.since a{display:flex;align-items:center;gap:12px;min-height:44px;color:var(--ink);text-decoration:none;border-radius:var(--r-m);padding:6px 8px}
+.since a:hover{background:var(--blush)}
+.since a .i{flex:none;color:var(--berry)}
+.since a span{display:grid}
+.since small{color:var(--muted);font-size:var(--fs-1)}
+.since .say{margin:0}
+/* подарок и желание */
+.gift-dlg{max-width:min(92vw,400px);border:0;border-radius:var(--r-l);padding:0;background:var(--surface);color:var(--ink);box-shadow:var(--sh-2)}
+.gift-dlg::backdrop{background:var(--scrim)}
+.gift-dlg[open] .gift-in{animation:giftOpen .22s var(--spring)}
+[data-motion=reduce] .gift-dlg[open] .gift-in{animation:none}
+@keyframes giftOpen{from{transform:scale(.9);opacity:0}}
+.gift-in{display:grid;justify-items:center;text-align:center;gap:8px;padding:24px 20px 20px}
+.gift-in h2{margin:0;font-size:var(--fs3)}
+.gift-in p{margin:0}
+.gift-in .row{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:8px}
+.gift-ic{width:96px;height:96px;border-radius:50%;display:grid;place-items:center;background:var(--blush);color:var(--berry)}
+.gift-ic .i{width:48px;height:48px}
+.gift-ic img{width:96px;height:96px;object-fit:contain}
+.wish-l{width:100%}.wish-l input{width:100%;box-sizing:border-box}
 @media (max-width:759px){
-  .now-hero{grid-template-columns:1fr;text-align:center;padding-top:16px;gap:16px}
-  .now-pic{width:min(64%,240px)}
-  .now-bubble{margin-inline:auto}
-  .now-bubble::before{left:50%;top:-12px;transform:translateX(-50%);border:9px solid transparent;border-bottom:14px solid var(--surface);border-top:0}
+  .mia-acts{justify-content:center}
   .now-cards{grid-template-columns:1fr}
 }
 /* котёнок в коробке (пасхалка, только по событию) */

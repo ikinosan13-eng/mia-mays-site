@@ -16,9 +16,27 @@ main{--col:720px}
 .box-row .icon-btn{color:var(--berry)}
 .box-card{max-width:var(--col);margin:auto;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
 .box-card p{margin:0}
-.stats{list-style:none;padding:0;margin:0 auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s4);max-width:var(--col)}
+.stats{list-style:none;padding:0;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:var(--s4);max-width:var(--col)}
 .stats li{display:grid;justify-items:center;gap:4px;text-align:center;color:var(--berry)}
 .stats b{font-size:var(--fs4);color:var(--ink);line-height:1}
 .stats span{font-size:var(--fs-1);color:var(--muted);font-weight:700}
-@media (max-width:520px){.stats{grid-template-columns:1fr}}
+@media (max-width:520px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.days-card{max-width:var(--col);margin:auto;display:grid;gap:12px;justify-items:center;text-align:center}
+.days-card p{margin:0}
+.paws{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;width:100%;max-width:440px}
+.paws li{display:grid;justify-items:center;gap:2px;font-size:var(--fs-1);font-weight:700;color:var(--muted)}
+.paws .i{width:30px;height:30px;color:var(--line);fill:currentColor;stroke:var(--muted)}
+.paws li.on .i{color:var(--rose);stroke:var(--berry)}
+.paws li.today .wd{color:var(--berry);text-decoration:underline}
+.paws .mood{min-height:1.4em;font-size:1rem}
+.souv-grid{list-style:none;margin:0 auto;padding:0;max-width:var(--col);display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:10px;min-height:220px}
+.souv-grid li{display:grid;justify-items:center;align-content:start;gap:4px;text-align:center;padding:10px 4px;border-radius:var(--r-m);background:var(--surface);box-shadow:var(--sh-1);font-size:var(--fs-1);font-weight:700;color:var(--ink)}
+.souv-grid .i{width:32px;height:32px;color:var(--berry)}
+.souv-grid .sil{background:none;box-shadow:inset 0 0 0 1px var(--line)}
+.souv-grid .sil .i{color:var(--line);fill:currentColor}
+.souv-grid img{width:48px;height:48px;object-fit:contain}
+.souv-grid .sil img{filter:brightness(0);opacity:.14}
+.night .souv-grid .sil img{filter:brightness(0) invert(1);opacity:.16}
 }
+
+@layer rooms{.empty-mia{width:180px;height:auto}.night .empty-mia{filter:brightness(.85) saturate(.9)}}
