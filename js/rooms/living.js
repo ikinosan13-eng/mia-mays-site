@@ -5,7 +5,9 @@ import { countdown } from '../core/countdown.js';
 import { toast } from '../core/toast.js';
 import { Sound } from '../core/sound.js';
 import { burst } from '../core/fx.js';
-const isoWeek = d => { const t = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate())); const day = t.getUTCDay() || 7; t.setUTCDate(t.getUTCDate() + 4 - day); const y = t.getUTCFullYear(), w = Math.ceil(((t - Date.UTC(y, 0, 1)) / 864e5 + 1) / 7); return `${y}-W${String(w).padStart(2, '0')}`; };
+import { isoWeek } from '../life/clock.js';
+import { data } from '../life/data.js';
+import { esc } from '../core/dom.js';
 const HASH = { friday: 'friday', rsvp: 'friday', countdown: 'friday', wall: 'wall', info: 'info', rules: 'info', about: 'info' };
 // полки «Пятница · Стена · О доме» (как в Игровой); без JS видны все разделы подряд
 function shelves() {
@@ -26,6 +28,13 @@ function shelves() {
 }
 export default function init() {
   const setShelf = shelves();
+  // витрина «Записки гостей» из data/notes.json (владелец отбирает руками); пусто — блока нет
+  data('notes').then(ns => { const box = $('#notesShow'); if (!box || !Array.isArray(ns) || !ns.length) return;
+    $('#notesList').innerHTML = ns.slice(0, 24).map(n => `<li><b>${esc(n.n || 'Гость')}</b><br>${esc(n.m || '')}</li>`).join(''); box.hidden = false; });
+  // титры: тройной тап по знаку дома в «О доме»
+  const logo = $('#aboutLogo'), cr = $('#credits'); let taps = [];
+  if (logo && cr) logo.addEventListener('click', () => { const t = performance.now(); taps = [...taps.filter(x => t - x < 900), t];
+    if (taps.length >= 3) { taps = []; cr.hidden = !cr.hidden; if (!cr.hidden) cr.focus(); } });
   countdown($('#countdown'), $('#countdownSr'));
   const name = MiaStore.read('guest.name') || '';
   // запись на Уютную ночь

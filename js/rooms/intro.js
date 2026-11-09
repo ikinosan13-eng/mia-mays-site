@@ -16,7 +16,7 @@ export default function init() {
     e.preventDefault();
     const n = name.value.replace(/\s+/g, ' ').trim().slice(0, 24);
     MiaStore.update(s => { if (n) s.guest.name = n; s.guest.enteredAt = s.guest.enteredAt || Date.now();
-      if (!s.box.some(x => x.id === 'g-key')) s.box.unshift({ id: 'g-key', kind: 'souvenir', title: 'Ключик от дома', href: '', thumb: '', at: Date.now() }); });
+      if (!s.box.some(x => x.id === 'g-key')) s.box.unshift({ id: 'g-key', kind: 'souvenir', title: 'Ключик от дома', href: '', thumb: 'img/items/item-key.a1-128.webp', icon: 'key', at: Date.now() }); });
     Sound.meow();
     setTimeout(() => { location.href = 'home.html?first=1'; }, 30);
   });
