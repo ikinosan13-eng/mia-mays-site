@@ -1,12 +1,13 @@
 @layer rooms{
-.seg-wrap{display:flex;justify-content:center;padding:8px var(--pad) 0}
+.seg-wrap{display:flex;max-width:calc(var(--col) + 2 * var(--pad));margin:auto;padding:8px var(--pad) 0}
 .shelf-seg{display:inline-flex;gap:4px;padding:4px;border-radius:var(--r-pill);background:var(--surface);box-shadow:var(--sh-1)}
 .shelf-seg .chip{border:0;min-width:130px;min-height:44px}
 .shelf{padding-top:var(--s5)}
-.toys{list-style:none;padding:0;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:var(--s4);max-width:960px}
+.toys{list-style:none;padding:0;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:var(--s3);max-width:var(--col)}
 .toy{padding:0;scroll-margin-top:calc(var(--head-h) + 16px)}
 .toy-open{display:flex;align-items:center;gap:16px;width:100%;padding:14px;border:0;background:none;border-radius:inherit;text-align:left;cursor:pointer;color:var(--ink)}
-.toy-open img{width:84px;height:84px;flex:none;object-fit:cover;object-position:50% 25%;border-radius:24px;background:var(--blush)}
+.toy-ic{width:64px;height:64px;flex:none;display:grid;place-items:center;border-radius:20px;background:var(--blush);color:var(--berry)}
+.toy-ic .i{width:32px;height:32px}
 .toy-open span{display:grid;gap:2px}
 .toy-open b{font-size:var(--fs2)}
 .toy-open small{color:var(--muted);font-size:var(--fs0)}
@@ -18,7 +19,7 @@ dialog.fullscreen::backdrop{background:var(--paper)}
 .fs-head{position:sticky;top:0;z-index:2;display:flex;align-items:center;gap:12px;padding:calc(8px + env(safe-area-inset-top)) var(--pad) 8px;background:color-mix(in srgb,var(--paper) 94%,transparent);box-shadow:0 1px 0 var(--line)}
 .fs-head h2{margin:0;font-size:var(--fs2)}
 .fs-back .i{width:20px;height:20px}
-.fs-body{max-width:720px;margin:0 auto;padding:var(--s5) var(--pad) calc(var(--s6) + var(--safe-b))}
+.fs-body{max-width:720px;margin:0 auto;padding:var(--s5) var(--pad)}
 .fs-body.wide{max-width:var(--wrap)}
 .tool-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:var(--s5)}
 .tool{min-width:0}
@@ -47,4 +48,11 @@ dialog.fullscreen::backdrop{background:var(--paper)}
 .laser{position:absolute;width:14px;height:14px;border-radius:50%;background:#E0405E;box-shadow:0 0 12px 4px rgb(224 64 94 / .6);transform:translate(-50%,-50%);left:50%;top:30%}
 @keyframes purr{0%{opacity:0;transform:translateY(10px)}30%{opacity:1}100%{opacity:0;transform:translateY(-24px)}}
 html.fs-open{overflow:hidden}
+}
+
+@layer rooms{
+dialog.fullscreen[open]{display:flex;flex-direction:column}
+dialog.fullscreen .fs-body{flex:1 0 auto;width:100%;display:grid;align-content:center}
+.fs-foot{position:sticky;bottom:0;display:flex;justify-content:center;padding:10px var(--pad) calc(10px + var(--safe-b));background:color-mix(in srgb,var(--paper) 94%,transparent);box-shadow:0 -1px 0 var(--line)}
+.fs-foot .btn{min-width:min(100%,280px)}
 }

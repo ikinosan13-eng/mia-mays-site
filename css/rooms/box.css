@@ -1,8 +1,11 @@
 @layer rooms{
+main{--col:720px}
+.empty-ic{width:88px;height:88px;border-radius:50%;display:grid;place-items:center;background:var(--blush);color:var(--berry)}.empty-ic .i{width:44px;height:44px}
+.confirm-dlg{max-width:min(92vw,380px);border:0;border-radius:var(--r-l);padding:0;background:var(--surface);color:var(--ink);box-shadow:var(--sh-2)}.confirm-dlg::backdrop{background:var(--scrim)}.confirm-in{display:grid;gap:10px;padding:20px}.confirm-in h2{margin:0;font-size:var(--fs2)}.confirm-in .row{display:flex;gap:8px;flex-wrap:wrap}
+
 .cart-empty{text-align:center;max-width:480px;margin:auto;padding:32px 24px;display:grid;justify-items:center;gap:12px}
-.cart-empty img{width:120px;height:120px;object-fit:cover;border-radius:50%;border:4px solid var(--blush)}
 .cart-empty .say{margin:0}
-.box-items{list-style:none;margin:0 auto var(--s4);padding:0;max-width:720px;display:grid;gap:10px}
+.box-items{list-style:none;margin:0 auto var(--s4);padding:0;max-width:var(--col);display:grid;gap:10px}
 .box-row{display:flex;align-items:center;gap:14px;background:var(--surface);border-radius:var(--r-m);padding:10px 12px;box-shadow:var(--sh-1)}
 .box-row img,.box-ph{width:56px;height:56px;flex:none;border-radius:14px;object-fit:cover;background:var(--blush)}
 .box-ph{display:grid;place-items:center;color:var(--berry)}
@@ -11,9 +14,9 @@
 .box-row b{overflow-wrap:anywhere}
 .box-row .acts{display:flex;gap:2px}
 .box-row .icon-btn{color:var(--berry)}
-.box-card{max-width:720px;margin:auto;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+.box-card{max-width:var(--col);margin:auto;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
 .box-card p{margin:0}
-.stats{list-style:none;padding:0;margin:0 auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s4);max-width:720px}
+.stats{list-style:none;padding:0;margin:0 auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s4);max-width:var(--col)}
 .stats li{display:grid;justify-items:center;gap:4px;text-align:center;color:var(--berry)}
 .stats b{font-size:var(--fs4);color:var(--ink);line-height:1}
 .stats span{font-size:var(--fs-1);color:var(--muted);font-weight:700}

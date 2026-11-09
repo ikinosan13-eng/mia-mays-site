@@ -1,5 +1,6 @@
 @layer rooms{
-.frames{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));gap:var(--s5);max-width:var(--wrap);margin:auto}
+main{--col:900px}
+.frames{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));gap:var(--s5);max-width:var(--col);margin:auto}
 .frame{margin:0;background:var(--surface);border-radius:var(--r-m);box-shadow:var(--sh-1);overflow:hidden;display:flex;flex-direction:column;scroll-margin-top:calc(var(--head-h) + 16px)}
 .g{display:block;position:relative;padding:0;border:0;background:var(--blush);cursor:zoom-in;overflow:hidden;width:100%}
 .frame .g img{aspect-ratio:3/4;object-fit:cover;width:100%;transition:transform var(--t-slow) var(--ease)}
@@ -9,7 +10,7 @@
 .frame-act{display:flex;flex-wrap:wrap;gap:8px}
 .frame-act .btn{flex:1 1 auto}
 [data-box-add][aria-pressed=true]{background:var(--blush)}
-.stickers{display:flex;gap:var(--s5);justify-content:center;flex-wrap:wrap}
+.stickers{display:flex;gap:var(--s5);flex-wrap:wrap;max-width:var(--col);margin:auto}
 .sticker{margin:0;display:grid;justify-items:center;gap:6px;scroll-margin-top:calc(var(--head-h) + 16px)}
 .sticker .g{width:130px;height:130px;border-radius:50%;background:none}
 .sticker .g img{width:130px;height:130px;object-fit:cover;border-radius:50%;border:5px solid var(--surface);box-shadow:var(--sh-1);transition:transform var(--t-base) var(--spring)}
@@ -17,9 +18,9 @@
 .sticker figcaption{display:grid;justify-items:center;gap:2px}
 .sticker .frame-act{gap:4px}
 .sticker .icon-btn{color:var(--berry)}
-.lavka{text-align:center}
+.lavka>*{max-width:var(--col);margin-inline:auto}
 .lavka .say{margin-bottom:var(--s4)}
-.lavka-shelf{list-style:none;padding:0;margin:0 auto var(--s4);display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s4);max-width:720px}
+.lavka-shelf{list-style:none;padding:0;margin:0 auto var(--s4);display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s4);max-width:var(--col)}
 .lavka-item{display:grid;justify-items:center;gap:4px;padding:16px 10px;border-radius:var(--r-m);box-shadow:inset 0 0 0 2px var(--line)}
 .lavka-item small{color:var(--muted);font-size:var(--fs-1)}
 .lavka-ph{width:72px;height:72px;border-radius:24px;background:color-mix(in srgb,var(--blush) 70%,var(--paper));margin-bottom:6px}
@@ -36,4 +37,5 @@
 .lb-nav:hover{background:rgb(255 255 255 / .28)}
 @media (max-width:600px){.lb-nav{position:fixed;bottom:calc(20px + var(--safe-b));z-index:3}.lb-nav.prev{left:20px}.lb-nav.next{right:20px}.lb-box img{max-width:92vw;max-height:70vh}}
 }
-@layer rooms{@media (max-width:520px){.frame .g img{aspect-ratio:1}}}
+@layer rooms{
+main{--col:900px}@media (max-width:520px){.frame .g img{aspect-ratio:1}}}

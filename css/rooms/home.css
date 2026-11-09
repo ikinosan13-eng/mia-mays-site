@@ -2,7 +2,7 @@
 .now-hero{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(20px,4vw,56px);align-items:center;max-width:980px;margin:auto;padding:clamp(20px,4vw,48px) var(--pad) 8px}
 .now-pic{margin:0;justify-self:center;width:min(100%,360px);position:relative}
 .now-pic img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:50% 30%;border-radius:200px 200px var(--r-l) var(--r-l);box-shadow:0 0 0 6px var(--surface),0 0 0 10px var(--blush),var(--sh-2);background:var(--blush)}
-[data-daypart=night] .now-pic img{filter:brightness(.82) saturate(.85)}
+.night .now-pic img{filter:brightness(.86) saturate(.9)}
 .now-text h1{font-size:clamp(1.9rem,4.5vw,2.8rem);margin-bottom:12px}
 .now-bubble{position:relative;background:var(--surface);border-radius:var(--r-l);padding:16px 20px;font:600 clamp(1.5rem,3vw,1.9rem)/1.2 var(--fv);color:var(--ink);box-shadow:var(--sh-1);margin:0 0 12px;max-width:30ch}
 .now-bubble::before{content:"";position:absolute;left:-12px;top:22px;border:9px solid transparent;border-right:14px solid var(--surface);border-left:0}
@@ -15,9 +15,6 @@
 .live-note{display:none}
 [data-friday][data-live] .live-note{display:block}
 [data-friday][data-live] .countdown{display:none}
-.peek-line{max-width:980px;margin:var(--s5) auto 0;padding:0 var(--pad);text-align:center;font-weight:700;color:var(--muted)}
-.peek-line a{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 6px;font-weight:800;text-decoration:none}
-.peek-line .i{width:20px;height:20px}
 @media (max-width:759px){
   .now-hero{grid-template-columns:1fr;text-align:center;padding-top:16px;gap:16px}
   .now-pic{width:min(64%,240px)}
@@ -27,16 +24,17 @@
 }
 /* котёнок в коробке (пасхалка, только по событию) */
 .kit-box{position:absolute;right:12px;bottom:12px;width:92px;height:84px;border:0;background:none;padding:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
-.kit-box .box{position:absolute;left:0;right:0;bottom:0;height:46px;border-radius:6px 6px 10px 10px;background:#D9B9A6;box-shadow:inset 0 -6px 10px rgb(0 0 0 / .08),var(--sh-1);z-index:2}
-.kit-box .box::before{content:"";position:absolute;left:-6px;right:-6px;top:-6px;height:10px;border-radius:4px;background:#E3C6B4;box-shadow:0 2px 0 #B98F78}
-.kit-box .box b{position:absolute;inset:auto 0 9px;font:600 1rem/1 var(--fv);color:#6A3F31}
-.kit{position:absolute;left:50%;bottom:30px;width:58px;height:44px;margin-left:-29px;border-radius:50% 50% 40% 40%;background:#F6E9EE;transform:translateY(26px);transition:transform var(--t-slow) var(--spring);z-index:1}
-.kit .kear{position:absolute;top:-10px;width:18px;height:20px;background:#F6E9EE;clip-path:polygon(50% 0,100% 100%,0 100%)}
+.kit-box .box{position:absolute;left:0;right:0;bottom:0;height:46px;border-radius:6px 6px 10px 10px;background:var(--kit-box);box-shadow:inset 0 -6px 10px rgb(0 0 0 / .08),var(--sh-1);z-index:2}
+.kit-box .box::before{content:"";position:absolute;left:-6px;right:-6px;top:-6px;height:10px;border-radius:4px;background:var(--kit-lid);box-shadow:0 2px 0 var(--kit-edge)}
+.kit-box .box b::after{content:"с любовью"}
+.kit-box .box b{position:absolute;inset:auto 0 9px;font:600 1rem/1 var(--fv);color:var(--kit-ink)}
+.kit{position:absolute;left:50%;bottom:30px;width:58px;height:44px;margin-left:-29px;border-radius:50% 50% 40% 40%;background:var(--kit-fur);transform:translateY(26px);transition:transform var(--t-slow) var(--spring);z-index:1}
+.kit .kear{position:absolute;top:-10px;width:18px;height:20px;background:var(--kit-fur);clip-path:polygon(50% 0,100% 100%,0 100%)}
 .kit .kear.l{left:4px;transform:rotate(-14deg)}.kit .kear.r{right:4px;transform:rotate(14deg)}
-.kit .kear::after{content:"";position:absolute;inset:6px 5px 0;background:#E7B7C8;clip-path:inherit}
-.kit .keye{position:absolute;top:16px;width:7px;height:9px;border-radius:50%;background:#3B2A33;transform-origin:50% 60%}
+.kit .kear::after{content:"";position:absolute;inset:6px 5px 0;background:var(--kit-ear);clip-path:inherit}
+.kit .keye{position:absolute;top:16px;width:7px;height:9px;border-radius:50%;background:var(--kit-eye);transform-origin:50% 60%}
 .kit .keye.l{left:15px}.kit .keye.r{right:15px}
-.kit .knose{position:absolute;left:50%;top:27px;width:6px;height:4px;margin-left:-3px;border-radius:0 0 50% 50%;background:#C98B9F}
+.kit .knose{position:absolute;left:50%;top:27px;width:6px;height:4px;margin-left:-3px;border-radius:0 0 50% 50%;background:var(--kit-nose)}
 .kit-box.peek .kit,.kit-box:hover .kit,.kit-box:focus-visible .kit{transform:translateY(0)}
 .kit-box.blink .keye{animation:kBlink .18s}
 .kit-box.out .kit{transform:translateY(-14px) rotate(-6deg)}
