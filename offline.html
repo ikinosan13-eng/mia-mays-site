@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#FBF6EF">
+<meta name="color-scheme" content="light dark">
+<title>Без интернета · Дом Мии</title>
+<link rel="icon" href="icons/favicon.svg" type="image/svg+xml">
+<script>try{var s=JSON.parse(localStorage.getItem('mia:v1')||'{}'),l=(s.prefs||{}).light,h=new Date().getHours();if(l==='night'||(l!=='day'&&(h>=22||h<6||matchMedia('(prefers-color-scheme: dark)').matches)))document.documentElement.className='night'}catch(e){}</script>
+<style>
+@font-face{font-family:Nunito;src:url(fonts/nunito.woff2) format("woff2");font-weight:300 900;font-display:swap}
+@font-face{font-family:Caveat;src:url(fonts/caveat.woff2) format("woff2");font-weight:400 700;font-display:swap}
+:root{--paper:#FBF6EF;--surface:#FFFDFA;--blush:#F7DDE5;--berry:#A23F66;--ink:#3B2A33;--muted:#76606B;--line:#EEDFE3}
+.night{--paper:#1E1A2C;--surface:#2A2440;--blush:#3A2F52;--berry:#F2A7C3;--ink:#F3EAF0;--muted:#B9A9C2;--line:#3A3354}
+*{box-sizing:border-box}
+body{margin:0;min-height:100dvh;display:grid;place-items:center;padding:24px max(20px,env(safe-area-inset-left)) calc(24px + env(safe-area-inset-bottom));background:var(--paper);color:var(--ink);font:400 17px/1.5 Nunito,system-ui,sans-serif;text-align:center}
+main{max-width:380px;display:grid;gap:18px;justify-items:center}
+img{width:96px;height:96px;border-radius:50%;box-shadow:0 0 0 4px var(--blush)}
+.say{font:600 28px/1.2 Caveat,cursive;margin:0}
+.note{color:var(--muted);margin:0}
+h2{font-size:15px;margin:8px 0 0;color:var(--muted);font-weight:700}
+ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+a,button{display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border-radius:999px;font:700 15px Nunito,system-ui,sans-serif;text-decoration:none;cursor:pointer}
+a{background:var(--surface);color:var(--ink);border:1px solid var(--line)}
+button{background:var(--berry);color:var(--paper);border:0;font-size:16px;padding:0 22px}
+a:focus-visible,button:focus-visible{outline:3px solid var(--berry);outline-offset:2px}
+</style>
+</head>
+<body data-room="offline">
+<main>
+  <img src="img/avatar-64.webp" alt="Мия" width="96" height="96">
+  <p class="say">Интернет убежал за лазерной точкой. Мия подождёт с тобой</p>
+  <p class="note">Как только он вернётся, страница обновится сама.</p>
+  <button type="button" onclick="location.reload()">Попробовать снова</button>
+  <h2>Что есть без интернета</h2>
+  <ul>
+    <li><a href="home.html">Комната</a></li>
+    <li><a href="diary.html">Дневник</a></li>
+    <li><a href="play.html">Игровая</a></li>
+    <li><a href="living.html">Гостиная</a></li>
+    <li><a href="box.html">Коробка</a></li>
+  </ul>
+</main>
+<script>addEventListener('online',function(){location.reload()})</script>
+</body>
+</html>

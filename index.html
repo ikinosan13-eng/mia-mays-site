@@ -13,22 +13,26 @@
 <!--@shell:boot-->
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#FBF6EF" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#FBF6EF" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#1E1A2C" media="(prefers-color-scheme: dark)">
 <meta name="color-scheme" content="light dark">
 <script>(()=>{try{const L=localStorage,s=JSON.parse(L.getItem('mia:v1')||'{}'),p=s.prefs||{},h=new Date().getHours(),d=document.documentElement,
 dp=h>=6&&h<11?'morning':h>=11&&h<18?'day':h>=18&&h<22?'evening':'night',o=L.getItem('mia-night'),
-l=p.light||(s.v?'auto':o==='1'?'night':o==='0'?'day':'auto'),n=l==='night'||(l!=='day'&&dp==='night');
+l=p.light||(s.v?'auto':o==='1'?'night':o==='0'?'day':'auto'),n=l==='night'||(l!=='day'&&(dp==='night'||matchMedia('(prefers-color-scheme: dark)').matches));
 d.dataset.daypart=dp;d.dataset.light=l;d.classList.toggle('night',n);d.classList.add('js');
 if(p.motion==='reduce'||matchMedia('(prefers-reduced-motion: reduce)').matches)d.dataset.motion='reduce';
 document.querySelectorAll('meta[name=theme-color]').forEach(m=>m.content=n?'#1E1A2C':'#FBF6EF')}catch(e){}})()</script>
-<link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/favicon.svg" type="image/svg+xml"><link rel="icon" href="icons/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="icons/apple-touch-180.png">
+<meta name="apple-mobile-web-app-title" content="Дом Мии"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="preload" href="fonts/nunito.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="css/core.css?v=13">
+<link rel="stylesheet" href="css/core.css?v=14">
 <script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/mia-mays-site/*.html"},{"not":{"selector_matches":"[data-no-prerender],[download]"}}]},"eagerness":"moderate"}]}</script>
-<script type="module" src="js/app.js?v=13"></script>
+<script type="module" src="js/app.js?v=14"></script>
 <!--/@shell-->
-<link rel="stylesheet" href="css/rooms/intro.css?v=13">
+<link rel="stylesheet" href="css/rooms/intro.css?v=14">
 <link rel="preload" as="image" type="image/webp" imagesrcset="img/mia-pillow-320.webp 320w, img/mia-pillow-480.webp 480w, img/mia-pillow-640.webp 640w, img/mia-pillow-937.webp 937w" imagesizes="(max-width:759px) 220px, 340px" fetchpriority="high">
+<noscript><style>@layer tokens{#hallForm{display:grid!important}#hallCtrl{display:none!important}}</style></noscript>
 </head>
 <body data-room="intro">
 <main id="main" class="hall">
@@ -38,7 +42,7 @@ document.querySelectorAll('meta[name=theme-color]').forEach(m=>m.content=n?'#1E1
     <h1>Дом Мии</h1>
     <div class="hall-bubble" aria-live="polite"><p class="say" id="hallLine">Ой… привет! Это мой дом. Я Мия — кошкодевочка-домоседка.</p></div>
     <div class="row hall-ctrl" id="hallCtrl"><button class="btn" type="button" id="hallNext">Дальше</button><button class="btn ghost" type="button" id="hallSkip">Пропустить</button><span class="hall-dots" aria-hidden="true"><i class="on"></i><i></i><i></i></span></div>
-    <form class="hall-name card" id="hallForm" action="home.html" method="get">
+    <form class="hall-name card" id="hallForm" action="home.html" method="get" hidden>
       <label for="hallName" class="say">Как тебя зовут? Я запишу на дверце</label>
       <input id="hallName" name="name" maxlength="24" placeholder="Можно без имени" autocomplete="nickname">
       <button class="btn big" type="submit">Войти</button>

@@ -12,22 +12,24 @@
 <!--@shell:boot-->
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#FBF6EF" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#FBF6EF" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#1E1A2C" media="(prefers-color-scheme: dark)">
 <meta name="color-scheme" content="light dark">
 <script>(()=>{try{const L=localStorage,s=JSON.parse(L.getItem('mia:v1')||'{}'),p=s.prefs||{},h=new Date().getHours(),d=document.documentElement,
 dp=h>=6&&h<11?'morning':h>=11&&h<18?'day':h>=18&&h<22?'evening':'night',o=L.getItem('mia-night'),
-l=p.light||(s.v?'auto':o==='1'?'night':o==='0'?'day':'auto'),n=l==='night'||(l!=='day'&&dp==='night');
+l=p.light||(s.v?'auto':o==='1'?'night':o==='0'?'day':'auto'),n=l==='night'||(l!=='day'&&(dp==='night'||matchMedia('(prefers-color-scheme: dark)').matches));
 d.dataset.daypart=dp;d.dataset.light=l;d.classList.toggle('night',n);d.classList.add('js');
 if(p.motion==='reduce'||matchMedia('(prefers-reduced-motion: reduce)').matches)d.dataset.motion='reduce';
 document.querySelectorAll('meta[name=theme-color]').forEach(m=>m.content=n?'#1E1A2C':'#FBF6EF')}catch(e){}})()</script>
-<link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="icon" type="image/png" sizes="48x48" href="favicon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/favicon.svg" type="image/svg+xml"><link rel="icon" href="icons/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="icons/apple-touch-180.png">
+<meta name="apple-mobile-web-app-title" content="Дом Мии"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="preload" href="fonts/nunito.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="css/core.css?v=13">
+<link rel="stylesheet" href="css/core.css?v=14">
 <script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/mia-mays-site/*.html"},{"not":{"selector_matches":"[data-no-prerender],[download]"}}]},"eagerness":"moderate"}]}</script>
-<script type="module" src="js/app.js?v=13"></script>
+<script type="module" src="js/app.js?v=14"></script>
 <!--/@shell-->
-<link rel="stylesheet" href="css/rooms/living.css?v=13">
-<link rel="preload" as="image" type="image/webp" imagesrcset="img/mia-pajama-pillow-320.webp 320w, img/mia-pajama-pillow-480.webp 480w, img/mia-pajama-pillow-640.webp 640w, img/mia-pajama-pillow-1216.webp 1216w" imagesizes="(max-width:760px) 240px, 320px" fetchpriority="high"></head>
+<link rel="stylesheet" href="css/rooms/living.css?v=14">
 <body data-room="living">
 <a class="skip" href="#main">К содержимому</a>
 <!--@shell:icons-->
@@ -38,7 +40,15 @@ document.querySelectorAll('meta[name=theme-color]').forEach(m=>m.content=n?'#1E1
 <symbol id="i-play" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M5.5 6.5c3.5.5 7 3.5 8.5 11.8"/><path d="M8.6 3.6c3.6 1.8 6.4 5.6 7 12.2"/><path d="M3.2 11.6c3 0 6 2 7.6 7.3"/><path d="M17 16.5c1.8.6 3.5 2 4 4.5"/></symbol>
 <symbol id="i-living" viewBox="0 0 24 24"><path d="M20 9V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v3"/><path d="M2 16a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-5a2 2 0 0 0-4 0v1.5a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5V11a2 2 0 0 0-4 0z"/><path d="M4 18v2"/><path d="M20 18v2"/></symbol>
 <symbol id="i-box" viewBox="0 0 24 24"><path d="M3.5 10h17v9a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2z"/><path d="M2.5 7.5h19V10h-19z"/><path d="M12 7.5V21"/><path d="M12 7.5C10.5 4 7.5 3 6.5 4.5S8 7.5 12 7.5"/><path d="M12 7.5c1.5-3.5 4.5-4.5 5.5-3S16 7.5 12 7.5"/></symbol>
-<symbol id="i-switch" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="4"/><rect x="8.5" y="5" width="7" height="6.5" rx="1.6"/><rect x="8.5" y="12.5" width="7" height="6.5" rx="1.6" style="fill:var(--sw-fill,none)"/></symbol>
+<symbol id="i-lamp" viewBox="0 0 24 24"><path d="M8 2h8l4 10H4L8 2Z" style="fill:var(--lamp-fill,none)"/><path d="M12 12v6"/><path d="M8 22v-2c0-1.1.9-2 2-2h4a2 2 0 0 1 2 2v2H8Z"/></symbol>
+<symbol id="i-share" viewBox="0 0 24 24"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="m16 6-4-4-4 4"/><path d="M12 2v13"/></symbol>
+<symbol id="i-key" viewBox="0 0 24 24"><path d="m15.5 7.5 2.3 2.3a1 1 0 0 0 1.4 0l2.1-2.1a1 1 0 0 0 0-1.4L19 4"/><path d="m21 2-9.6 9.6"/><circle cx="7.5" cy="15.5" r="5.5"/></symbol>
+<symbol id="i-laser" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2.5"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9 7 7M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1"/></symbol>
+<symbol id="i-cat" viewBox="0 0 24 24"><path d="M5 9 4.5 3 9 6.2a8 8 0 0 1 6 0L19.5 3 19 9a8 8 0 1 1-14 0Z"/><path d="M9.5 13.5h.01M14.5 13.5h.01"/><path d="M10.5 16.5q1.5 1 3 0"/></symbol>
+<symbol id="i-film" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 3v18M17 3v18M3 7.5h4M3 12h18M3 16.5h4M17 7.5h4M17 16.5h4"/></symbol>
+<symbol id="i-meme" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 8h8M8 12h5"/></symbol>
+<symbol id="i-shirt" viewBox="0 0 24 24"><path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
 <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
 <symbol id="i-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
 <symbol id="i-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
@@ -56,28 +66,41 @@ document.querySelectorAll('meta[name=theme-color]').forEach(m=>m.content=n?'#1E1
 <!--/@shell-->
 <!--@shell:head-->
 <header class="app-head">
-  <a class="mia-chip" href="home.html" aria-label="Мия: дома. В Комнату">
+  <a class="mia-chip" href="home.html">
     <img src="img/avatar-64.webp" width="32" height="32" alt="" decoding="async">
-    <span class="mia-chip__txt"><b>Мия</b><span data-mia-status>дома</span></span>
+    <span class="mia-chip__txt"><b>Мия</b><span data-mia-status>дома</span></span><span class="sr-only"> — в Комнату</span>
   </a>
   <div class="app-head__tools">
     <a class="icon-btn" href="box.html" data-box-link aria-label="Коробка"><svg class="i" aria-hidden="true"><use href="#i-box"/></svg><span class="badge" data-box-badge hidden>0</span></a>
-    <button class="icon-btn" type="button" data-switch-open aria-haspopup="dialog" aria-controls="switchSheet" aria-label="Выключатель"><svg class="i" aria-hidden="true"><use href="#i-switch"/></svg></button>
+    <button class="icon-btn" type="button" data-switch-open aria-haspopup="dialog" aria-controls="switchSheet" aria-label="Выключатель"><svg class="i" aria-hidden="true"><use href="#i-lamp"/></svg></button>
   </div>
 </header>
 <!--/@shell-->
 <main id="main" tabindex="-1">
-<header class="room-head living-head">
-  <div><h1>Гостиная</h1><p class="lead">Здесь собираются гости: Уютная ночь по пятницам, стена тёплых записок и правила дома.</p></div>
-  <figure class="living-pic"><picture><source type="image/webp" srcset="img/mia-pajama-pillow-320.webp 320w, img/mia-pajama-pillow-480.webp 480w, img/mia-pajama-pillow-640.webp 640w, img/mia-pajama-pillow-1216.webp 1216w" sizes="(max-width:760px) 240px, 320px"><img src="img/mia-pajama-pillow.jpg" alt="Мия в пижаме обнимает подушку" width="1216" height="1130" fetchpriority="high" decoding="async"></picture></figure>
-</header>
-<section class="sec" id="friday" aria-labelledby="fridayTitle" data-friday>
-  <h2 id="fridayTitle">Уютная ночь</h2>
-  <p class="empty-state">Каждую пятницу в 20:00 по твоему времени. Пледы, чай, мультики и форт из одеял.</p>
-  <div class="card night-card"><p class="kicker">До начала</p><div class="countdown big" id="countdown" aria-hidden="true"></div><p class="sr-only" id="countdownSr" aria-live="polite"></p><p class="live-note say">Уютная ночь уже идёт! Бери плед ♡</p></div>
-  <div class="friday-grid">
-    <div>
-      <h3>Программа вечера</h3>
+<header class="room-head"><h1>Гостиная</h1><p class="lead">Пятничная Уютная ночь, записки и правила дома.</p></header>
+<div class="seg-wrap"><div class="shelf-seg" role="radiogroup" aria-label="Раздел Гостиной">
+  <button class="chip" type="button" role="radio" aria-checked="true" data-shelf="friday" aria-controls="friday">Пятница</button>
+  <button class="chip" type="button" role="radio" aria-checked="false" data-shelf="wall" aria-controls="wall" tabindex="-1">Стена</button>
+  <button class="chip" type="button" role="radio" aria-checked="false" data-shelf="info" aria-controls="info" tabindex="-1">О доме</button>
+</div></div>
+<section class="sec shelf" id="friday" data-shelf-panel="friday" aria-labelledby="fridayTitle" data-friday>
+  <div class="card night-card">
+    <h2 id="fridayTitle">Уютная ночь</h2>
+    <p class="kicker">До начала</p><div class="countdown big" id="countdown" aria-hidden="true"></div><p class="sr-only" id="countdownSr" aria-live="polite"></p><p class="live-note say">Уютная ночь уже идёт! Бери плед ♡</p>
+    <p class="note">Каждую пятницу в 20:00 по твоему времени: пледы, чай и форт из одеял.</p>
+  </div>
+  <div class="friday-main">
+      <form class="card rsvp" id="rsvp" aria-labelledby="rsvpTitle">
+        <h3 id="rsvpTitle">Я приду!</h3>
+        <label>Как тебя называть <input id="rsvpName" maxlength="24" required placeholder="например, Сонный ёжик" autocomplete="nickname"></label>
+        <label>Что принесёшь <select id="rsvpBring"><option>плед</option><option>печенье</option><option>подушку</option><option>хорошее настроение</option></select></label>
+        <button class="btn" type="submit">Записаться ♡</button>
+        <p class="status" id="rsvpStatus" role="status"></p>
+      </form>
+      <p class="note">Запись хранится только в твоём браузере.</p>
+  </div>
+  <div class="friday-more">
+    <details class="fold-card"><summary>Программа вечера</summary>
       <ol class="timeline program">
         <li><b>20:00 · Сбор у камина</b><p>Здороваемся, наливаем чай, выбираем пледы.</p></li>
         <li><b>20:30 · Совместный просмотр</b><p>Добрый мультфильм, который выбирают голосованием.</p></li>
@@ -85,50 +108,44 @@ document.querySelectorAll('meta[name=theme-color]').forEach(m=>m.content=n?'#1E1
         <li><b>22:15 · Тихие истории</b><p>Каждый может рассказать что-то тёплое.</p></li>
         <li><b>23:00 · Спокойной ночи</b><p>Сонная музыка и пожелания.</p></li>
       </ol>
-    </div>
-    <div>
-      <h3>Конкурс фортов из одеял</h3>
+    </details>
+    <details class="fold-card"><summary>Конкурс фортов из одеял</summary>
       <div class="rules">
-        <details open><summary>Как участвовать</summary><p>Построй форт из того, что есть дома: одеяла, подушки, стулья. Сфотографируй только форт — без людей.</p></details>
-        <details><summary>Что оценивается</summary><p>Уютность, фантазия и количество подушек. Гирлянда — плюс к карме.</p></details>
-        <details><summary>Призы</summary><p>Пока награда — тёплые слова и место на стене записок. Физические призы появятся позже, когда дом подрастёт.</p></details>
+        <h4>Как участвовать</h4><p>Построй форт из того, что есть дома: одеяла, подушки, стулья. Сфотографируй только форт — без людей.</p>
+        <h4>Что оценивается</h4><p>Уютность, фантазия и количество подушек. Гирлянда — плюс к карме.</p>
+        <h4>Призы</h4><p>Награда — тёплые слова и место на стене записок.</p>
       </div>
-      <h3 id="rsvpTitle">Я приду!</h3>
-      <form class="card rsvp" id="rsvp" aria-labelledby="rsvpTitle">
-        <label>Как тебя называть <input id="rsvpName" maxlength="24" required placeholder="например, Сонный ёжик" autocomplete="nickname"></label>
-        <label>Что принесёшь <select id="rsvpBring"><option>плед</option><option>печенье</option><option>подушку</option><option>хорошее настроение</option></select></label>
-        <button class="btn" type="submit">Записаться ♡</button>
-        <p class="status" id="rsvpStatus" role="status"></p>
-      </form>
-      <p class="note">Запись хранится только в твоём браузере.</p>
-    </div>
+    </details>
   </div>
 </section>
-<section class="sec alt" id="wall" aria-labelledby="wallTitle">
+<section class="sec shelf" id="wall" data-shelf-panel="wall" aria-labelledby="wallTitle">
   <h2 id="wallTitle">Стена записок</h2>
   <form id="wallForm" class="card wall-form"><label>Имя <input id="wallName" maxlength="24" required placeholder="как тебя зовут" autocomplete="nickname"></label><label>Записка <input id="wallMsg" maxlength="140" required placeholder="что-нибудь тёплое"></label><button class="btn" type="submit">Приколоть ♡</button></form>
   <ul id="wallList" class="wall" aria-live="polite"></ul>
-  <p class="note center">Записки хранятся только в твоём браузере. Общая стена, возможно, появится позже.</p>
+  <p class="note">Записки живут в твоём браузере.</p>
 </section>
-<section class="sec" id="rules" aria-labelledby="rulesTitle">
-  <h2 id="rulesTitle">Правила дома</h2>
-  <ol class="rules-list"><li>Будь добрым — здесь уютно всем.</li><li>Без грубостей, спама и рекламы.</li><li>Только тёплый и безопасный контент.</li><li>Уважай чужие границы и личные данные.</li><li>Если грустно — заходи на чай.</li></ol>
-</section>
-<section class="sec alt" id="about" aria-labelledby="aboutTitle">
-  <h2 id="aboutTitle">О доме</h2>
-  <div class="faq">
+<section class="sec shelf" id="info" data-shelf-panel="info" aria-label="О доме">
+  <div id="rules">
+    <h2 id="rulesTitle">Правила дома</h2>
+    <ol class="rules-list"><li>Будь добрым — здесь уютно всем.</li><li>Без грубостей, спама и рекламы.</li><li>Только тёплый и безопасный контент.</li><li>Уважай чужие границы и личные данные.</li><li>Если грустно — заходи на чай.</li></ol>
+  </div>
+  <div id="about">
+    <h2 id="aboutTitle">О доме</h2>
+    <div class="faq">
     <details><summary>Что это за дом?</summary><p>MIA MAYS — фанатский проект про уютную кошкодевочку Мию. Тихое место в интернете, где можно отдохнуть: посмотреть на уютные картинки, поиграть и оставить доброе слово.</p></details>
     <details><summary>Мия — настоящий человек?</summary><p>Нет, это вымышленный персонаж. Её история — сказка.</p></details>
     <details><summary>Это официальный сайт?</summary><p>Нет, это неофициальный фанатский сайт. Никаких покупок, подписок и сбора данных: всё, что ты вводишь, остаётся в твоём браузере.</p></details>
     <details><summary>Можно ли что-то купить?</summary><p>Нет. В Альбоме — бесплатные обои и стикеры, а Лавка — пока только полка будущих вещей.</p></details>
     <details><summary>Куда уходят мои фото из генератора аватарок?</summary><p>Никуда. Они обрабатываются только в твоём браузере и не загружаются на сервер.</p></details>
-    <details><summary>Почему на стене не видно чужих записок?</summary><p>Стена хранится локально в твоём браузере. Общая стена, возможно, появится позже.</p></details>
+    <details><summary>Почему на стене не видно чужих записок?</summary><p>Записки живут в твоём браузере, поэтому здесь видны только твои.</p></details>
     <details><summary>Как выключить звуки и анимации?</summary><p>Кнопка «Выключатель» в шапке: там свет, звуки (выключены по умолчанию) и «Ленивая кошка» — меньше движения. Если в системе включено уменьшение движения, дом это учитывает сам.</p></details>
     <details><summary>Как устроен дом?</summary><p>Обычные страницы без сервера и без сборки. Работает и с выключенными анимациями.</p></details>
   </div>
-  <div class="links-ph"><span class="btn ghost" aria-disabled="true">Соцсети — скоро</span><span class="btn ghost" aria-disabled="true">Чат сообщества — скоро</span><a class="btn" href="index.html?again=1" data-no-prerender>Посмотреть приветствие</a></div>
-  <p class="foot-line">Фанатский проект: персонаж и история вымышлены · <a href="living.html#about">О доме</a></p>
+    <p class="again"><a href="index.html?again=1" data-no-prerender>Посмотреть приветствие ещё раз</a></p>
+  </div>
+  <p class="foot-line">Фанатский проект: персонаж и история вымышлены</p>
 </section>
+<div class="act-bar" id="rsvpBar" hidden><button class="btn" type="button" data-rsvp-go>Я приду ♡</button></div>
 </main>
 <!--@shell:tabbar-->
 <nav class="rooms" aria-label="Комнаты">
@@ -155,6 +172,7 @@ document.querySelectorAll('meta[name=theme-color]').forEach(m=>m.content=n?'#1E1
       <label class="row-name"><span>Как тебя зовут?</span><input type="text" name="name" maxlength="24" autocomplete="nickname" placeholder="можно без имени"></label>
       <div class="sheet__links">
         <button type="button" data-action="install" hidden>Поселить Мию на экран</button>
+        <button type="button" data-action="export">Сохранить ключ от дома (файл)</button>
         <a href="index.html?again=1" data-no-prerender>Приветствие заново</a>
         <a href="living.html#about">О доме</a>
         <button type="button" data-action="reset" class="danger">Забыть всё</button>
